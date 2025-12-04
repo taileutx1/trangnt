@@ -5,22 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homepage - TAILIEUTX1</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Reset cơ bản ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ===== Header ===== */
+    .header {
+      background-color: #333;
+      color: #fff;
+      position: relative;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav a {
+      color: #fff;
+      padding: 5px 10px;
+    }
+
+    .nav-button {
+      background-color: #ff6600;
+      border-radius: 5px;
+      padding: 5px 10px;
+      color: #fff;
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #fff;
+    }
+
+    /* ===== Banner ===== */
+    #banner {
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .banner-content h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .banner-content p {
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .search-bar input {
+      padding: 8px;
+      width: 200px;
+      max-width: 80%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-bar button {
+      padding: 8px 12px;
+      background-color: #ff6600;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn-donggop {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+
+    /* ===== Categories ===== */
+    .categories {
+      padding: 20px;
+    }
+
+    .categories-header {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .categories ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .categories li {
+      background-color: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      flex: 1 1 45%;
+      text-align: center;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+
+      .nav a {
+        padding: 10px 0;
+      }
+
+      .nav.nav-active {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .categories ul {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Toggle Dark Mode Button -->
-  <button id="themeToggle" class="theme-toggle">🌓</button>
 
   <!-- Header -->
   <header class="header">
-    <div class="container header-container">
+    <div class="header-container">
       <h1 class="logo">TAILIEUTX1</h1>
       <nav class="nav">
         <a href="index.html">Trang chủ</a>
         <a href="daicuong.html" class="nav-button">Đại cương</a>
-        <a href="#">Cơ sở ngành</a>
-        <a href="#">Chuyên ngành</a>
-        <a href="#">Tiếng anh</a>
-        <a href="#">Phần mềm</a>
+        <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
+      
+        <a href="tienganh.html" class="nav-button">Tiếng anh</a>
+        <a href="phanmem.html" class="nav-button">Phần mềm</a>
         <a href="tudien.html" class="nav-button">Từ điển</a>
       </nav>
       <button class="mobile-menu">☰</button>
@@ -41,7 +217,7 @@
       <button class="btn-donggop">Đóng góp tài liệu →</button>
     </div>
   </section>
-  
+
   <!-- Categories Section -->
   <main>
     <section class="categories">
@@ -61,10 +237,13 @@
     <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
   </footer>
 
+  <!-- JS Menu Mobile -->
   <script>
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const nav = document.querySelector('.nav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      nav.classList.toggle('nav-active');
     });
   </script>
 </body>

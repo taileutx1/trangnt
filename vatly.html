@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đại cương - TAILIEUTX1</title>
+  <title>Toán cao cấp - TAILIEUTX1</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -13,6 +13,7 @@
       background: #f9f9f9;
     }
 
+    /* Header */
     header {
       background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
       padding: 15px 20px;
@@ -41,6 +42,7 @@
       text-decoration: underline;
     }
 
+    /* Main */
     main {
       max-width: 900px;
       margin: auto;
@@ -53,7 +55,8 @@
       margin-bottom: 30px;
     }
 
-    .subject-card {
+    /* Document card */
+    .doc-card {
       background: white;
       border-radius: 10px;
       padding: 20px;
@@ -65,18 +68,33 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .subject-card:hover {
+    .doc-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    .subject-title {
+    .doc-info {
+      flex: 1;
+    }
+
+    .doc-title {
       font-size: 18px;
       font-weight: bold;
       color: #333;
+      margin-bottom: 5px;
     }
 
-    .subject-button {
+    .doc-desc {
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .doc-size {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .download-btn {
       background: #f472b6;
       color: white;
       border: none;
@@ -87,7 +105,7 @@
       text-decoration: none;
     }
 
-    .subject-button:hover {
+    .download-btn:hover {
       background: #ec4899;
     }
 
@@ -102,70 +120,63 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="header-container">
+ <!-- Header -->
+ <header class="header">
+    <div class="container header-container">
       <h1 class="logo">TAILIEUTX1</h1>
       <nav class="nav">
         <a href="index.html">Trang chủ</a>
         <a href="daicuong.html" class="nav-button">Đại cương</a>
-        <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
-      
-        <a href="tienganh.html" class="nav-button">Tiếng anh</a>
-        <a href="phanmem.html" class="nav-button">Phần mềm</a>
+        <a href="#">Cơ sở ngành</a>
+        <a href="#">Chuyên ngành</a>
+        <a href="#">Tiếng anh</a>
+        <a href="#">Phần mềm</a>
         <a href="tudien.html" class="nav-button">Từ điển</a>
       </nav>
       <button class="mobile-menu">☰</button>
     </div>
   </header>
-
   <!-- Main Content -->
   <main>
-    <h1 class="page-title">Tài liệu các môn Đại cương</h1>
+    <h1 class="page-title">Tài liệu các môn Vật lý đại cương</h1>
 
-    <!-- Subjects List -->
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu Các môn Toán cao cấp</span>
-      <a href="toancaocap.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Vật lý đại cương 1</div>
+        <div class="doc-desc">Tài liệu đầy đủ về ma trận, định thức, không gian vector</div>
+        <div class="doc-size">12.5 MB</div>
+      </div>
+      <a href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID1" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu Các môn Vật lý đại cương</span>
-      <a href="vatly.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Vật lý đại cương 2</div>
+        <div class="doc-desc">Tổng hợp bài tập từ cơ bản đến nâng cao</div>
+        <div class="doc-size">8.3 MB</div>
+      </div>
+      <a href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID2" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu các môn Hóa học đại cương</span>
-      <a href="hoahoc.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Vật lý đại cương 3</div>
+        <div class="doc-desc">Lý thuyết giới hạn, đạo hàm, tích phân</div>
+        <div class="doc-size">15.2 MB</div>
+      </div>
+      <a href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID3" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu môn Tin học đại cương</span>
-      <a href="tinhoc.html" class="subject-button">Xem →</a>
-    </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu các môn Triết</span>
-      <a href="triet.html" class="subject-button">Xem →</a>
-    </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu Các môn bổ trợ</span>
-      <a href="botro.html" class="subject-button">Xem →</a>
-    </div>
-
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu môn Giáo dục thể chất</span>
-      <a href="gdthechat.html" class="subject-button">Xem →</a>
-    </div>
-
-    <div class="subject-card">
-      <span class="subject-title">Tài liệu môn Giáo dục quốc phòng</span>
-      <a href="gdqp.html" class="subject-button">Xem →</a>
-    </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
   </footer>
