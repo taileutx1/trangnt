@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đại cương - TAILIEUTX1</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
+      padding: 15px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    nav a {
+      margin-left: 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1.page-title {
+      text-align: center;
+      color: #be185d;
+      margin-bottom: 30px;
+    }
+
+    .subject-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .subject-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .subject-button {
+      background: #f472b6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .subject-button:hover {
+      background: #ec4899;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <h1 class="logo">TAILIEUTX1</h1>
+      <nav class="nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="daicuong.html" class="nav-button">Đại cương</a>
+        <a href="#">Cơ sở ngành</a>
+        <a href="#">Chuyên ngành</a>
+        <a href="#">Tiếng anh</a>
+        <a href="#">Phần mềm</a>
+        <a href="tudien.html" class="nav-button">Từ điển</a>
+      </nav>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h1 class="page-title">Tài liệu các môn Đại cương</h1>
+
+    <!-- Subjects List -->
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu Các môn Toán cao cấp</span>
+      <a href="toancaocap.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu Các môn Vật lý đại cương</span>
+      <a href="vatly.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu các môn Hóa học đại cương</span>
+      <a href="hoahoc.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu môn Tin học đại cương</span>
+      <a href="tinhoc.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu các môn Triết</span>
+      <a href="triet.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu Các môn bổ trợ</span>
+      <a href="botro.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu môn Giáo dục thể chất</span>
+      <a href="gdthechat.html" class="subject-button">Xem →</a>
+    </div>
+
+    <div class="subject-card">
+      <span class="subject-title">Tài liệu môn Giáo dục quốc phòng</span>
+      <a href="gdqp.html" class="subject-button">Xem →</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
+  </footer>
+
+</body>
+</html>

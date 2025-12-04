@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Từ điển - TAILIEUTX1</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50">
+
+  <!-- Header giống index.html -->
+  <header class="header">
+    <div class="container header-container flex justify-between items-center py-4 px-6 bg-pink-100 border-b-4 border-pink-500">
+      <h1 class="logo text-2xl font-bold text-gray-800">TAILIEUTX1</h1>
+      <nav class="nav flex gap-4">
+        <a href="index.html">Trang chủ</a>
+        <a href="daicuong.html" class="nav-button">Đại cương</a>
+        <a href="#">Cơ sở ngành</a>
+        <a href="#">Chuyên ngành</a>
+        <a href="#">Tiếng anh</a>
+        <a href="#">Phần mềm</a>
+        <a href="tudien.html" class="nav-button font-bold">Từ điển</a>
+      </nav>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Tra từ Section -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+    <div class="bg-white rounded-lg shadow-sm p-8 flex flex-col gap-3 relative">
+      <div class="flex gap-3 relative">
+        <input type="text" id="searchInput" placeholder="Nhập từ tiếng Anh..." autocomplete="off" class="flex-1 px-4 py-3 border-2 border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent" />
+        <button id="searchBtn" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
+          Tra từ
+        </button>
+
+        <!-- Suggestions Dropdown -->
+        <ul id="suggestions" class="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-b-lg shadow-lg z-10 hidden max-h-60 overflow-auto"></ul>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="mt-6 bg-red-50 border border-red-200 rounded-lg p-4 hidden">
+      <p class="text-red-700"></p>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="mt-6"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer bg-gray-100 text-center py-4 mt-12 border-t">
+    <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
+  </footer>
+
+  <script>
+    const dictionary = {
+      "apple": "quả táo",
+      "banana": "quả chuối",
+      "orange": "quả cam",
+      "grape": "quả nho",
+      "mango": "quả xoài",
+      "pineapple": "quả dứa",
+      "apricot": "quả mơ"
+    };
+
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const resultsDiv = document.getElementById('results');
+    const errorMsg = document.getElementById('errorMsg');
+    const suggestionsList = document.getElementById('suggestions');
+
+    function handleSearch(word = null) {
+      const query = (word || searchInput.value).trim().toLowerCase();
+      resultsDiv.innerHTML = '';
+      errorMsg.style.display = 'none';
+      suggestionsList.innerHTML = '';
+      suggestionsList.style.display = 'none';
+
+      if (!query) return;
+
+      if (dictionary[query]) {
+        resultsDiv.innerHTML = `
+          <div class="bg-white rounded-lg shadow-sm p-8">
+            <h2 class="text-gray-900 capitalize text-2xl font-bold">${query}</h2>
+            <p class="text-gray-800 mt-4">${dictionary[query]}</p>
+          </div>
+        `;
+      } else {
+        errorMsg.style.display = 'block';
+        errorMsg.querySelector('p').innerText = 'Không tìm thấy từ này. Vui lòng kiểm tra lại chính tả.';
+      }
+    }
+
+    // Autocomplete
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      suggestionsList.innerHTML = '';
+      suggestionsList.style.display = 'none';
+      if (!query) return;
+
+      const matches = Object.keys(dictionary)
+        .filter(word => word.includes(query))
+        .slice(0, 5);
+
+      if (matches.length > 0) {
+        suggestionsList.style.display = 'block';
+        matches.forEach(word => {
+          const li = document.createElement('li');
+          li.className = "px-4 py-2 hover:bg-pink-100 cursor-pointer";
+          const regex = new RegExp(`(${query})`, 'i');
+          li.innerHTML = word.replace(regex, "<span class='bg-yellow-200'>$1</span>");
+          li.addEventListener('click', () => {
+            searchInput.value = word;
+            handleSearch(word);
+          });
+          suggestionsList.appendChild(li);
+        });
+      }
+    });
+
+    searchBtn.addEventListener('click', () => handleSearch());
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSearch();
+    });
+
+    // Hide suggestions khi click ra ngoài
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target)) {
+        suggestionsList.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

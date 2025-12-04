@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage - TAILIEUTX1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Toggle Dark Mode Button -->
+  <button id="themeToggle" class="theme-toggle">🌓</button>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <h1 class="logo">TAILIEUTX1</h1>
+      <nav class="nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="daicuong.html" class="nav-button">Đại cương</a>
+        <a href="#">Cơ sở ngành</a>
+        <a href="#">Chuyên ngành</a>
+        <a href="#">Tiếng anh</a>
+        <a href="#">Phần mềm</a>
+        <a href="tudien.html" class="nav-button">Từ điển</a>
+      </nav>
+      <button class="mobile-menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section id="banner">
+    <div class="banner-content">
+      <h1>TÀI LIỆU TX1</h1>
+      <p>
+        Tài liệu TX1 chuyên chia sẻ tài liệu đại cương, cơ sở ngành, chuyên ngành, tiếng anh và phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt may. Tuy nhiên, mình đã ra trường và kiến thức cũng thay đổi rất nhiều rồi, nên mong các bạn có tài liệu nào hay thì cho mình xin nhé.
+      </p>
+      <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm tài liệu...">
+        <button>Tìm kiếm</button>
+      </div>
+      <button class="btn-donggop">Đóng góp tài liệu →</button>
+    </div>
+  </section>
+  
+  <!-- Categories Section -->
+  <main>
+    <section class="categories">
+      <div class="categories-header">Tài liệu chuyên ngành</div>
+      <ul>
+        <li><a href="#">Thiết kế vải dệt may</a></li>
+        <li><a href="#">Công nghệ sản xuất sản phẩm dệt</a></li>
+        <li><a href="#">Vật liệu và công nghệ hoàn tất sản phẩm dệt may</a></li>
+        <li><a href="#">Thiết kế thời trang và da giày</a></li>
+        <li><a href="#">Công nghệ may</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>
