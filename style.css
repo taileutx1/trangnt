@@ -42,50 +42,115 @@
     padding: 0 20px;
   }
   
-  .header {
-    background: var(--color-primary);
-    color: var(--color-primary-foreground);
-    padding: 10px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
+ /* ===== Header Nâng cấp ===== */
+.header {
+  background: linear-gradient(90deg, #d60ca4, #cd099c);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  gap: 20px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-evenly; /* Căn đều các link */
+  align-items: center;
+  flex: 1; /* Chiếm toàn bộ khoảng trống giữa logo và nút mobile */
+  gap: 0; /* Không cần gap nữa, đã dùng space-evenly */
+}
+
+
+.logo {
+  font-size: 2.2rem;      /* lớn hơn trước */
+  font-weight: 900;        /* bold hơn */
+  letter-spacing: 1px;
+  color: #fff;             /* màu trắng */
+  background: none;        /* xóa gradient chữ */
+  -webkit-background-clip: none;
+  -webkit-text-fill-color: unset;
+}
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav a {
+  color: #fff;
+  padding: 10px 20px;      /* menu to hơn */
+  border-radius: 8px;
+  transition: 0.3s;
+  font-weight: 700;         /* bold */
+  font-size: 1.1rem;        /* to hơn trước */
+}
+
+
+.nav a:hover {
+  background-color: rgba(255,255,255,0.2);
+  transform: scale(1.05);
+}
+
+.nav-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid #fff;
+  transition: 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #fff;
+  color: #e20cbe;
+  border-color: #f71cc8;
+}
+
+.mobile-menu {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #fff;
+  transition: transform 0.3s;
+}
+
+.mobile-menu:hover {
+  transform: scale(1.2);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
   .nav {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav a {
-    color: var(--color-primary-foreground);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .nav a:hover {
-    color: var(--color-accent-foreground);
-  }
-  
-  .mobile-menu {
     display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: var(--color-primary-foreground);
-    cursor: pointer;
+    flex-direction: column;
+    background-color: rgba(51,51,51,0.95);
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 220px;
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
   }
+
+  .nav a {
+    padding: 12px;
+  }
+
+  .nav.nav-active {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
   
   /* ========================== */
   /* Banner                     */

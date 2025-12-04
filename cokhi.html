@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đại cương - TAILIEUTX1</title>
+  <title>Toán cao cấp - TAILIEUTX1</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -13,7 +13,7 @@
       background: #f9f9f9;
     }
 
-   header {
+     header {
       background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
       padding: 0px 100px;
       color: white;
@@ -41,6 +41,7 @@
       text-decoration: underline;
     }
 
+    /* Main */
     main {
       max-width: 900px;
       margin: auto;
@@ -53,7 +54,8 @@
       margin-bottom: 30px;
     }
 
-    .subject-card {
+    /* Document card */
+    .doc-card {
       background: white;
       border-radius: 10px;
       padding: 20px;
@@ -65,18 +67,33 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .subject-card:hover {
+    .doc-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    .subject-title {
+    .doc-info {
+      flex: 1;
+    }
+
+    .doc-title {
       font-size: 18px;
       font-weight: bold;
       color: #333;
+      margin-bottom: 5px;
     }
 
-    .subject-button {
+    .doc-desc {
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .doc-size {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .download-btn {
       background: #f472b6;
       color: white;
       border: none;
@@ -87,7 +104,7 @@
       text-decoration: none;
     }
 
-    .subject-button:hover {
+    .download-btn:hover {
       background: #ec4899;
     }
 
@@ -123,35 +140,56 @@
     <button class="mobile-menu">☰</button>
   </div>
 </header>
-
   <!-- Main Content -->
   <main>
-    <h1 class="page-title">Tài liệu Tiếng anh</h1>
+    <h1 class="page-title">Tài liệu các môn Cơ khí</h1>
 
-    <!-- Subjects List -->
-    <div class="subject-card">
-      <span class="subject-title">Ielts</span>
-      <a href="ielts.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Đồ họa kỹ thuật cơ bản</div>
+        <div class="doc-desc">Tài liệu đầy đủ về ma trận, định thức, không gian vector</div>
+        <div class="doc-size">12.5 MB</div>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1apYjIsY-n8y5DHxF9PpAKlD86bOIa3O0?usp=drive_link" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Toeic</span>
-      <a href="toeic.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Nguyên lý máy</div>
+        <div class="doc-desc">Tổng hợp bài tập từ cơ bản đến nâng cao</div>
+        <div class="doc-size">8.3 MB</div>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1AiJ0xXooBoVL8mrxrOIclB9T_iN7EOV-?usp=drive_link" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Vstep</span>
-      <a href="vstep.html" class="subject-button">Xem →</a>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Kỹ thuật điện</div>
+        <div class="doc-desc">Lý thuyết giới hạn, đạo hàm, tích phân</div>
+        <div class="doc-size">15.2 MB</div>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1piNTPJaXSHZe-gYKR3NoQ7BaGI9vWiwi?usp=drive_link" class="download-btn" download>
+        Tải về
+      </a>
+    </div>
+    <div class="doc-card">
+      <div class="doc-info">
+        <div class="doc-title">Kỹ thuật nhiệt</div>
+        <div class="doc-desc">Lý thuyết giới hạn, đạo hàm, tích phân</div>
+        <div class="doc-size">15.2 MB</div>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1U_7ZtHcZ9DaTNxRiSUQKIRPld4OEovEw?usp=drive_link" class="download-btn" download>
+        Tải về
+      </a>
     </div>
 
-    <div class="subject-card">
-      <span class="subject-title">Aptis</span>
-      <a href="aptis.html" class="subject-button">Xem →</a>
-    </div>
 
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
   </footer>

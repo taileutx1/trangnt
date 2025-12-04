@@ -28,42 +28,83 @@
     }
 
     /* ===== Header ===== */
-    .header {
-      background-color: #333;
-      color: #fff;
-      position: relative;
-      z-index: 100;
-    }
-
-    .header-container {
+    header {
+      background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
+      padding: 0px 100px;
+      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    .logo {
-      font-size: 1.5rem;
+    header h1 {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    nav a {
+      margin-left: 15px;
+      color: white;
+      text-decoration: none;
       font-weight: bold;
     }
 
-    .nav {
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1.page-title {
+      text-align: center;
+      color: #be185d;
+      margin-bottom: 30px;
+    }
+
+    .subject-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
       display: flex;
-      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .nav a {
-      color: #fff;
-      padding: 5px 10px;
+    .subject-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    .nav-button {
-      background-color: #ff6600;
-      border-radius: 5px;
-      padding: 5px 10px;
-      color: #fff;
+    .subject-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
     }
 
+    .subject-button {
+      background: #f472b6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .subject-button:hover {
+      background: #ec4899;
+    }
     .mobile-menu {
       display: none;
       font-size: 1.5rem;
@@ -80,24 +121,30 @@
     }
 
     .banner-content h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
+      font-size: 4rem;
+      margin-bottom: 5px;
+      margin-top: -25px;
+      font-display: bold;
     }
 
     .banner-content p {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      margin-left: 190px;
+      margin-right: 190px;
+      font-size: 1.5rem;
+      text-align: center;
     }
 
     .search-bar {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .search-bar input {
-      padding: 8px;
-      width: 200px;
+      padding: 15px;
+      width: 1000px;
       max-width: 80%;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -105,23 +152,23 @@
 
     .search-bar button {
       padding: 8px 12px;
-      background-color: #ff6600;
+      background-color: #000000;
       color: #fff;
       border: none;
       border-radius: 5px;
     }
 
     .btn-donggop {
-      padding: 10px 20px;
+      padding: 20px 40px;
       background-color: #333;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 15px;
     }
 
     /* ===== Categories ===== */
     .categories {
-      padding: 20px;
+      padding: 10px;
     }
 
     .categories-header {
@@ -186,22 +233,28 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="header-container">
-      <h1 class="logo">TAILIEUTX1</h1>
-      <nav class="nav">
-        <a href="index.html">Trang chủ</a>
-        <a href="daicuong.html" class="nav-button">Đại cương</a>
-        <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
-      
-        <a href="tienganh.html" class="nav-button">Tiếng anh</a>
-        <a href="phanmem.html" class="nav-button">Phần mềm</a>
-        <a href="tudien.html" class="nav-button">Từ điển</a>
-      </nav>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </header>
+ <!-- Header -->
+<header class="header">
+  <div class="header-container">
+    <!-- Logo link tới index.html -->
+    <h1 class="logo">
+      <a href="index.html">TAILIEUTX1</a>
+    </h1>
+
+    <!-- Menu -->
+    <nav class="nav">
+      <a href="daicuong.html" class="nav-button">Đại cương</a>
+      <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
+      <a href="tienganh.html" class="nav-button">Tiếng anh</a>
+      <a href="phanmem.html" class="nav-button">Phần mềm</a>
+      <a href="tudien.html" class="nav-button">Từ điển</a>
+    </nav>
+
+    <!-- Nút menu di động -->
+    <button class="mobile-menu">☰</button>
+  </div>
+</header>
+
 
   <!-- Banner -->
   <section id="banner">

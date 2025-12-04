@@ -13,16 +13,16 @@
       background: #f9f9f9;
     }
 
-    header {
+   header {
       background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
-      padding: 15px 20px;
+      padding: 0px 100px;
       color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
 
     header h1 {
@@ -102,22 +102,28 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="header-container">
-      <h1 class="logo">TAILIEUTX1</h1>
-      <nav class="nav">
-        <a href="index.html">Trang chủ</a>
-        <a href="daicuong.html" class="nav-button">Đại cương</a>
-        <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
-      
-        <a href="tienganh.html" class="nav-button">Tiếng anh</a>
-        <a href="phanmem.html" class="nav-button">Phần mềm</a>
-        <a href="tudien.html" class="nav-button">Từ điển</a>
-      </nav>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </header>
+<!-- Header -->
+<header class="header">
+  <div class="header-container">
+    <!-- Logo link tới index.html -->
+    <h1 class="logo">
+      <a href="index.html">TAILIEUTX1</a>
+    </h1>
+
+    <!-- Menu -->
+    <nav class="nav">
+      <a href="daicuong.html" class="nav-button">Đại cương</a>
+      <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
+      <a href="tienganh.html" class="nav-button">Tiếng anh</a>
+      <a href="phanmem.html" class="nav-button">Phần mềm</a>
+      <a href="tudien.html" class="nav-button">Từ điển</a>
+    </nav>
+
+    <!-- Nút menu di động -->
+    <button class="mobile-menu">☰</button>
+  </div>
+</header>
+
 
   <!-- Main Content -->
   <main>
@@ -125,28 +131,32 @@
 
     <!-- Subjects List -->
     <div class="subject-card">
+      <span class="subject-title">Cơ sở ngành học chung</span>
+      <a href="cosonganh.html" class="subject-button">Xem →</a>
+    </div>
+    <div class="subject-card">
       <span class="subject-title">Thiết kế vải dệt may</span>
-      <a href="toancaocap.html" class="subject-button">Xem →</a>
+      <a href="thietkevaidetmay.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Công nghệ sản xuất sản phẩm dệt</span>
-      <a href="vatly.html" class="subject-button">Xem →</a>
+      <a href="congnghesanxuatsanphamdet.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Vật liệu và công nghệ hoàn tất sản phẩm dệt may</span>
-      <a href="hoahoc.html" class="subject-button">Xem →</a>
+      <a href="vatlieuvacongnghehoantat.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Thiết kế thời trang và da giày</span>
-      <a href="tinhoc.html" class="subject-button">Xem →</a>
+      <a href="thietkethoitrangvadagiay.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Công nghệ may</span>
-      <a href="triet.html" class="subject-button">Xem →</a>
+      <a href="congnghemay.html" class="subject-button">Xem →</a>
     </div>
 
   </main>

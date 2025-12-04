@@ -6,25 +6,127 @@
   <title>Từ điển - TAILIEUTX1</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="min-h-screen bg-gray-50">
+  <style>
 
-  <!-- Header giống index.html -->
-  <header class="header">
-    <div class="container header-container flex justify-between items-center py-4 px-6 bg-pink-100 border-b-4 border-pink-500">
-      <h1 class="logo text-2xl font-bold text-gray-800">TAILIEUTX1</h1>
-      <nav class="nav flex gap-4">
-        <a href="index.html">Trang chủ</a>
-        <a href="daicuong.html" class="nav-button">Đại cương</a>
-        <a href="#">Cơ sở ngành</a>
-        <a href="#">Chuyên ngành</a>
-        <a href="#">Tiếng anh</a>
-        <a href="#">Phần mềm</a>
-        <a href="tudien.html" class="nav-button font-bold">Từ điển</a>
-      </nav>
-      <button class="mobile-menu">☰</button>
-    </div>
-  </header>
+
+    header {
+      background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
+      padding: 0px 100px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    nav a {
+      margin-left: 15px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1.page-title {
+      text-align: center;
+      color: #be185d;
+      margin-bottom: 30px;
+    }
+
+    .subject-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .subject-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .subject-button {
+      background: #f472b6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .subject-button:hover {
+      background: #ec4899;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-container">
+    <!-- Logo link tới index.html -->
+    <h1 class="logo">
+      <a href="index.html">TAILIEUTX1</a>
+    </h1>
+
+    <!-- Menu -->
+    <nav class="nav">
+      <a href="daicuong.html" class="nav-button">Đại cương</a>
+      <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
+      <a href="tienganh.html" class="nav-button">Tiếng anh</a>
+      <a href="phanmem.html" class="nav-button">Phần mềm</a>
+      <a href="tudien.html" class="nav-button">Từ điển</a>
+    </nav>
+
+    <!-- Nút menu di động -->
+    <button class="mobile-menu">☰</button>
+  </div>
+</header>
+
 
   <!-- Tra từ Section -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">

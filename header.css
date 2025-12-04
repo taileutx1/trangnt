@@ -1,0 +1,96 @@
+/* ===== Header Gradient ===== */
+.header {
+  background: linear-gradient(90deg, #ff5ca2, #8e4fff);
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 20px;
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  z-index: 100;
+}
+
+/* Header Container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.header .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Navigation Menu */
+.nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav a {
+  color: #fff;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 15px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* User Icon */
+.nav .user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  display: inline-block;
+}
+
+/* Mobile Menu Button */
+.mobile-menu {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.mobile-menu:hover {
+  transform: scale(1.2);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: linear-gradient(90deg, #ff5ca2, #8e4fff);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  .nav.nav-active {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
