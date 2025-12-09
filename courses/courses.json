@@ -1,0 +1,86 @@
+[
+  {
+    "id": "toan",
+    "title": "Toán học",
+    "image": "img/course-1.jpg",
+    "rating": 4.8,
+    "reviews": 1246,
+    "instructor": "Huy Pahm",
+    "lastUpdate": "2025-12-09",
+    "duration": "2 giờ 42 phút",
+    "members": 156,
+    "lessons": [
+      {
+        "type": "file",
+        "title": "[681001] Bản đọc thử_60 ĐỀ MINH HỌA 2026 MÔN TOÁN",
+        "new": true
+      },
+      {
+        "type": "folder",
+        "title": "Toán",
+        "detail": "2 Lessons • 2 hr 32 min"
+      },
+      {
+        "type": "playlist",
+        "title": "Playlist tôi yêu cô, công sự – Chuyện Tình Nick & Judy Lo-fi Chill Nhẹ Nhàng",
+        "new": true
+      },
+      {
+        "type": "youtube",
+        "title": "2-HOUR STUDY WITH ME WITH POMODORO 60/10 | Calm Piano, Soft Rain",
+        "new": true,
+        "quiz": true
+      }
+    ]
+  },
+  {
+    "id": "tieng-anh",
+    "title": "Tiếng Anh giao tiếp từ A-Z",
+    "image": "img/course-2.jpg",
+    "rating": 4.9,
+    "reviews": 892,
+    "instructor": "Anna Lee",
+    "lastUpdate": "2025-08-01",
+    "duration": "15 giờ",
+    "members": 234,
+    "lessons": [
+      {
+        "type": "folder",
+        "title": "Phát âm chuẩn Anh - Mỹ",
+        "detail": "12 Lessons • 4 hr 10 min"
+      },
+      {
+        "type": "youtube",
+        "title": "500 câu giao tiếp thông dụng nhất",
+        "new": true
+      },
+      {
+        "type": "file",
+        "title": "Tài liệu PDF + Audio 30 ngày nói lưu loát"
+      }
+    ]
+  },
+  {
+    "id": "vatly",
+    "title": "Vật lý 12 - Chinh phục điểm 9+",
+    "image": "img/course-3.jpg",
+    "rating": 4.7,
+    "reviews": 567,
+    "instructor": "Thầy Tuấn",
+    "lastUpdate": "2025-11-15",
+    "duration": "25 giờ",
+    "members": 89,
+    "lessons": [
+      {
+        "type": "folder",
+        "title": "Chương 1: Dao động cơ",
+        "detail": "15 Lessons • 6 hr 20 min"
+      },
+      {
+        "type": "youtube",
+        "title": "Sóng cơ và sóng âm - Tổng ôn cấp tốc",
+        "new": true
+      }
+    ]
+  }
+]

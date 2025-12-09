@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TAILIEUTX1 - Tài liệu Công nghệ Dệt May</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="description" content="Tài liệu đại cương, chuyên ngành, tiếng Anh, phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt May - TAILIEUTX1">
 
   <style>
@@ -317,6 +318,40 @@ mask-composite: exclude; /* 'exclude' tương đương với xor trong chuẩn C
       50% { box-shadow: 0 0 25px #ff1493; transform: scale(1.03); }
     }
     .card-highlight { animation: cardBlink 0.8s ease 4; }
+    /* Thêm đoạn CSS này vào phần <style> của bạn (có thể để ngay dưới .nav a:hover {}) */
+
+.nav-course-btn {
+  position: relative;
+  background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+  color: #fff !important;
+  font-weight: 900;
+  box-shadow: 0 4px 15px rgba(255,20,147,0.4);
+  overflow: hidden;
+}
+
+.nav-course-btn:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow: 0 10px 25px rgba(255,20,147,0.6);
+}
+
+.new-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff0040;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 4px 8px;
+  border-radius: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
   </style>
 </head>
 <body>
@@ -331,8 +366,16 @@ mask-composite: exclude; /* 'exclude' tương đương với xor trong chuẩn C
         <a href="tienganh.html">Tiếng anh</a>
         <a href="phanmem.html">Phần mềm</a>
         <a href="tudien.html">Từ điển</a>
-      </nav>
-      <button class="mobile-menu">☰</button>
+                <a href="courses/index.html" class="nav-course-btn">
+          <i class="fas fa-graduation-cap"></i> Khóa học online
+          <span class="new-badge">NEW</span>
+        </a>
+
+
+      
+      </nav> 
+       <!-- ĐÓNG NAV SAU KHI ĐÃ ĐÓNG HẾT CÁC <a> -->
+      <button class="mobile-menu">Menu</button>
     </div>
   </header>
 
