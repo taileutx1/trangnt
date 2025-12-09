@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("YOUR_PUBLIC_KEY");
+</script>
+
+<meta charset="UTF-8">
+<title>Thanh toán ngân hàng</title>
+<link rel="stylesheet" href="checkout.css">
+<style>
+body{
+  font-family: Arial;
+  background:#f7f7f7;
+}
+.box{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  max-width:420px;
+  margin:20px auto;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+.bank{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+.bank img{
+  width:48px;
+}
+.qr img{
+  width:200px;
+  display:block;
+  margin:auto;
+}
+.copy{
+  background:#eee;
+  border-radius:8px;
+  padding:8px 10px;
+  cursor:pointer;
+  margin:8px 0;
+}
+.copy:hover{
+  background:#ddd;
+}
+.timer{
+  text-align:center;
+  margin-top:15px;
+  font-size:15px;
+  color:#E14;
+}
+.big{
+  font-size:20px;
+  font-weight:700;
+  text-align:center;
+  margin:10px 0;
+}
+.btn{
+  display:block;
+  width:100%;
+  background:#E14;
+  color:white;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  margin-top:20px;
+  font-size:16px;
+  cursor:pointer;
+}
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.popup-content{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  width:90%;
+  max-width:350px;
+}
+.popup input, .popup textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin:8px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <h2 style="text-align:center;margin-bottom:10px">Thanh toán</h2>
+
+  <!-- Bank -->
+  <div class="bank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Vietcombank_logo.svg">
+    <div>
+      <b>Vietcombank</b><br>
+      Chủ TK: <strong>PHAM NHAT HUY</strong>
+    </div>
+  </div>
+
+  <!-- QR -->
+  <div class="qr">
+    <img id="qr">
+  </div>
+
+  <!-- price -->
+  <div class="big">1,600,000 VND</div>
+
+  <!-- INFO -->
+  <div id="stk" class="copy">STK: 123456789</div>
+  <div id="noidung" class="copy">Nội dung: HD3VP28_Basic_21617807</div>
+
+  <p style="font-size:13px;text-align:center;color:#999">
+    Quét QR bằng app ngân hàng / MoMo / ViettelPay
+  </p>
+
+  <div class="timer">Còn lại <span id="countdown">20:00</span></div>
+ <button class="btn ghost" onclick="openForm()">Gửi thông tin hỗ trợ</button>
+ 
+ 
+
+
+</div>
+
+<script>
+const money = 1600000
+const stk = "123456789"
+const code = "HD3VP28_Basic_21617807"
+
+// gắn QR tự động
+document.getElementById("qr").src =
+  "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="
+  + encodeURIComponent(`STK:${stk} ND:${code} MONEY:${money}`)
+
+// copy nhanh
+document.getElementById("stk").onclick = ()=>navigator.clipboard.writeText(stk)
+document.getElementById("noidung").onclick = ()=>navigator.clipboard.writeText(code)
+
+// countdown 20p
+let t=20*60
+setInterval(()=>{
+  t--;
+  const m=Math.floor(t/60)
+  const s=t%60
+  document.getElementById('countdown').innerText=
+    `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+},1000)
+</script>
+<div id="support-popup" class="popup">
+  <div class="popup-content">
+
+    <h3>Gửi thông tin hỗ trợ</h3>
+
+    <input id="sp-name" placeholder="Họ tên">
+    <input id="sp-email" placeholder="Email của bạn">
+    <textarea id="sp-note" placeholder="Nội dung cần hỗ trợ"></textarea>
+
+    <button onclick="sendSupport()" class="btn primary">Gửi</button>
+    <button onclick="closeForm()" class="btn ghost">Đóng</button>
+
+  </div>
+</div>
+<script>
+function openForm(){
+  document.getElementById("support-popup").style.display="flex"
+}
+function closeForm(){
+  document.getElementById("support-popup").style.display="none"
+}
+
+function sendSupport(){
+  alert("Gửi thành công")
+  window.location.href = "index.html"
+}
+
+
+</script>
+
+</body>
+</html>

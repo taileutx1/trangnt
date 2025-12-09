@@ -1,0 +1,56 @@
+body{
+  font-family:Inter, system-ui;
+  background:#f3f6fa;
+  margin:0;
+}
+.checkout-wrapper{
+  max-width:1200px;
+  margin:60px auto;
+  display:flex;
+  gap:40px;
+}
+
+.checkout-box{
+  background:white;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+  flex:1;
+}
+.payment{
+  background:white;
+  padding:32px;
+  border-radius:14px;
+  box-shadow:0 6px 20px rgba(0,0,0,.05);
+  flex:2;
+}
+
+.pay-item{
+  display:flex;
+  align-items:center;
+  padding:14px;
+  background:#f8fafc;
+  margin-bottom:12px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.pay-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:22px;
+}
+button{
+  padding:12px 17px;
+  border-radius:10px;
+  border:none;
+}
+
+.primary{
+  background:#06c167;
+  color:white;
+}
+.ghost{
+  background:#eee;
+}
