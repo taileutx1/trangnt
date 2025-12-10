@@ -1,70 +1,66 @@
-const API = "courses.json"
 
-let courses = []
-let currentPage = 1
-let perPage = 6
-let keyword = ""
+const courses = [
+  {
+    id: "toan-hamso",
+    title: "Toán THPT - Chuyên đề Hàm số",
+    desc: "Khóa học dành cho người bắt đầu",
+    price: 499000,
+    oldPrice: 999000,
+    badge: "hot",
+    rating: 4.8,
+    image: "images/toan-hamso.jpg"
+  },
+  {
+    id: "hoa12-luyenthi",
+    title: "Hóa học 12 - Luyện thi đại học",
+    desc: "Khóa học dành cho bạn mục tiêu cao",
+    price: 299000,
+    oldPrice: 799000,
+    badge: "new",
+    rating: 4.9,
+    image: "images/hoa12.jpg"
+  },
+  // thêm thoải mái...
+];
 
-async function load() {
-  const res = await fetch(API)
-  courses = await res.json()
-  render()
-}
-
-function filter() {
-  return courses.filter(c =>
-    c.title.toLowerCase().includes(keyword) ||
-    c.describe.toLowerCase().includes(keyword)
-  )
-}
-
-function paginate(data) {
-  const start = (currentPage - 1) * perPage
-  return data.slice(start, start + perPage)
-}
-
-function render() {
-  const data = filter()
-  document.getElementById("result-count").innerText =
-    `${data.length} khóa học`
-
-  document.getElementById("course-list").innerHTML =
-    paginate(data).map(c => `
-      <a href="course-detail.html?id=${c.id}" class="course-card"> </a>
-
-        <div class="thumb">
-          <img src="${c.thumbnail}">
+function renderCourses() {
+  const grid = document.getElementById('course-list');
+  grid.innerHTML = courses.map(c => `
+    <div class="course-card" onclick="goToDetail('${c.id}')">
+      <div class="thumb">
+        <img src="${c.image}" alt="${c.title}">
+        ${c.badge ? `<div class="badge ${c.badge}">${c.badge === 'hot' ? 'HOT' : 'NEW'}</div>` : ''}
+      </div>
+      <div class="info">
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span>${c.rating}</span>
         </div>
-        <div class="info">
-          <h3>${c.title}</h3>
-          <p class="muted">${c.describe}</p>
-          <div class="price">${c.price}</div>
+        <h3 class="course-title-link">${c.title}</h3>
+        <p>${c.desc}</p>
+        <div>
+          <span class="price">${c.price.toLocaleString()}đ</span>
+          ${c.oldPrice ? `<span class="old-price">${c.oldPrice.toLocaleString()}đ</span>` : ''}
         </div>
       </div>
-    `).join('')
+    </div>
+  `).join('');
 
-  renderPagination(data.length)
+  document.getElementById('result-count').textContent = `${courses.length} khóa học`;
 }
 
-function renderPagination(total) {
-  let pages = Math.ceil(total / perPage)
-  let html = ""
-
-  for(let i=1;i<=pages;i++){
-    html += `
-      <button class="page-btn ${i===currentPage?'active':''}"
-        onclick="go(${i})">${i}</button>
-    `
+function goToDetail(courseId) {
+  // Tìm khóa học theo id
+  const course = courses.find(c => c.id === courseId);
+  if (course) {
+    // Chuyển sang checkout.html và truyền dữ liệu qua URL
+    const params = new URLSearchParams({
+      title: course.title,
+      price: course.price,
+      orderId: "HD" + Date.now() + "_" + Math.floor(Math.random() * 10000) // tạo mã ngẫu nhiên đẹp
+    });
+    window.location.href = `checkout.html?${params.toString()}`;
   }
-  document.getElementById("pagination").innerHTML = html
 }
 
-function go(p){
-  currentPage = p
-  render()
-}
-
-
-
-
-load()
+renderCourses();

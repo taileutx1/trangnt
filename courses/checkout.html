@@ -3,53 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thanh toán</title>
+<title>Thanh toán khóa học</title>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
-<link rel="stylesheet" href="checkout.css">
+<link rel="stylesheet" href="checkout.css"> <!-- giữ nguyên file css của bạn -->
+<style>
+  /* Bổ sung nhanh để 2 cột nằm ngang đẹp */
+  .checkout-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  .checkout-box, .payment {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .payment h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .pay-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .pay-item:hover {
+    border-color: #667eea;
+    background: #f8fbff;
+  }
+  .pay-item input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+  .pay-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .ghost {
+    padding: 14px 30px;
+    border: 2px solid #ddd;
+    background: transparent;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .primary {
+    padding: 14px 40px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  @media (min-width: 768px) {
+    .checkout-wrapper {
+      flex-direction: row;
+    }
+    .checkout-box {
+      flex: 1;
+    }
+    .payment {
+      width: 380px;
+    }
+  }
+</style>
 </head>
 <body>
 
 <div class="checkout-wrapper">
 
-  <!-- LEFT -->
+  <!-- LEFT: Thông tin đơn hàng -->
   <div class="checkout-box">
-    <h2>1,600,000 VND</h2>
+    <h2 id="price-display">0 VND</h2>
 
-    <p><strong>Mã đơn hàng:</strong> HD3VP28_Basic_21617807</p>
-    <p><strong>Đơn vị cung cấp:</strong> Phạm Nhật Huy</p>
-    <p><strong>Nội dung:</strong> Thanh toán Premium THPT 2026</p>
-
-    <p><strong>Giá trị:</strong> 1,600,000 VND</p>
-    <p><strong>Phí:</strong> 0 VND</p>
+    <p><strong>Khóa học:</strong> <span id="course-title">Thanh toán khóa học</span></p>
+    <p><strong>Nội dung chuyển khoản:</strong> <span id="order-id">Đang tải...</span></p>
+  
+  
+    <p><strong>Giá trị:</strong> <span id="price-value">0 VND</span></p>
+  
 
     <div class="timer">
-      Còn lại <span>19:58</span>
+      Còn lại <span id="timer">20:00</span>
     </div>
   </div>
 
-  <!-- RIGHT -->
+  <!-- RIGHT: Chọn phương thức -->
   <div class="payment">
     <h3>Chọn phương thức thanh toán</h3>
 
- 
-
     <label class="pay-item">
-      <input type="radio" name="pay">
+      <input type="radio" name="pay" checked>
       <span>Chuyển khoản ngân hàng</span>
+      <i class="ri-bank-line"></i>
     </label>
 
+    <!-- Bạn có thể thêm Momo, ZaloPay, thẻ tín dụng ở đây sau -->
 
     <div class="pay-actions">
-      <button class="ghost">Hủy</button>
-      <button class="primary" onclick="location.href='checkout-bank.html'">
+      <button class="ghost" onclick="history.back()">Hủy</button>
+     <button class="primary btn-pay" id="continue-to-bank">
   Tiếp tục
 </button>
     </div>
-
   </div>
 
 </div>
+
+<script>
+// Lấy dữ liệu từ URL
+const params = new URLSearchParams(window.location.search);
+const title = params.get('title') || "Khóa học Premium";
+const price = parseInt(params.get('price')) || 0;
+const orderId = params.get('orderId') || "HD" + Date.now();
+
+// Đổ dữ liệu lên giao diện
+document.getElementById('course-title').textContent = title;
+document.getElementById('order-id').textContent = orderId;
+document.getElementById('price-value').textContent = price.toLocaleString() + " VND";
+document.getElementById('price-display').textContent = price.toLocaleString() + " VND";
+
+// Đếm ngược 20 phút
+let timeLeft = 20 * 60;
+const timerElement = document.getElementById('timer');
+const continueBtn = document.querySelector('.btn-pay');
+
+const countdown = setInterval(() => {
+  timeLeft--;
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const seconds = String(timeLeft % 60).padStart(2, '0');
+  timerElement.textContent = `${minutes}:${seconds}`;
+
+  if (timeLeft <= 0) {
+    clearInterval(countdown);
+    timerElement.textContent = "Hết hạn!";
+    continueBtn.disabled = true;
+    continueBtn.textContent = "ĐÃ HẾT HẠN";
+  }
+}, 1000);
+</script>
+<script>
+// === THÊM ĐOẠN NÀY VÀO CUỐI SCRIPT CỦA checkout.html ===
+document.getElementById('continue-to-bank').addEventListener('click', function() {
+  const params = new URLSearchParams({
+    title: title,
+    price: price,
+    orderId: orderId
+  });
+  window.location.href = 'checkout-bank.html?' + params.toString();
+});
+// =======================================================
+</script>
 
 </body>
 </html>
