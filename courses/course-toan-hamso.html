@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài học - Toán Hàm Số</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<div class="grid md:grid-cols-4 gap-6 p-4 md:p-0">
+
+  <!-- VIDEO CHÍNH -->
+  <div class="md:col-span-3 p-5">
+
+    <div class="bg-black rounded-xl overflow-hidden shadow-lg">
+      <video 
+        id="player" 
+        class="w-full aspect-video" 
+        controls 
+        preload="metadata">
+      </video>
+    </div>
+
+    <h1 id="lesson-title" class="text-3xl font-bold mt-6 text-gray-800"></h1>
+    <div id="lesson-content" class="text-gray-600 mt-4 prose max-w-none"></div>
+
+    <button onclick="finishLesson()" 
+      class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl mt-8 font-bold text-lg shadow-md transition">
+      Hoàn thành bài học
+    </button>
+
+  </div>
+
+
+  <!-- SIDEBAR DANH SÁCH BÀI HỌC -->
+  <div class="bg-white shadow-xl rounded-xl p-6 h-fit">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Nội dung khóa học</h2>
+    <div id="lesson-menu" class="space-y-2"></div>
+  </div>
+
+</div>
+
+<script>
+// ================= DỮ LIỆU BÀI HỌC =================
+const lessons = [
+  {id: 1, title: "Giới thiệu về Hàm số", video: "https://cdn.jsdelivr.net/gh/trananhtuat/video-demo/math1.mp4", content: "Trong bài học này, chúng ta sẽ tìm hiểu khái niệm hàm số, tập xác định, tập giá trị và cách biểu diễn hàm số."},
+  {id: 2, title: "Tính đơn điệu của hàm số", video: "https://cdn.jsdelivr.net/gh/trananhtuat/video-demo/math2.mp4", content: "Học cách xác định hàm đồng biến, nghịch biến trên khoảng và ứng dụng vào bài toán thực tế."},
+  {id: 3, title: "Bài tập ứng dụng hàm số", video: "https://cdn.jsdelivr.net/gh/trananhtuat/video-demo/math3.mp4", content: "Giải các dạng bài tập từ cơ bản đến nâng cao về hàm số bậc nhất, bậc hai và ứng dụng thực tế."}
+];
+
+let currentLessonId = 1;
+const videoElement = document.getElementById("player");
+
+// ============= TẢI BÀI HỌC ===============
+function loadLesson(id) {
+  const lesson = lessons.find(l => l.id === id);
+  if (!lesson) return;
+
+  currentLessonId = id;
+
+  // Cập nhật video
+  videoElement.src = lesson.video;
+
+  // Cập nhật nội dung
+  document.getElementById("lesson-title").textContent = `Bài ${lesson.id} — ${lesson.title}`;
+  document.getElementById("lesson-content").innerHTML = lesson.content || "<em>Chưa có mô tả chi tiết.</em>";
+
+  // Khôi phục thời gian xem trước đó
+  restoreVideoTime();
+
+  // Cập nhật menu
+  renderMenu();
+
+  // Cuộn lên đầu video (trên mobile)
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============= LƯU & KHÔI PHỤC THỜI GIAN VIDEO ===============
+videoElement.addEventListener("timeupdate", () => {
+  if (videoElement.currentTime > 5) { // chỉ lưu khi xem quá 5 giây
+    localStorage.setItem(`video_time_${currentLessonId}`, videoElement.currentTime);
+  }
+});
+
+function restoreVideoTime() {
+  const savedTime = localStorage.getItem(`video_time_${currentLessonId}`);
+  if (savedTime && !isNaN(savedTime)) {
+    videoElement.currentTime = parseFloat(savedTime);
+  }
+}
+
+// ============= HIỂN THỊ MENU BÀI HỌC ===============
+function renderMenu() {
+  const menu = document.getElementById("lesson-menu");
+  menu.innerHTML = "";
+
+  lessons.forEach(lesson => {
+    const isDone = localStorage.getItem(`done_lesson_${lesson.id}`) === "true";
+    const isActive = lesson.id === currentLessonId;
+
+    const item = document.createElement("div");
+    item.className = `p-4 rounded-lg border cursor-pointer transition-all ${
+      isActive 
+        ? 'bg-indigo-100 border-indigo-500 font-bold shadow-md' 
+        : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
+    }`;
+
+    item.innerHTML = `
+      <div class="flex justify-between items-center">
+        <span>${lesson.id}. ${lesson.title}</span>
+        ${isDone ? '<span class="text-green-600 text-xl">✔</span>' : ''}
+      </div>
+    `;
+
+    item.onclick = () => loadLesson(lesson.id);
+    menu.appendChild(item);
+  });
+}
+
+// ============= HOÀN THÀNH BÀI HỌC ===============
+function finishLesson() {
+  localStorage.setItem(`done_lesson_${currentLessonId}`, "true");
+  
+  updateCourseProgress();
+  renderMenu();
+
+  // Hiệu ứng đẹp
+  const btn = event.target;
+  btn.innerHTML = "Đã hoàn thành!";
+  btn.classList.replace("bg-indigo-600", "bg-green-600");
+
+  setTimeout(() => {
+    alert("Chúc mừng! Bạn đã hoàn thành bài học này 🎉");
+    window.location.href = "my-courses.html";
+  }, 600);
+}
+
+// ============= CẬP NHẬT TIẾN ĐỘ KHÓA HỌC ===============
+function updateCourseProgress() {
+  let myCourses = JSON.parse(localStorage.getItem("myCourses") || "[]");
+
+  const totalLessons = lessons.length;
+  const completedLessons = lessons.filter(l => 
+    localStorage.getItem(`done_lesson_${l.id}`) === "true"
+  ).length;
+
+  const progress = Math.round((completedLessons / totalLessons) * 100);
+
+  myCourses = myCourses.map(course => {
+    if (course.id === "toan-hamso") { // ID khóa học của bạn
+      course.progress = progress;
+      course.lastUpdated = new Date().toISOString();
+    }
+    return course;
+  });
+
+  // Nếu chưa có thì thêm mới
+  if (!myCourses.some(c => c.id === "toan-hamso")) {
+    myCourses.push({
+      id: "toan-hamso",
+      title: "Toán 12 - Chuyên đề Hàm số",
+      progress: progress,
+      thumbnail: "https://images.unsplash.com/photo-1509228628318-9c49b0aa2f6a?w=400",
+      lastUpdated: new Date().toISOString()
+    });
+  }
+
+  localStorage.setItem("myCourses", JSON.stringify(myCourses));
+}
+
+// ============= KHỞI TẠO ===============
+document.addEventListener("DOMContentLoaded", () => {
+  // Nếu có tham số URL như ?lesson=3 thì mở bài đó
+  const urlParams = new URLSearchParams(window.location.search);
+  const lessonParam = parseInt(urlParams.get("lesson"));
+  const startLesson = lessonParam && lessons.some(l => l.id === lessonParam) ? lessonParam : 1;
+
+  loadLesson(startLesson);
+  renderMenu();
+});
+
+</script>
+
+</body>
+</html>

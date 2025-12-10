@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng nhập / Đăng ký</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-100 min-h-screen flex items-center justify-center">
+
+<div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+  <h1 class="text-3xl font-bold text-center mb-8 text-indigo-700">TAILIEUTX1</h1>
+
+  <div id="auth-container">
+    <!-- Form Đăng nhập / Đăng ký -->
+    <div id="email-form">
+      <h2 class="text-2xl font-bold text-center mb-6" id="form-title">Đăng nhập</h2>
+
+      <input type="email" id="email" placeholder="Email của bạn" 
+        class="w-full px-4 py-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+
+      <input type="password" id="password" placeholder="Mật khẩu" 
+        class="w-full px-4 py-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+
+      <button id="auth-btn" onclick="handleAuth()"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition">
+        Đăng nhập
+      </button>
+
+      <div class="my-6 text-center text-gray-500">hoặc</div>
+
+      <button onclick="signInWithGoogle()"
+        class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-3 transition">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google"/>
+        Đăng nhập với Google
+      </button>
+
+      <p class="text-center mt-6 text-sm text-gray-600">
+        Chưa có tài khoản? 
+        <a href="#" onclick="toggleForm()" class="text-indigo-600 font-bold">Đăng ký ngay</a>
+      </p>
+    </div>
+  </div>
+
+  <p id="message" class="text-center mt-4 font-medium"></p>
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+const SUPABASE_KEY = "sb_publishable_c_8MhuPqqpbgrw11AdA_ew_EK1iUlbp";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let isLogin = true;
+
+  function toggleForm() {
+    isLogin = !isLogin;
+    document.getElementById("form-title").textContent = isLogin ? "Đăng nhập" : "Đăng ký";
+    document.getElementById("auth-btn").textContent = isLogin ? "Đăng nhập" : "Đăng ký";
+    document.querySelector("p.text-sm").innerHTML = isLogin 
+      ? `Chưa có tài khoản? <a href="#" onclick="toggleForm()" class="text-indigo-600 font-bold">Đăng ký ngay</a>`
+      : `Đã có tài khoản? <a href="#" onclick="toggleForm()" class="text-indigo-600 font-bold">Đăng nhập</a>`;
+  }
+
+  async function handleAuth() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const msg = document.getElementById("message");
+
+    if (!email || !password) {
+      msg.textContent = "Vui lòng nhập đầy đủ!";
+      msg.style.color = "red";
+      return;
+    }
+
+    msg.textContent = "Đang xử lý...";
+    
+    try {
+      let result;
+      if (isLogin) {
+        result = await supabase.auth.signInWithPassword({ email, password });
+      } else {
+        result = await supabase.auth.signUp({ email, password });
+      }
+
+      if (result.error) throw result.error;
+
+      if (!isLogin && result.data.user) {
+        // Đăng ký thành công → tự động đăng nhập
+        msg.textContent = "Đăng ký thành công! Đang chuyển...";
+        setTimeout(() => window.location.href = "index.html", 1500);
+      } else {
+        window.location.href = "index.html";
+      }
+    } catch (error) {
+      msg.style.color = "red";
+      if (error.message.includes("Invalid login credentials")) {
+        msg.textContent = "Email hoặc mật khẩu sai!";
+      } else if (error.message.includes("Email already registered")) {
+        msg.textContent = "Email đã được sử dụng!";
+      } else {
+        msg.textContent = error.message;
+      }
+    }
+  }
+
+// ĐĂNG NHẬP GOOGLE – CHUYỂN VỀ ĐÚNG TRANG CHỦ
+async function signInWithGoogle() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + '/courses/index.html'   // QUAN TRỌNG: về đúng index.html gốc
+    }
+  });
+  
+  if (error) {
+    console.error(error);
+    alert('Lỗi Google login: ' + error.message);
+  }
+}
+
+// ĐĂNG NHẬP / ĐĂNG KÝ EMAIL – CŨNG VỀ ĐÚNG TRANG CHỦ
+async function handleAuth() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const msg = document.getElementById("message");
+
+  if (!email || !password) {
+    msg.textContent = "Vui lòng nhập đầy đủ!";
+    msg.style.color = "red";
+    return;
+  }
+
+  msg.textContent = "Đang xử lý...";
+
+  try {
+    let result;
+    if (isLogin) {
+      result = await supabase.auth.signInWithPassword({ email, password });
+    } else {
+      result = await supabase.auth.signUp({ email, password });
+    }
+
+    if (result.error) throw result.error;
+
+    // THÀNH CÔNG → CHUYỂN VỀ TRANG CHỦ CHÍNH
+    window.location.href = "courses/index.html";
+
+  } catch (error) {
+    msg.style.color = "red";
+    if (error.message.includes("Invalid login credentials")) {
+      msg.textContent = "Email hoặc mật khẩu sai!";
+    } else if (error.message.includes("Email already registered")) {
+      msg.textContent = "Email đã được sử dụng!";
+    } else {
+      msg.textContent = error.message;
+    }
+  }
+}
+  // Enter để submit
+  document.getElementById("password").addEventListener("keypress", e => {
+    if (e.key === "Enter") handleAuth();
+  });
+  
+</script>
+
+</body>
+</html>

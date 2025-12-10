@@ -115,6 +115,8 @@ button{
   <!-- QR -->
   <div class="qr">
     <img id="qr" src="" alt="QR Vietcombank">
+    <button onclick="downloadQR()" class="ghost">Tải mã QR</button>
+
   </div>
 
   <!-- SỐ TIỀ TIỀN -->
@@ -130,7 +132,7 @@ button{
 
   <div class="timer">Còn lại <span id="countdown">20:00</span></div>
 
-  <button class="ghost" onclick="openForm()">Gửi ảnh chuyển khoản / Hỗ trợ</button>
+  <button class="ghost" onclick="openForm()">Chuyển khoản thành công</button>
   <button class="primary" onclick="history.back()">Quay lại</button>
 </div>
 
@@ -140,6 +142,7 @@ button{
     <h3>Gửi thông tin hỗ trợ</h3>
     <input type="text" id="sp-name" placeholder="Họ và tên">
     <input type="email" id="sp-email" placeholder="Email nhận tài khoản học">
+    <input type="email" id="sp-email" placeholder="Số điện thoại">
     <textarea id="sp-note" rows="4" placeholder="Ghi chú (nếu có)"></textarea>
     <button class="primary" onclick="sendSupport()">Gửi ngay</button>
     <button class="ghost" onclick="closeForm()">Đóng</button>
@@ -198,7 +201,19 @@ function sendSupport() {
   alert("Đã nhận thông tin! Chúng tôi sẽ gửi tài khoản học qua email trong 5 phút!");
   window.location.href = "index.html";
 }
+function downloadQR() {
+  const qrUrl = document.getElementById('qr').src;
+
+  const a = document.createElement('a');
+  a.href = qrUrl;
+  a.download = `QR-${orderId}.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 </script>
+
 
 </body>
 </html>
