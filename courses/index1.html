@@ -248,7 +248,36 @@
   </div>
 
   <!-- Tải Supabase và JS chính -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const { createClient } = supabase;
+
+  const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // QUAN TRỌNG: Xử lý hash fragment từ OAuth redirect
+  supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    if (session) {
+      console.log("Đã đăng nhập:", session.user.email);
+      // Ở đây bạn có thể ẩn loading, hiển thị nội dung, v.v.
+      // Ví dụ: document.getElementById('content').classList.remove('hidden');
+    } else {
+      console.log("Chưa có session");
+      // Có thể redirect về login nếu chưa đăng nhập
+      // window.location.href = "/courses/login.html";
+    }
+  });
+
+  // Lắng nghe thay đổi auth (dự phòng)
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN") {
+      console.log("Đăng nhập thành công:", session.user.email);
+      // Cập nhật UI tại đây
+    }
+  });
+</script>
   <script src="js/app.js"></script> <!-- File JS riêng -->
 </body>
 </html>
