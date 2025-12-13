@@ -20,164 +20,90 @@
       }
     }
   </script>
-
-  <style>
-    .course-card {
-      @apply relative overflow-hidden rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl;
-      background: linear-gradient(to bottom, #ffffff, #fdf2f8);
-    }
-    .sale-badge {
-      @apply absolute top-4 right-4 bg-danger text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg animate-pulse;
-    }
-    .enroll-badge {
-      @apply absolute top-4 left-4 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow-md;
-    }
-    .price-old { @apply text-gray-500 line-through text-lg; }
-    .price-new { @apply text-3xl font-bold text-primary; }
-    .discount-tag { @apply bg-green-500 text-white font-bold px-4 py-1 rounded-full text-sm; }
-
-  
-
-    .hamburger.active .bar:nth-child(1) { @apply rotate-45 translate-y-2; }
-    .hamburger.active .bar:nth-child(2) { @apply opacity-0; }
-    .hamburger.active .bar:nth-child(3) { @apply -rotate-45 -translate-y-2; }
-    /* Avatar đẹp hơn */
-.user-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 9999px;
-  padding: 2px;
-  background: linear-gradient(135deg, #ec4899, #f472b6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.user-avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  background: white;
-}
-
-.user-avatar:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.45);
-}
-
-/* Dropdown mượt & cao cấp hơn */
-.dropdown-menu {
-  border-radius: 16px;
-  overflow: hidden;
-  animation: dropdownFade 0.25s ease;
-}
-
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-  </style>
 </head>
 
 <body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
 
   <!-- HEADER -->
   <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
-    <div class="container mx-auto px-4 py-5">
-      <div class="flex justify-between items-center">
-        <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
-          <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+        <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
 
-          <button onclick="goMyCourses()" 
-  class="hover:opacity-80 transition font-semibold">
-  Khóa học của tôi
-</button>
-
-          <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
-            Kích hoạt mã
-          </button>
-
-          <!-- Nút Đăng nhập (khi chưa login) -->
-          <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
-                  class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
-            Đăng nhập
-          </button>
-
-          <div id="desktop-user-info" class="hidden relative">
-            <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
-              <div class="user-avatar">
-                <img id="desktop-user-avatar" src="" alt="Avatar">
-              </div>
-            </button>
-          
-            <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
-              <div class="px-5 py-4 border-b border-pink-100">
-                <p class="font-bold text-primary" id="desktop-username"></p>
-                <p class="text-sm text-gray-600 mt-1 truncate">{{email}}</p>
-              </div>
-              <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">
-                Đăng xuất
-              </button>
-            </div>
-          
-  
-
-
-        <!-- Mobile Hamburger -->
-        <button class="md:hidden hamburger flex flex-col space-y-1.5" onclick="toggleMobileMenu()">
-          <span class="bar block w-8 h-1 bg-white transition"></span>
-          <span class="bar block w-8 h-1 bg-white transition"></span>
-          <span class="bar block w-8 h-1 bg-white transition"></span>
+        <button onclick="goMyCourses()" class="hover:opacity-80 transition font-semibold">
+          Khóa học của tôi
         </button>
-      </div>
 
-      <!-- Mobile Menu -->
-      <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden">
-        <a href="index.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
-        <button onclick="goMyCourses(); toggleMobileMenu()" 
-  class="block text-left py-2 text-lg hover:opacity-80">
-  Khóa học của tôi
-</button>
+        <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+          Kích hoạt mã
+        </button>
 
-
-        <!-- Thông tin người dùng khi đã login (mobile) -->
-        <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
-          <div class="user-avatar">
-            <img id="mobile-user-avatar" src="" alt="Avatar">
-          </div>
-          
-          <div class="flex-1">
-            <p id="mobile-username" class="text-white font-semibold"></p>
-          </div>
-        </div>
-
-        <!-- Nút Đăng nhập (mobile) -->
-        <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" 
-                class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
+                class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
           Đăng nhập
         </button>
 
-        <!-- Menu tài khoản khi đã login (mobile) -->
-        <div id="mobile-user-menu" class="hidden space-y-2">
-        
-          <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">
-            Đăng xuất
+        <div id="desktop-user-info" class="hidden relative">
+          <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
+            <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <img id="desktop-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+            </div>
           </button>
+        
+          <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50 animate-fade">
+            <div class="px-5 py-4 border-b border-pink-100">
+              <p class="font-bold text-primary" id="desktop-username"></p>
+              <p class="text-sm text-gray-600 mt-1 truncate">{{email}}</p>
+            </div>
+            <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">
+              Đăng xuất
+            </button>
+          </div>
         </div>
-
-        <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
-          Kích hoạt mã
-        </button>
       </nav>
+
+      <!-- Mobile Hamburger -->
+      <button aria-label="Mở menu" class="md:hidden flex flex-col space-y-1.5 hamburger" onclick="toggleMobileMenu()">
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+      </button>
     </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4">
+      <a href="index.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+      <button onclick="goMyCourses(); toggleMobileMenu()" class="block text-left py-2 text-lg hover:opacity-80">
+        Khóa học của tôi
+      </button>
+
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+        </div>
+        <div class="flex-1">
+          <p id="mobile-username" class="text-white font-semibold"></p>
+        </div>
+      </div>
+
+      <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" 
+              class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Đăng nhập
+      </button>
+
+      <div id="mobile-user-menu" class="hidden space-y-2">
+        <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">
+          Đăng xuất
+        </button>
+      </div>
+
+      <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Kích hoạt mã
+      </button>
+    </nav>
   </header>
 
   <!-- MAIN CONTENT -->
@@ -199,7 +125,7 @@
 
         <!-- Ví dụ 1 khóa học -->
         <a href="checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block">
-          <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-pink-100 h-full flex flex-col">
+          <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
 
             <div class="absolute top-4 left-4 z-10">
               <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
@@ -211,12 +137,13 @@
             <div class="relative overflow-hidden">
               <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
                    alt="Khóa học VSTEP Reading Online"
-                   class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
+                   class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+                   loading="lazy">
             </div>
 
             <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
               <div>
-                <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition">
+                <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
                   Khóa học VSTEP Reading Online
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">Trọn đời • 120+ bài giảng chất lượng cao</p>
@@ -234,8 +161,6 @@
             </div>
           </div>
         </a>
-
-        <!-- Thêm các khóa học khác ở đây -->
 
       </div>
 
@@ -264,191 +189,219 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const { createClient } = supabase;
+<script>
+  const { createClient } = supabase;
 
-const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+  const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
 
-const supabaseClient = createClient(
-  SUPABASE_URL, 
-  SUPABASE_ANON_KEY
-);
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-      document.querySelector('.hamburger').classList.toggle('active');
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Thêm phần này để hiển thị email thật của user (sửa lỗi {{email}})
+  async function updateUserUI() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+
+    // Ẩn/hiện nút login và info user
+    const desktopLoginBtn = document.getElementById('desktop-login-btn');
+    const mobileLoginBtn = document.getElementById('mobile-login-btn');
+    const desktopUserInfo = document.getElementById('desktop-user-info');
+    const mobileUserInfo = document.getElementById('mobile-user-info');
+    const mobileUserMenu = document.getElementById('mobile-user-menu');
+
+    if (!user) {
+      desktopLoginBtn?.classList.remove('hidden');
+      mobileLoginBtn?.classList.remove('hidden');
+      desktopUserInfo?.classList.add('hidden');
+      mobileUserInfo?.classList.add('hidden');
+      mobileUserMenu?.classList.add('hidden');
+      return;
     }
 
-    // Toggle dropdown
-    function toggleDropdown(id) {
-      document.getElementById(id).classList.toggle('hidden');
-    }
+    // Lấy tên và email
+    const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+    const email = user.email;
+    const avatar = user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ec4899&color=fff&bold=true`;
 
-    // Logout
-    async function logout() {
-      await supabaseClient.auth.signOut();
-      window.location.reload();
-    }
+    // Desktop
+    desktopLoginBtn?.classList.add('hidden');
+    desktopUserInfo?.classList.remove('hidden');
+    document.getElementById('desktop-username').textContent = name;
+    document.getElementById('desktop-user-avatar').src = avatar;
+    // SỬA LỖI {{email}}: tìm và cập nhật email thật
+    const desktopEmailEl = document.querySelector('#desktop-dropdown p.text-gray-600');
+    if (desktopEmailEl) desktopEmailEl.textContent = email;
 
-    // Modal kích hoạt mã
-    function openActivateModal() {
-      document.getElementById('activate-modal').classList.remove('hidden');
-      document.getElementById('activate-modal').classList.add('flex');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('activate-code').focus();
-    }
-
-    function closeActivateModal() {
-      document.getElementById('activate-modal').classList.add('hidden');
-      document.getElementById('activate-modal').classList.remove('flex');
-      document.body.style.overflow = '';
-      document.getElementById('activate-code').value = '';
-      document.getElementById('activate-message').textContent = '';
-    }
-
-    document.getElementById('activate-modal').addEventListener('click', e => {
-      if (e.target.id === 'activate-modal') closeActivateModal();
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeActivateModal();
-    });
-    async function activateCode() {
-  const code = document.getElementById('activate-code').value.trim();
-  const msg = document.getElementById('activate-message');
-
-  if (!code) {
-    msg.textContent = 'Vui lòng nhập mã kích hoạt!';
-    msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-    return;
+    // Mobile
+    mobileLoginBtn?.classList.add('hidden');
+    mobileUserInfo?.classList.remove('hidden');
+    mobileUserMenu?.classList.remove('hidden');
+    document.getElementById('mobile-username').textContent = name;
+    document.getElementById('mobile-user-avatar').src = avatar;
   }
 
-  msg.textContent = 'Đang kiểm tra mã...';
-  msg.className = 'text-sm mb-4 text-gray-600 min-h-[20px]';
+  // Các hàm khác giữ nguyên
+  function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+    document.querySelector('.hamburger')?.classList.toggle('active');
+  }
 
-  try {
-    const { data, error } = await supabaseClient.rpc('activate_course_code', { p_code: code });
+  function toggleDropdown(id) {
+    document.getElementById(id).classList.toggle('hidden');
+  }
 
-    if (error) {
-      console.error('RPC Error:', error);
-      msg.textContent = 'Lỗi hệ thống, vui lòng thử lại sau!';
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.reload();
+  }
+
+  function openActivateModal() {
+    document.getElementById('activate-modal').classList.remove('hidden');
+    document.getElementById('activate-modal').classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('activate-code').focus();
+  }
+
+  function closeActivateModal() {
+    document.getElementById('activate-modal').classList.add('hidden');
+    document.getElementById('activate-modal').classList.remove('flex');
+    document.body.style.overflow = '';
+    document.getElementById('activate-code').value = '';
+    document.getElementById('activate-message').textContent = '';
+  }
+
+  document.getElementById('activate-modal')?.addEventListener('click', e => {
+    if (e.target.id === 'activate-modal') closeActivateModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeActivateModal();
+  });
+
+  // Hàm activateCode giữ nguyên như bạn đã sửa (có đóng ngoặc đúng)
+
+  async function activateCode() {
+    const code = document.getElementById('activate-code').value.trim();
+    const msg = document.getElementById('activate-message');
+
+    if (!code) {
+      msg.textContent = 'Vui lòng nhập mã kích hoạt!';
       msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
       return;
     }
 
-    switch (data) {
-      case 'SUCCESS':
-        msg.textContent = '🎉 Kích hoạt thành công! Đang chuyển đến khóa học...';
-        msg.className = 'text-sm mb-4 text-green-600 font-bold min-h-[20px]';
-        setTimeout(() => {
-          closeActivateModal();
-          window.location.href = 'my-courses.html';
-        }, 1500);
-        break;
+    msg.textContent = 'Đang kiểm tra mã...';
+    msg.className = 'text-sm mb-4 text-gray-600 min-h-[20px]';
 
-      case 'NOT_LOGGED_IN':
-        msg.textContent = 'Bạn cần đăng nhập trước khi kích hoạt mã!';
+    try {
+      const { data, error } = await supabaseClient.rpc('activate_course_code', { p_code: code });
+
+      if (error) {
+        console.error('RPC Error:', error);
+        msg.textContent = 'Lỗi hệ thống, vui lòng thử lại sau!';
         msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-        setTimeout(() => {
-          closeActivateModal();
-          window.location.href = 'login.html';
-        }, 2000);
-        break;
-
-      case 'INVALID_CODE':
-        msg.textContent = 'Mã kích hoạt không hợp lệ!';
-        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-        break;
-
-      case 'CODE_USED':
-        msg.textContent = 'Mã này đã được sử dụng rồi!';
-        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-        break;
-
-      default:
-        msg.textContent = 'Có lỗi không xác định. Vui lòng thử lại.';
-        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-    }
-  } catch (err) {
-    console.error('Unexpected error:', err);
-    msg.textContent = 'Lỗi kết nối, vui lòng kiểm tra mạng!';
-    msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
-  }
-}
-
-    // Tìm kiếm khóa học
-    function filterCourses() {
-      const query = document.getElementById('search-input').value.toLowerCase().trim();
-      const cards = document.querySelectorAll('#course-list > a');
-      let visible = 0;
-      cards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        if (title.includes(query)) {
-          card.style.display = '';
-          visible++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-      document.getElementById('empty-state').classList.toggle('hidden', visible > 0);
-    }
-
-    // Cập nhật giao diện theo trạng thái đăng nhập
-    async function updateUserUI() {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-
-      if (!user) {
-        // Chưa đăng nhập
-        document.getElementById('desktop-login-btn').classList.remove('hidden');
-        document.getElementById('mobile-login-btn').classList.remove('hidden');
-        document.getElementById('desktop-user-info').classList.add('hidden');
-        document.getElementById('mobile-user-info').classList.add('hidden');
-        document.getElementById('mobile-user-menu').classList.add('hidden');
         return;
       }
 
-      // Đã đăng nhập
-      const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
-      const avatar = user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ec4899&color=fff&bold=true`;
+      let result = null;
 
-      // Desktop
-      document.getElementById('desktop-login-btn').classList.add('hidden');
-      document.getElementById('desktop-user-info').classList.remove('hidden');
-      document.getElementById('desktop-username').textContent = name;
-      document.getElementById('desktop-user-avatar').src = avatar;
-
-      // Mobile
-      document.getElementById('mobile-login-btn').classList.add('hidden');
-      document.getElementById('mobile-user-info').classList.remove('hidden');
-      document.getElementById('mobile-user-menu').classList.remove('hidden');
-      document.getElementById('mobile-username').textContent = name;
-      document.getElementById('mobile-user-avatar').src = avatar;
-    }
-
-    // Khởi chạy khi trang tải xong
-    window.addEventListener('load', updateUserUI);
-
-    // Lắng nghe thay đổi auth (ví dụ: đăng nhập từ trang khác)
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      updateUserUI();
-    });
-  </script>
-  <script>
-    async function goMyCourses() {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-  
-      if (!user) {
-        // Chưa login → về login
-        window.location.href = "login.html";
-      } else {
-        // Đã login → khóa học của tôi
-        window.location.href = "my-courses.html";
+      if (data === null || data === undefined) {
+        result = 'UNKNOWN_ERROR';
+      } else if (typeof data === 'string') {
+        result = data.trim().toUpperCase();
+      } else if (Array.isArray(data)) {
+        if (data.length === 0) {
+          result = 'NO_RESULT';
+        } else {
+          const first = data[0];
+          if (typeof first === 'string') {
+            result = first.trim().toUpperCase();
+          } else if (typeof first === 'object' && first !== null) {
+            const keys = Object.keys(first);
+            if (keys.length > 0) {
+              const possibleKey = keys.find(k => k.toLowerCase().includes('activate') || k.toLowerCase().includes('result') || k === keys[0]);
+              result = (first[possibleKey] || first[keys[0]] || '').toString().trim().toUpperCase();
+            }
+          }
+        }
+      } else if (typeof data === 'object' && data !== null) {
+        const keys = Object.keys(data);
+        const possibleKey = keys.find(k => k.toLowerCase().includes('activate') || k.toLowerCase().includes('result') || k === keys[0]);
+        result = (data[possibleKey] || data[keys[0]] || '').toString().trim().toUpperCase();
       }
+
+      console.log('Raw RPC data:', data);
+      console.log('Processed result:', result);
+
+      if (!result || !['SUCCESS', 'NOT_LOGGED_IN', 'INVALID_CODE', 'CODE_USED'].includes(result)) {
+        msg.textContent = `Có lỗi không xác định (mã trả về: ${result || 'null'}). Vui lòng liên hệ hỗ trợ.`;
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        return;
+      }
+
+      switch (result) {
+        case 'SUCCESS':
+          msg.textContent = '🎉 Kích hoạt thành công! Đang chuyển đến khóa học...';
+          msg.className = 'text-sm mb-4 text-green-600 font-bold min-h-[20px]';
+          setTimeout(() => {
+            closeActivateModal();
+            window.location.href = 'my-courses.html';
+          }, 1500);
+          break;
+        case 'NOT_LOGGED_IN':
+          msg.textContent = 'Bạn cần đăng nhập trước khi kích hoạt mã!';
+          msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+          setTimeout(() => {
+            closeActivateModal();
+            window.location.href = 'login.html';
+          }, 2000);
+          break;
+        case 'INVALID_CODE':
+          msg.textContent = 'Mã kích hoạt không hợp lệ!';
+          msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+          break;
+        case 'CODE_USED':
+          msg.textContent = 'Mã này đã được sử dụng rồi!';
+          msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+          break;
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      msg.textContent = 'Lỗi kết nối, vui lòng kiểm tra mạng!';
+      msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
     }
-  </script>
-  
+  }
+
+  function filterCourses() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#course-list > a');
+    let visible = 0;
+    cards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      if (title.includes(query)) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    document.getElementById('empty-state').classList.toggle('hidden', visible > 0);
+  }
+
+  async function goMyCourses() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      window.location.href = "my-courses.html";
+    }
+  }
+
+  // KHỞI TẠO: Cập nhật UI ngay khi load và khi auth thay đổi
+  window.addEventListener('load', updateUserUI);
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    updateUserUI();
+  });
+</script>
 </body>
 </html>

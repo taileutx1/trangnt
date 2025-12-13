@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khóa học VSTEP Reading Online - TAILIEUTX1</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ec4899',
+            accent: '#f472b6',
+            danger: '#dc2626',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+
+  <!-- HEADER (giống các trang khác) -->
+  <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
+
+      <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+        <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
+        <a href="my-courses.html" class="hover:opacity-80 transition font-semibold">Khóa học của tôi</a>
+        <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+          Kích hoạt mã
+        </button>
+
+        <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
+                class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+          Đăng nhập
+        </button>
+
+        <div id="desktop-user-info" class="hidden relative">
+          <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
+            <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <img id="desktop-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+            </div>
+          </button>
+          <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+            <div class="px-5 py-4 border-b border-pink-100">
+              <p class="font-bold text-primary" id="desktop-username"></p>
+              <p class="text-sm text-gray-600 mt-1 truncate" id="desktop-email"></p>
+            </div>
+            <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">
+              Đăng xuất
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <button aria-label="Mở menu" class="md:hidden flex flex-col space-y-1.5 hamburger" onclick="toggleMobileMenu()">
+        <span class="block w-8 h-1 bg-white"></span>
+        <span class="block w-8 h-1 bg-white"></span>
+        <span class="block w-8 h-1 bg-white"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu tương tự các trang khác -->
+    <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4 pb-4">
+      <a href="index1.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+      <a href="my-courses.html" class="block py-2 text-lg hover:opacity-80 font-semibold">Khóa học của tôi</a>
+      <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full">Kích hoạt mã</button>
+      <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full">Đăng nhập</button>
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+        </div>
+        <p id="mobile-username" class="text-white font-semibold"></p>
+      </div>
+      <div id="mobile-user-menu" class="hidden">
+        <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">Đăng xuất</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container mx-auto px-4 py-12">
+    <!-- Course Header -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-12 text-center">
+      <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg" 
+           alt="VSTEP Reading" class="w-full max-w-4xl mx-auto rounded-2xl mb-8 object-cover h-96">
+      <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-4">Khóa học VSTEP Reading Online</h1>
+      <p class="text-xl text-gray-600 max-w-4xl mx-auto">Trọn đời • 120+ bài giảng chất lượng cao • Đạt điểm cao phần Reading VSTEP B1, B2, C1</p>
+    </div>
+
+    <!-- Lessons List -->
+    <div id="access-denied" class="text-center py-20 hidden">
+      <p class="text-3xl text-gray-600 mb-6">Bạn chưa sở hữu khóa học này 😔</p>
+      <a href="index1.html" class="bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-full font-bold text-xl hover:opacity-90 shadow-lg">
+        Về trang chủ mua/kích hoạt
+      </a>
+    </div>
+
+    <div id="lessons-container" class="space-y-6"></div>
+  </main>
+
+  <!-- MODAL KÍCH HOẠT MÃ (giống các trang khác) -->
+  <div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 flex">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+      <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+      <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt" class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
+      <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+      <div class="flex gap-3">
+        <button onclick="activateCode()" class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">Kích hoạt</button>
+        <button onclick="closeActivateModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const COURSE_ID = 1; // ID khóa VSTEP Reading
+
+    // Header functions (giống các trang khác)
+    async function updateUserUI() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      // ... (giữ nguyên code updateUserUI từ trang trước)
+      // (Bạn copy phần updateUserUI từ my-courses.html hoặc index1.html vào đây)
+    }
+
+    async function checkAccessAndLoadLessons() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+
+      if (!user) {
+        document.getElementById('access-denied').classList.remove('hidden');
+        document.getElementById('lessons-container').innerHTML = '';
+        return;
+      }
+
+      // Kiểm tra user có sở hữu khóa học này không
+      const { data: owned } = await supabaseClient
+        .from('user_courses')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('course_id', COURSE_ID)
+        .single();
+
+      if (!owned) {
+        document.getElementById('access-denied').classList.remove('hidden');
+        return;
+      }
+
+      // Load danh sách bài giảng
+      const { data: lessons, error } = await supabaseClient
+        .from('lessons')
+        .select('*')
+        .eq('course_id', COURSE_ID)
+        .order('order_index', { ascending: true });
+
+      if (error || !lessons || lessons.length === 0) {
+        document.getElementById('lessons-container').innerHTML = '<p class="text-center text-gray-600 text-xl">Chưa có bài giảng nào.</p>';
+        return;
+      }
+
+      const container = document.getElementById('lessons-container');
+      container.innerHTML = '';
+
+      lessons.forEach((lesson, index) => {
+        const item = document.createElement('div');
+        item.className = 'bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all';
+        item.innerHTML = `
+          <div class="p-6 bg-gradient-to-r from-primary to-accent text-white">
+            <h3 class="text-2xl font-black">Bài ${index + 1}: ${lesson.title}</h3>
+            ${lesson.description ? `<p class="mt-2 opacity-90">${lesson.description}</p>` : ''}
+          </div>
+          <div class="p-8 space-y-6">
+            ${lesson.video_url ? `
+              <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-lg">
+                <iframe src="${lesson.video_url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="w-full h-96"></iframe>
+              </div>
+            ` : ''}
+            ${lesson.document_url ? `
+              <a href="${lesson.document_url}" target="_blank" class="inline-flex items-center gap-3 bg-primary text-white px-6 py-4 rounded-full font-bold hover:bg-accent transition shadow-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Tải tài liệu bài giảng
+              </a>
+            ` : ''}
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // Các hàm khác: toggleMobileMenu, logout, openActivateModal, activateCode... (copy từ trang cũ)
+
+    // Khởi chạy
+    window.addEventListener('load', () => {
+      updateUserUI();
+      checkAccessAndLoadLessons();
+    });
+
+    supabaseClient.auth.onAuthStateChange(() => {
+      updateUserUI();
+      checkAccessAndLoadLessons();
+    });
+  </script>
+</body>
+</html>

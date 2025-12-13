@@ -97,7 +97,7 @@
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/courses/index1.html"
+        redirectTo: window.location.origin + "/index1.html"
       }
     });
 
@@ -113,7 +113,7 @@
 
   function redirect() {
     setTimeout(() => {
-      window.location.href = "/courses/index1.html";
+      window.location.href = "/index1.html";
     }, 800);
   }
 

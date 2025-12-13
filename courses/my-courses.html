@@ -1,202 +1,338 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Khóa học của tôi - TAILIEUTX1</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Danh sách khóa học bạn đã kích hoạt">
+  <title>Khóa học của tôi - TAILIEUTX1</title>
+  <meta name="description" content="Danh sách các khóa học bạn đã sở hữu">
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#4f46e5',
-            'primary-hover': '#4338ca'
+            primary: '#ec4899',
+            accent: '#f472b6',
+            danger: '#dc2626',
           }
         }
       }
     }
   </script>
-
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
 
-<!-- HEADER -->
-<header class="bg-primary text-white shadow-lg sticky top-0 z-50">
-  <div class="container mx-auto px-4 py-5 flex justify-between items-center">
-    <a href="index1.html" class="text-2xl font-black tracking-wider">
-      TAILIEUTX1
-    </a>
-    <div id="user-box" class="flex items-center gap-4"></div>
-  </div>
-</header>
+  <!-- HEADER (giống index1.html) -->
+  <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+      <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
 
-<!-- MAIN -->
-<main class="container mx-auto px-4 py-10 max-w-7xl">
+      <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+        <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
+        <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+          Kích hoạt mã
+        </button>
 
-  <div class="flex justify-between items-center mb-10">
-    <h1 class="text-4xl font-black text-gray-800">Khóa học của tôi</h1>
-    <a href="index1.html" class="text-primary font-semibold hover:underline">
-      ← Mua thêm khóa học
-    </a>
-  </div>
+        <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
+                class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+          Đăng nhập
+        </button>
 
-  <!-- LOADING -->
-  <div id="loading-state" class="text-center py-24">
-    <div class="inline-block animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full"></div>
-    <p class="mt-4 text-gray-600 text-lg">Đang tải khóa học của bạn...</p>
-  </div>
-
-  <!-- EMPTY -->
-  <div id="empty-state" class="hidden text-center py-24">
-    <p class="text-2xl font-bold text-gray-700 mb-4">
-      Bạn chưa sở hữu khóa học nào
-    </p>
-    <a href="index1.html"
-       class="inline-block bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-primary-hover transition shadow-lg">
-      Xem khóa học
-    </a>
-  </div>
-
-  <!-- COURSE LIST -->
-  <div id="my-courses-list"
-       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-  </div>
-
-</main>
-
-<script>
-/* ================= SUPABASE INIT ================= */
-const { createClient } = supabase;
-
-const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_ANON_KEY_HERE";
-
-const supabaseClient = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true
-    }
-  }
-);
-
-/* ================= AUTH HELPERS ================= */
-async function getCurrentUser() {
-  const { data } = await supabaseClient.auth.getSession();
-  return data.session?.user || null;
-}
-
-async function logout() {
-  await supabaseClient.auth.signOut();
-  location.href = "login.html";
-}
-
-/* ================= HEADER USER ================= */
-async function renderHeaderUser() {
-  const box = document.getElementById("user-box");
-  const user = await getCurrentUser();
-
-  if (!user) {
-    location.href = "login.html";
-    return;
-  }
-
-  const name =
-    user.user_metadata?.full_name ||
-    user.user_metadata?.name ||
-    user.email.split("@")[0];
-
-  box.innerHTML = `
-    <span class="font-semibold">${name}</span>
-    <button onclick="logout()"
-      class="bg-white/20 px-4 py-2 rounded-lg font-semibold hover:bg-white/30 transition">
-      Đăng xuất
-    </button>
-  `;
-}
-
-/* ================= LOAD COURSES ================= */
-async function renderMyCourses() {
-  const listEl = document.getElementById("my-courses-list");
-  const emptyEl = document.getElementById("empty-state");
-  const loadingEl = document.getElementById("loading-state");
-
-  loadingEl.classList.remove("hidden");
-  emptyEl.classList.add("hidden");
-  listEl.innerHTML = "";
-
-  const user = await getCurrentUser();
-  if (!user) return;
-
-  const { data, error } = await supabaseClient
-    .from("user_courses")
-    .select(`
-      progress,
-      courses (
-        id,
-        title,
-        image,
-        slug
-      )
-    `)
-    .eq("user_id", user.id);
-
-  loadingEl.classList.add("hidden");
-
-  if (error || !data || data.length === 0) {
-    emptyEl.classList.remove("hidden");
-    return;
-  }
-
-  listEl.innerHTML = data.map(item => {
-    const c = item.courses;
-    const progress = item.progress || 0;
-
-    return `
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1">
-        <img src="${c.image || 'images/default-course.jpg'}"
-             class="w-full h-56 object-cover">
-
-        <div class="p-6 flex flex-col h-full">
-          <h3 class="font-black text-xl text-gray-800 mb-4 line-clamp-2">
-            ${c.title}
-          </h3>
-
-          <div class="mb-4">
-            <div class="w-full bg-gray-200 rounded-full h-3">
-              <div class="bg-primary h-3 rounded-full"
-                   style="width:${progress}%"></div>
+        <div id="desktop-user-info" class="hidden relative">
+          <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
+            <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <img id="desktop-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
             </div>
-            <p class="text-sm text-gray-500 mt-2">
-              Hoàn thành ${progress}%
-            </p>
+          </button>
+          <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+            <div class="px-5 py-4 border-b border-pink-100">
+              <p class="font-bold text-primary" id="desktop-username"></p>
+              <p class="text-sm text-gray-600 mt-1 truncate" id="desktop-email"></p>
+            </div>
+            <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">
+              Đăng xuất
+            </button>
           </div>
+        </div>
+      </nav>
 
-          <a href="course-${c.slug}.html"
-             class="mt-auto block text-center bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-hover transition">
+      <button aria-label="Mở menu" class="md:hidden flex flex-col space-y-1.5 hamburger" onclick="toggleMobileMenu()">
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+        <span class="block w-8 h-1 bg-white transition-transform"></span>
+      </button>
+    </div>
+
+    <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4 pb-4">
+      <a href="index1.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+      <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Kích hoạt mã
+      </button>
+
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+        </div>
+        <div class="flex-1">
+          <p id="mobile-username" class="text-white font-semibold"></p>
+        </div>
+      </div>
+
+      <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" 
+              class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Đăng nhập
+      </button>
+
+      <div id="mobile-user-menu" class="hidden">
+        <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">
+          Đăng xuất
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl md:text-5xl font-black text-center mb-12 text-gray-800">
+      Khóa học của tôi
+    </h1>
+
+    <!-- COURSE GRID -->
+    <div id="my-course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <!-- Các khóa học sẽ được load bằng JS -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="empty-state" class="text-center py-20 text-gray-600">
+      <p class="text-3xl mb-6">Bạn chưa sở hữu khóa học nào 😔</p>
+      <p class="text-xl mb-8">Hãy mua hoặc kích hoạt mã để bắt đầu học ngay!</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="index1.html" class="bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition shadow-lg">
+          Xem khóa học mới
+        </a>
+        <button onclick="openActivateModal()" class="border-2 border-primary text-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-primary hover:text-white transition">
+          Kích hoạt mã
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL KÍCH HOẠT MÃ (giống index1.html) -->
+  <div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+      <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+      <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt"
+             class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
+      <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+      <div class="flex gap-3">
+        <button onclick="activateCode()" class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">
+          Kích hoạt
+        </button>
+        <button onclick="closeActivateModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Header functions (giống index1.html)
+    async function updateUserUI() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      const desktopLoginBtn = document.getElementById('desktop-login-btn');
+      const mobileLoginBtn = document.getElementById('mobile-login-btn');
+      const desktopUserInfo = document.getElementById('desktop-user-info');
+      const mobileUserInfo = document.getElementById('mobile-user-info');
+      const mobileUserMenu = document.getElementById('mobile-user-menu');
+
+      if (!user) {
+        desktopLoginBtn?.classList.remove('hidden');
+        mobileLoginBtn?.classList.remove('hidden');
+        desktopUserInfo?.classList.add('hidden');
+        mobileUserInfo?.classList.add('hidden');
+        mobileUserMenu?.classList.add('hidden');
+        return;
+      }
+
+      const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+      const email = user.email;
+      const avatar = user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ec4899&color=fff&bold=true`;
+
+      desktopLoginBtn?.classList.add('hidden');
+      desktopUserInfo?.classList.remove('hidden');
+      document.getElementById('desktop-username').textContent = name;
+      document.getElementById('desktop-email').textContent = email;
+      document.getElementById('desktop-user-avatar').src = avatar;
+
+      mobileLoginBtn?.classList.add('hidden');
+      mobileUserInfo?.classList.remove('hidden');
+      mobileUserMenu?.classList.remove('hidden');
+      document.getElementById('mobile-username').textContent = name;
+      document.getElementById('mobile-user-avatar').src = avatar;
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function toggleDropdown(id) {
+      document.getElementById(id).classList.toggle('hidden');
+    }
+
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      window.location.reload();
+    }
+
+    function openActivateModal() {
+      document.getElementById('activate-modal').classList.remove('hidden');
+      document.getElementById('activate-modal').classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('activate-code').focus();
+    }
+
+    function closeActivateModal() {
+      document.getElementById('activate-modal').classList.add('hidden');
+      document.getElementById('activate-modal').classList.remove('flex');
+      document.body.style.overflow = '';
+      document.getElementById('activate-code').value = '';
+      document.getElementById('activate-message').textContent = '';
+    }
+
+    // Hàm activateCode (giống index1.html - đã fix)
+    async function activateCode() {
+      const code = document.getElementById('activate-code').value.trim();
+      const msg = document.getElementById('activate-message');
+      if (!code) {
+        msg.textContent = 'Vui lòng nhập mã kích hoạt!';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        return;
+      }
+      msg.textContent = 'Đang kiểm tra mã...';
+      msg.className = 'text-sm mb-4 text-gray-600 min-h-[20px]';
+
+      try {
+        const { data, error } = await supabaseClient.rpc('activate_course_code', { p_code: code });
+        if (error) throw error;
+
+        let result = null;
+        if (typeof data === 'string') result = data.trim().toUpperCase();
+        else if (Array.isArray(data) && data.length > 0) {
+          const first = data[0];
+          result = (typeof first === 'string' ? first : first[Object.keys(first)[0]] || '').trim().toUpperCase();
+        }
+
+        if (result === 'SUCCESS') {
+          msg.textContent = '🎉 Kích hoạt thành công! Đang tải lại...';
+          msg.className = 'text-sm mb-4 text-green-600 font-bold min-h-[20px]';
+          setTimeout(() => location.reload(), 1500);
+        } else if (result === 'NOT_LOGGED_IN') {
+          setTimeout(() => window.location.href = 'login.html', 2000);
+        } else {
+          msg.textContent = {
+            'INVALID_CODE': 'Mã kích hoạt không hợp lệ!',
+            'CODE_USED': 'Mã này đã được sử dụng rồi!'
+          }[result] || 'Có lỗi xảy ra, vui lòng thử lại.';
+          msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        }
+      } catch (err) {
+        msg.textContent = 'Lỗi kết nối, vui lòng thử lại!';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+      }
+    }
+
+   async function loadMyCourses() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) {
+    document.getElementById('empty-state').classList.remove('hidden');
+    document.getElementById('my-course-list').innerHTML = '';
+    return;
+  }
+
+  // Lấy danh sách course_id mà user sở hữu
+  const { data: userCourseIds, error: err1 } = await supabaseClient
+    .from('user_courses')
+    .select('course_id')
+    .eq('user_id', user.id);
+
+  if (err1 || !userCourseIds || userCourseIds.length === 0) {
+    document.getElementById('empty-state').classList.remove('hidden');
+    document.getElementById('my-course-list').innerHTML = '';
+    return;
+  }
+
+  const courseIds = userCourseIds.map(row => row.course_id);
+
+  // Lấy thông tin chi tiết các khóa học
+  const { data: courses, error: err2 } = await supabaseClient
+    .from('courses')
+    .select('*')
+    .in('id', courseIds);
+
+  if (err2 || !courses || courses.length === 0) {
+    document.getElementById('empty-state').classList.remove('hidden');
+    return;
+  }
+
+  document.getElementById('empty-state').classList.add('hidden');
+  const container = document.getElementById('my-course-list');
+  container.innerHTML = '';
+
+  courses.forEach(course => {
+    const card = document.createElement('div');
+    card.className = 'group block';
+
+    card.innerHTML = `
+      <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+        <div class="relative overflow-hidden">
+          <img src="${course.image_url || 'https://via.placeholder.com/800x450?text=' + encodeURIComponent(course.title)}" 
+               alt="${course.title}"
+               class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+        </div>
+        <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+          <div>
+            <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2">${course.title}</h3>
+            <p class="text-gray-600 text-sm mb-4">${course.description || 'Trọn đời • Chất lượng cao'}</p>
+            ${course.price ? `<p class="text-lg font-bold text-primary">${course.price.toLocaleString()}đ</p>` : ''}
+          </div>
+          <button onclick="window.location.href='vstep-reading.html?id=${course.id}'"
+                  class="mt-6 w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
             Vào học ngay
-          </a>
+          </button>
         </div>
       </div>
     `;
-  }).join("");
+    container.appendChild(card);
+  });
 }
 
-/* ================= INIT ================= */
-document.addEventListener("DOMContentLoaded", async () => {
-  await renderHeaderUser();
-  await renderMyCourses();
-});
-</script>
+    // Khởi chạy
+    window.addEventListener('load', () => {
+      updateUserUI();
+      loadMyCourses();
+    });
 
+    supabaseClient.auth.onAuthStateChange(() => {
+      updateUserUI();
+      loadMyCourses();
+    });
+
+    // Modal events
+    document.getElementById('activate-modal')?.addEventListener('click', e => {
+      if (e.target.id === 'activate-modal') closeActivateModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeActivateModal();
+    });
+  </script>
 </body>
 </html>
