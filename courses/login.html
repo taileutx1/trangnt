@@ -124,19 +124,18 @@
     redirect();
   };
 
-  // Đăng nhập bằng Google (SỬA LẠI ĐÚNG)
   document.getElementById("googleBtn").onclick = async () => {
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: window.location.origin + "/trangnt/courses/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
-      },
-    });
-
-    if (error) {
-      showMsg(error.message, true);
+  const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin + "/trangnt/courses/index1.html"  // THÊM /trangnt/
     }
-  };
+  });
+
+  if (error) {
+    showMsg(error.message, true);
+  }
+};
 
   // Kiểm tra session hiện tại khi load trang
   supabaseClient.auth.getSession().then(({ data }) => {
