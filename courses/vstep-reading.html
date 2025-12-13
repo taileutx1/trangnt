@@ -126,27 +126,89 @@
   <script>
     const { createClient } = supabase;
     const supabaseClient = createClient('https://wdpekgcqmwpvbfyonjih.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU');
+    // Xử lý session & update header user (bắt buộc cho mọi trang có header auth)
+    async function updateUserUI() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      const user = session?.user;
 
+      if (user) {
+        const name = user.user_metadata?.full_name || user.email.split('@')[0];
+        const email = user.email;
+        const avatar = user.user_metadata?.picture || user.user_metadata?.avatar_url || 'https://via.placeholder.com/40';
+
+        // Desktop
+        document.getElementById('desktop-username').textContent = name;
+        document.getElementById('desktop-email').textContent = email;
+        document.getElementById('desktop-user-avatar').src = avatar;
+        document.getElementById('desktop-user-info').classList.remove('hidden');
+        document.getElementById('desktop-login-btn')?.classList.add('hidden');
+
+        // Mobile
+        document.getElementById('mobile-username').textContent = name;
+        document.getElementById('mobile-user-avatar').src = avatar;
+        document.getElementById('mobile-user-info').classList.remove('hidden');
+        document.getElementById('mobile-user-menu').classList.remove('hidden');
+        document.getElementById('mobile-login-btn')?.classList.add('hidden');
+      } else {
+        document.getElementById('desktop-user-info').classList.add('hidden');
+        document.getElementById('desktop-login-btn')?.classList.remove('hidden');
+        document.getElementById('mobile-user-info')?.classList.add('hidden');
+        document.getElementById('mobile-user-menu')?.classList.add('hidden');
+        document.getElementById('mobile-login-btn')?.classList.remove('hidden');
+      }
+    }
+
+    // Xử lý hash OAuth (nếu có)
+    supabaseClient.auth.getSession().then(() => updateUserUI());
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+      updateUserUI();
+    });
+
+    // Đăng xuất
+    function logout() {
+      supabaseClient.auth.signOut().then(() => location.reload());
+    }
     let currentTestId = null;
     let passages = []; // [{passage, questions}]
     let timeLeft = 3600;
     let timerInterval;
 
     // Load danh sách đề thi
-    async function loadTests() {
-      const { data: tests } = await supabaseClient.from('tests').select('id, title');
-      const list = document.getElementById('test-list');
-      list.innerHTML = '';
-      tests.forEach(test => {
-        const card = document.createElement('div');
-        card.className = 'bg-white rounded-3xl shadow-2xl p-8 text-center cursor-pointer hover:scale-105 transition';
-        card.innerHTML = `<h3 class="text-2xl font-black text-primary mb-4">${test.title}</h3>
-                          <button class="px-8 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold">Làm bài</button>`;
-        card.onclick = () => startTest(test.id, test.title);
-        list.appendChild(card);
-      });
-    }
+       async function loadTests() {
+      try {
+        const { data: tests, error } = await supabaseClient.from('tests').select('id, title');
+        
+        if (error) {
+          console.error('Lỗi load đề thi:', error);
+          document.getElementById('test-list').innerHTML = `
+            <div class="col-span-full text-center py-20">
+              <p class="text-2xl text-gray-600">Không tải được đề thi. Vui lòng đăng nhập hoặc thử lại sau.</p>
+              <button onclick="location.reload()" class="mt-4 px-8 py-4 bg-primary text-white rounded-xl font-bold">Thử lại</button>
+            </div>`;
+          return;
+        }
 
+        if (!tests || tests.length === 0) {
+          document.getElementById('test-list').innerHTML = '<p class="col-span-full text-center text-2xl text-gray-600">Chưa có đề thi nào</p>';
+          return;
+        }
+
+        const list = document.getElementById('test-list');
+        list.innerHTML = '';
+        tests.forEach(test => {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-3xl shadow-2xl p-8 text-center cursor-pointer hover:scale-105 transition';
+          card.innerHTML = `<h3 class="text-2xl font-black text-primary mb-4">${test.title}</h3>
+                            <button class="px-8 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold">Làm bài</button>`;
+          card.onclick = () => startTest(test.id, test.title);
+          list.appendChild(card);
+        });
+      } catch (err) {
+        console.error('Lỗi bất ngờ:', err);
+        document.getElementById('test-list').innerHTML = '<p class="text-red-600 text-center">Lỗi kết nối. Kiểm tra console.</p>';
+      }
+    }
     // Bắt đầu bài thi
     async function startTest(testId, title) {
       currentTestId = testId;
@@ -264,6 +326,11 @@
 
     // Load danh sách đề khi mở trang
     loadTests();
+        // Khởi chạy khi load trang
+    window.addEventListener('load', () => {
+      updateUserUI();
+      loadTests();
+    });
   </script>
 </body>
 </html>
