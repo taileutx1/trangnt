@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Học VSTEP Reading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body class="bg-gray-100 h-screen overflow-hidden">
+
+<div class="flex h-full">
+
+  <!-- SIDEBAR -->
+  <aside class="w-80 bg-white border-r overflow-y-auto">
+    <div class="p-6 font-black text-xl border-b">📘 VSTEP Reading</div>
+    <ul id="lesson-list" class="px-4 py-4 space-y-1"></ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 flex flex-col">
+
+    <!-- VIDEO -->
+    <div class="bg-black aspect-video">
+      <iframe
+        id="lesson-video"
+        class="w-full h-full"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="p-8 flex-1 overflow-y-auto">
+      <h1 id="lesson-title" class="text-3xl font-black mb-4"></h1>
+
+      <div id="lesson-content"
+           class="prose max-w-none text-gray-700">
+      </div>
+
+      <button id="complete-btn"
+        class="mt-10 bg-indigo-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-indigo-700 transition">
+        ✔ Hoàn thành bài học
+      </button>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const COURSE_SLUG = "vstep-reading";
+let LESSONS = [];
+let CURRENT_LESSON = null;
+
+/* ================= INIT ================= */
+document.addEventListener("DOMContentLoaded", initCoursePage);
+
+async function initCoursePage() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return location.href = "login.html";
+
+  // 1️⃣ Lấy course
+  const { data: course, error: cErr } = await supabase
+    .from("courses")
+    .select("id, title")
+    .eq("slug", COURSE_SLUG)
+    .single();
+
+  if (cErr) return alert("Không tìm thấy khóa học");
+
+  // 2️⃣ Check sở hữu
+  const { data: owned } = await supabase
+    .from("user_courses")
+    .select("id")
+    .eq("course_id", course.id)
+    .eq("user_id", user.id)
+    .single();
+
+  if (!owned) {
+    alert("Bạn chưa sở hữu khóa học này");
+    return location.href = "index.html";
+  }
+
+  // 3️⃣ Load lessons
+  const { data: lessons } = await supabase
+    .from("lessons")
+    .select("id, title, slug, video_url, content")
+    .eq("course_id", course.id)
+    .order("order_index");
+
+  LESSONS = lessons || [];
+  renderLessonList();
+  loadLessonFromURL();
+}
+
+/* ================= RENDER ================= */
+function renderLessonList() {
+  const ul = document.getElementById("lesson-list");
+
+  ul.innerHTML = LESSONS.map(l => `
+    <li>
+      <a href="?lesson=${l.slug}"
+         class="lesson-link block px-4 py-3 rounded-xl hover:bg-indigo-50 transition"
+         data-slug="${l.slug}">
+        ${l.title}
+      </a>
+    </li>
+  `).join("");
+}
+
+/* ================= LOAD LESSON ================= */
+function loadLessonFromURL() {
+  const slug =
+    new URLSearchParams(location.search).get("lesson")
+    || LESSONS[0]?.slug;
+
+  const lesson = LESSONS.find(l => l.slug === slug);
+  if (!lesson) return;
+
+  CURRENT_LESSON = lesson;
+
+  document.getElementById("lesson-title").textContent = lesson.title;
+  document.getElementById("lesson-content").innerHTML = lesson.content || "";
+  document.getElementById("lesson-video").src = lesson.video_url || "";
+
+  highlightActiveLesson(slug);
+}
+
+/* ================= UI ================= */
+function highlightActiveLesson(slug) {
+  document.querySelectorAll(".lesson-link").forEach(a => {
+    a.classList.toggle(
+      "bg-indigo-100 font-bold text-indigo-700",
+      a.dataset.slug === slug
+    );
+  });
+}
+
+/* ================= COMPLETE ================= */
+document.getElementById("complete-btn").onclick = async () => {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!CURRENT_LESSON) return;
+
+  await supabase.from("lesson_progress").upsert({
+    user_id: user.id,
+    lesson_id: CURRENT_LESSON.id,
+    completed: true,
+    completed_at: new Date()
+  });
+
+  alert("🎉 Đã lưu tiến độ bài học!");
+};
+</script>
+
+</body>
+</html>

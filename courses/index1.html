@@ -36,22 +36,51 @@
     .price-new { @apply text-3xl font-bold text-primary; }
     .discount-tag { @apply bg-green-500 text-white font-bold px-4 py-1 rounded-full text-sm; }
 
-    .modal-overlay {
-      @apply fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center px-4 hidden;
-    }
-    .modal-overlay.active { @apply flex; }
-    .modal-box { @apply bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md text-center; }
+  
 
     .hamburger.active .bar:nth-child(1) { @apply rotate-45 translate-y-2; }
     .hamburger.active .bar:nth-child(2) { @apply opacity-0; }
     .hamburger.active .bar:nth-child(3) { @apply -rotate-45 -translate-y-2; }
+    /* Avatar đẹp hơn */
+.user-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  padding: 2px;
+  background: linear-gradient(135deg, #ec4899, #f472b6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .dropdown-menu {
-      @apply absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 hidden;
-    }
-    .dropdown-menu a, .dropdown-menu button {
-      @apply block w-full text-left px-4 py-3 text-gray-800 hover:bg-pink-100 transition;
-    }
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: white;
+}
+
+.user-avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.45);
+}
+
+/* Dropdown mượt & cao cấp hơn */
+.dropdown-menu {
+  border-radius: 16px;
+  overflow: hidden;
+  animation: dropdownFade 0.25s ease;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   </style>
 </head>
 
@@ -61,50 +90,49 @@
   <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
     <div class="container mx-auto px-4 py-5">
       <div class="flex justify-between items-center">
-        <a href="../index.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
+        <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
 
-      <!-- Desktop Nav -->
-<nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
-  <a href="index.html" class="hover:opacity-80 transition">Trang chủ</a>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+          <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
 
-  <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
-    Khóa học của tôi
-  </button>
+          <button onclick="goMyCourses()" 
+  class="hover:opacity-80 transition font-semibold">
+  Khóa học của tôi
+</button>
 
-  <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
-    Kích hoạt mã
-  </button>
+          <button onclick="openActivateModal()" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+            Kích hoạt mã
+          </button>
 
-  <!-- Khi chưa đăng nhập: hiện Đăng nhập -->
-  <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
-          class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
-    Đăng nhập
-  </button>
+          <!-- Nút Đăng nhập (khi chưa login) -->
+          <button id="desktop-login-btn" onclick="window.location.href='login.html'" 
+                  class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">
+            Đăng nhập
+          </button>
 
-  <!-- Khi đã đăng nhập: hiện Khóa học của tôi -->
-  <button id="desktop-my-courses-btn" onclick="window.location.href='my-courses.html'" 
-          class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition hidden">
-    Khóa học của tôi
-  </button>
+          <div id="desktop-user-info" class="hidden relative">
+            <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
+              <div class="user-avatar">
+                <img id="desktop-user-avatar" src="" alt="Avatar">
+              </div>
+            </button>
+          
+            <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+              <div class="px-5 py-4 border-b border-pink-100">
+                <p class="font-bold text-primary" id="desktop-username"></p>
+                <p class="text-sm text-gray-600 mt-1 truncate">{{email}}</p>
+              </div>
+              <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">
+                Đăng xuất
+              </button>
+            </div>
+          
+  
 
-  <!-- Dropdown tài khoản khi đã login -->
-  <div class="relative hidden" id="desktop-user-menu">
-    <button onclick="toggleDropdown('desktop-dropdown')" class="flex items-center space-x-2 hover:opacity-80">
-      <span id="desktop-username">Tài khoản</span>
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </button>
-    <div id="desktop-dropdown" class="dropdown-menu">
-      <a href="my-courses.html">Khóa học của tôi</a>
-      <hr class="my-2 border-gray-200">
-      <button onclick="logout()">Đăng xuất</button>
-    </div>
-  </div>
-</nav>
 
         <!-- Mobile Hamburger -->
-        <button class="md:hidden hamburger flex flex-col space-y-1.5" aria-label="Mở menu" onclick="toggleMobileMenu()">
+        <button class="md:hidden hamburger flex flex-col space-y-1.5" onclick="toggleMobileMenu()">
           <span class="bar block w-8 h-1 bg-white transition"></span>
           <span class="bar block w-8 h-1 bg-white transition"></span>
           <span class="bar block w-8 h-1 bg-white transition"></span>
@@ -114,27 +142,35 @@
       <!-- Mobile Menu -->
       <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden">
         <a href="index.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+        <button onclick="goMyCourses(); toggleMobileMenu()" 
+  class="block text-left py-2 text-lg hover:opacity-80">
+  Khóa học của tôi
+</button>
 
+
+        <!-- Thông tin người dùng khi đã login (mobile) -->
+        <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+          <div class="user-avatar">
+            <img id="mobile-user-avatar" src="" alt="Avatar">
+          </div>
+          
+          <div class="flex-1">
+            <p id="mobile-username" class="text-white font-semibold"></p>
+          </div>
+        </div>
+
+        <!-- Nút Đăng nhập (mobile) -->
         <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" 
                 class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
           Đăng nhập
         </button>
 
-        <button id="mobile-my-courses-btn" onclick="window.location.href='my-courses.html'; toggleMobileMenu()" 
-                class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100 hidden">
-          Khóa học của tôi
-        </button>
-
-        <div class="hidden" id="mobile-user-menu">
-          <button onclick="toggleDropdown('mobile-dropdown')" class="flex justify-between items-center w-full text-lg py-2">
-            <span id="mobile-username">Tài khoản</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        <!-- Menu tài khoản khi đã login (mobile) -->
+        <div id="mobile-user-menu" class="hidden space-y-2">
+        
+          <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">
+            Đăng xuất
           </button>
-          <div id="mobile-dropdown" class="dropdown-menu mt-2">
-            <a href="my-courses.html">Khóa học của tôi</a>
-            <hr class="my-2 border-gray-200">
-            <button onclick="logout(); toggleMobileMenu()">Đăng xuất</button>
-          </div>
         </div>
 
         <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
@@ -143,20 +179,6 @@
       </nav>
     </div>
   </header>
-  <div id="user-box" class="flex items-center gap-3">
-    <img id="user-avatar"
-         class="w-10 h-10 rounded-full border"
-         src=""
-         alt="Avatar">
-  
-    <span id="user-name" class="font-semibold text-gray-700"></span>
-  
-    <button id="logoutBtn"
-      class="ml-2 text-sm text-red-500 hover:underline">
-      Đăng xuất
-    </button>
-  </div>
-  
 
   <!-- MAIN CONTENT -->
   <main class="container mx-auto px-4 py-12">
@@ -167,275 +189,265 @@
       
       <!-- SEARCH BAR -->
       <div class="max-w-3xl mx-auto mb-12">
-        <label for="search-input" class="sr-only">Tìm kiếm khóa học</label>
         <input type="text" id="search-input" placeholder="Tìm kiếm khóa học..." 
                class="w-full px-6 py-4 rounded-2xl border-2 border-pink-200 focus:border-primary focus:outline-none text-lg shadow-lg"
                oninput="filterCourses()">
       </div>
- <!-- COURSE GRID -->
-<div id="course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
-  <!-- CARD KHÓA HỌC - CÓ NÚT "MUA NGAY" RÕ RÀNG -->
-  <a href="checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block transform transition-all duration-300 hover:scale-105">
-    <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-pink-100 h-full flex flex-col">
+      <!-- COURSE GRID -->
+      <div id="course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
-      <!-- Badges -->
-      <div class="absolute top-4 left-4 z-10">
-        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">
-          -80%
-        </span>
-      </div>
-      <div class="absolute top-4 right-4 z-10">
-        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">
-          HOT
-        </span>
-      </div>
+        <!-- Ví dụ 1 khóa học -->
+        <a href="checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block">
+          <div class="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-pink-100 h-full flex flex-col">
 
-      <!-- Hình ảnh -->
-      <div class="relative overflow-hidden">
-        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
-             alt="Khóa học VSTEP Reading Online"
-             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      </div>
+            <div class="absolute top-4 left-4 z-10">
+              <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+            </div>
+            <div class="absolute top-4 right-4 z-10">
+              <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+            </div>
 
-      <!-- Nội dung -->
-      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
-        <div>
-          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 leading-tight group-hover:text-primary transition">
-            Khóa học VSTEP Reading Online
-          </h3>
-          <p class="text-gray-600 text-sm mb-4">
-            Trọn đời • 120+ bài giảng chất lượng cao
-          </p>
-        </div>
+            <div class="relative overflow-hidden">
+              <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
+                   alt="Khóa học VSTEP Reading Online"
+                   class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110">
+            </div>
 
-        <div class="space-y-3">
-          <div class="text-left">
-            <span class="text-gray-400 line-through text-lg">999.000đ</span>
-            <p class="text-3xl font-black text-primary">199.000đ</p>
+            <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+              <div>
+                <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition">
+                  Khóa học VSTEP Reading Online
+                </h3>
+                <p class="text-gray-600 text-sm mb-4">Trọn đời • 120+ bài giảng chất lượng cao</p>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <span class="text-gray-400 line-through text-lg">999.000đ</span>
+                  <p class="text-3xl font-black text-primary">199.000đ</p>
+                </div>
+                <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                  Mua ngay
+                </button>
+              </div>
+            </div>
           </div>
+        </a>
 
-          <!-- NÚT MUA NGAY - NỔI BẬT NHẤT -->
-          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300">
-            Mua ngay
-          </button>
-        </div>
+        <!-- Thêm các khóa học khác ở đây -->
+
       </div>
-
-      <!-- Hiệu ứng viền sáng khi hover -->
-      <div class="absolute inset-0 rounded-3xl ring-4 ring-transparent group-hover:ring-primary/40 pointer-events-none transition-all duration-500"></div>
-    </div>
-  </a>
-
-  <!-- Bạn có thể copy nguyên block <a>...</a> này để thêm các khóa học khác -->
-  
-</div>
-
-
 
       <div id="empty-state" class="text-center py-32 text-gray-500 hidden">
         <p class="text-3xl mb-6">Không tìm thấy khóa học nào phù hợp 😔</p>
-        <a href="index.html" class="text-primary text-xl underline hover:opacity-80">Quay về trang chủ</a>
+        <a href="index1.html" class="text-primary text-xl underline hover:opacity-80">Quay về trang chủ</a>
       </div>
     </section>
   </main>
 
- 
+  <!-- MODAL KÍCH HOẠT MÃ -->
+  <div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+      <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+      <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt"
+             class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
+      <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+      <div class="flex gap-3">
+        <button onclick="activateCode()" class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">
+          Kích hoạt
+        </button>
+        <button onclick="closeActivateModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/app.js"></script>
-
   <script>
-    // Mobile menu toggle
+    const { createClient } = supabase;
+
+const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+
+const supabaseClient = createClient(
+  SUPABASE_URL, 
+  SUPABASE_ANON_KEY
+);
+    // Toggle mobile menu
     function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const hamburger = document.querySelector('.hamburger');
-      menu.classList.toggle('hidden');
-      hamburger.classList.toggle('active');
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+      document.querySelector('.hamburger').classList.toggle('active');
     }
 
-    // Dropdown toggle
+    // Toggle dropdown
     function toggleDropdown(id) {
       document.getElementById(id).classList.toggle('hidden');
     }
 
-    // Giả lập logout
-    function logout() {
-      localStorage.removeItem('user');
-      updateUserUI();
+    // Logout
+    async function logout() {
+      await supabaseClient.auth.signOut();
+      window.location.reload();
     }
 
-    // Cập nhật giao diện theo trạng thái đăng nhập
-    function updateUserUI() {
-      const user = localStorage.getItem('user'); // sau này thay bằng Supabase auth
-
-      if (user) {
-        // Đã đăng nhập
-        document.getElementById('desktop-login-btn').classList.add('hidden');
-        document.getElementById('mobile-login-btn').classList.add('hidden');
-
-        document.getElementById('desktop-my-courses-btn').classList.remove('hidden');
-        document.getElementById('mobile-my-courses-btn').classList.remove('hidden');
-
-        document.getElementById('desktop-user-menu').classList.remove('hidden');
-        document.getElementById('mobile-user-menu').classList.remove('hidden');
-
-        document.getElementById('desktop-username').textContent = 'Nguyễn Văn A'; // thay bằng tên thật
-        document.getElementById('mobile-username').textContent = 'Nguyễn Văn A';
-      } else {
-        // Chưa đăng nhập
-        document.getElementById('desktop-login-btn').classList.remove('hidden');
-        document.getElementById('mobile-login-btn').classList.remove('hidden');
-
-        document.getElementById('desktop-my-courses-btn').classList.add('hidden');
-        document.getElementById('mobile-my-courses-btn').classList.add('hidden');
-
-        document.getElementById('desktop-user-menu').classList.add('hidden');
-        document.getElementById('mobile-user-menu').classList.add('hidden');
-      }
-    }
-
-    // Modal kích hoạt
+    // Modal kích hoạt mã
     function openActivateModal() {
-      document.getElementById('activate-modal').classList.add('active');
+      document.getElementById('activate-modal').classList.remove('hidden');
+      document.getElementById('activate-modal').classList.add('flex');
       document.body.style.overflow = 'hidden';
       document.getElementById('activate-code').focus();
     }
+
     function closeActivateModal() {
-      document.getElementById('activate-modal').classList.remove('active');
+      document.getElementById('activate-modal').classList.add('hidden');
+      document.getElementById('activate-modal').classList.remove('flex');
       document.body.style.overflow = '';
       document.getElementById('activate-code').value = '';
       document.getElementById('activate-message').textContent = '';
     }
-    // Đóng modal khi nhấn ESC hoặc click ngoài
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeActivateModal(); });
+
     document.getElementById('activate-modal').addEventListener('click', e => {
-      if (e.target === document.getElementById('activate-modal')) closeActivateModal();
+      if (e.target.id === 'activate-modal') closeActivateModal();
     });
 
-    // Hàm kích hoạt mã (giả lập)
-    function activateCode() {
-      const code = document.getElementById('activate-code').value.trim();
-      if (code === '') {
-        document.getElementById('activate-message').textContent = 'Vui lòng nhập mã kích hoạt!';
-      } else {
-        document.getElementById('activate-message').textContent = 'Kích hoạt thành công! (giả lập)';
-        setTimeout(closeActivateModal, 1500);
-      }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeActivateModal();
+    });
+    async function activateCode() {
+  const code = document.getElementById('activate-code').value.trim();
+  const msg = document.getElementById('activate-message');
+
+  if (!code) {
+    msg.textContent = 'Vui lòng nhập mã kích hoạt!';
+    msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+    return;
+  }
+
+  msg.textContent = 'Đang kiểm tra mã...';
+  msg.className = 'text-sm mb-4 text-gray-600 min-h-[20px]';
+
+  try {
+    const { data, error } = await supabaseClient.rpc('activate_course_code', { p_code: code });
+
+    if (error) {
+      console.error('RPC Error:', error);
+      msg.textContent = 'Lỗi hệ thống, vui lòng thử lại sau!';
+      msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+      return;
     }
 
-    // Tìm kiếm client-side
+    switch (data) {
+      case 'SUCCESS':
+        msg.textContent = '🎉 Kích hoạt thành công! Đang chuyển đến khóa học...';
+        msg.className = 'text-sm mb-4 text-green-600 font-bold min-h-[20px]';
+        setTimeout(() => {
+          closeActivateModal();
+          window.location.href = 'my-courses.html';
+        }, 1500);
+        break;
+
+      case 'NOT_LOGGED_IN':
+        msg.textContent = 'Bạn cần đăng nhập trước khi kích hoạt mã!';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        setTimeout(() => {
+          closeActivateModal();
+          window.location.href = 'login.html';
+        }, 2000);
+        break;
+
+      case 'INVALID_CODE':
+        msg.textContent = 'Mã kích hoạt không hợp lệ!';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        break;
+
+      case 'CODE_USED':
+        msg.textContent = 'Mã này đã được sử dụng rồi!';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+        break;
+
+      default:
+        msg.textContent = 'Có lỗi không xác định. Vui lòng thử lại.';
+        msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    msg.textContent = 'Lỗi kết nối, vui lòng kiểm tra mạng!';
+    msg.className = 'text-sm mb-4 text-red-500 min-h-[20px]';
+  }
+}
+
+    // Tìm kiếm khóa học
     function filterCourses() {
       const query = document.getElementById('search-input').value.toLowerCase().trim();
-      const cards = document.querySelectorAll('#course-list .course-card');
-      let visibleCount = 0;
-
+      const cards = document.querySelectorAll('#course-list > a');
+      let visible = 0;
       cards.forEach(card => {
-        const title = card.getAttribute('data-title').toLowerCase();
+        const title = card.querySelector('h3').textContent.toLowerCase();
         if (title.includes(query)) {
           card.style.display = '';
-          visibleCount++;
+          visible++;
         } else {
           card.style.display = 'none';
         }
       });
-
-      document.getElementById('empty-state').classList.toggle('hidden', visibleCount > 0);
+      document.getElementById('empty-state').classList.toggle('hidden', visible > 0);
     }
 
-    // Khởi tạo
-    updateUserUI();
+    // Cập nhật giao diện theo trạng thái đăng nhập
+    async function updateUserUI() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+
+      if (!user) {
+        // Chưa đăng nhập
+        document.getElementById('desktop-login-btn').classList.remove('hidden');
+        document.getElementById('mobile-login-btn').classList.remove('hidden');
+        document.getElementById('desktop-user-info').classList.add('hidden');
+        document.getElementById('mobile-user-info').classList.add('hidden');
+        document.getElementById('mobile-user-menu').classList.add('hidden');
+        return;
+      }
+
+      // Đã đăng nhập
+      const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+      const avatar = user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ec4899&color=fff&bold=true`;
+
+      // Desktop
+      document.getElementById('desktop-login-btn').classList.add('hidden');
+      document.getElementById('desktop-user-info').classList.remove('hidden');
+      document.getElementById('desktop-username').textContent = name;
+      document.getElementById('desktop-user-avatar').src = avatar;
+
+      // Mobile
+      document.getElementById('mobile-login-btn').classList.add('hidden');
+      document.getElementById('mobile-user-info').classList.remove('hidden');
+      document.getElementById('mobile-user-menu').classList.remove('hidden');
+      document.getElementById('mobile-username').textContent = name;
+      document.getElementById('mobile-user-avatar').src = avatar;
+    }
+
+    // Khởi chạy khi trang tải xong
+    window.addEventListener('load', updateUserUI);
+
+    // Lắng nghe thay đổi auth (ví dụ: đăng nhập từ trang khác)
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      updateUserUI();
+    });
   </script>
-  <!-- MODAL KÍCH HOẠT MÃ -->
-<div id="activate-modal"
-class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
-
-<div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
-
-<h2 class="text-2xl font-black mb-4 text-gray-800">
- Kích hoạt khóa học
-</h2>
-
-<input id="activate-code"
-      type="text"
-      placeholder="Nhập mã kích hoạt"
-      class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
-
-<p id="activate-message" class="text-sm mb-4 text-red-500"></p>
-
-<div class="flex gap-3">
- <button onclick="activateCode()"
-         class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">
-   Kích hoạt
- </button>
-
- <button onclick="closeActivateModal()"
-         class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">
-   Hủy
- </button>
-</div>
-
-</div>
-</div>
-<script>
-function openActivateModal() {
-  const modal = document.getElementById('activate-modal');
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeActivateModal() {
-  const modal = document.getElementById('activate-modal');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
-  document.body.style.overflow = '';
-  document.getElementById('activate-code').value = '';
-  document.getElementById('activate-message').textContent = '';
-}
-
-/* Đóng khi click ra ngoài */
-document.getElementById('activate-modal').addEventListener('click', e => {
-  if (e.target.id === 'activate-modal') {
-    closeActivateModal();
-  }
-});
-
-/* Đóng khi bấm ESC */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeActivateModal();
-});
-</script>
-<script>
-  async function loadUserInfo() {
-    const { data } = await supabase.auth.getUser();
-    const user = data.user;
+  <script>
+    async function goMyCourses() {
+      const { data: { user } } = await supabaseClient.auth.getUser();
   
-    if (!user) return;
-  
-    // Lấy tên + avatar Google
-    const name =
-      user.user_metadata?.full_name ||
-      user.user_metadata?.name ||
-      user.email;
-  
-    const avatar =
-      user.user_metadata?.avatar_url ||
-      "https://ui-avatars.com/api/?name=" + encodeURIComponent(name);
-  
-    document.getElementById("user-name").textContent = name;
-    document.getElementById("user-avatar").src = avatar;
-  }
-  
-  // Logout
-  document.getElementById("logoutBtn").onclick = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/login.html";
-  };
-  
-  loadUserInfo();
+      if (!user) {
+        // Chưa login → về login
+        window.location.href = "login.html";
+      } else {
+        // Đã login → khóa học của tôi
+        window.location.href = "my-courses.html";
+      }
+    }
   </script>
   
 </body>

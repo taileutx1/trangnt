@@ -2,11 +2,11 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Khóa học của tôi - TAILIEUTX1</title>
-  <meta name="description" content="Danh sách các khóa học bạn đã kích hoạt">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Danh sách khóa học bạn đã kích hoạt">
 
-  <!-- Tailwind CDN + Config đẹp hơn -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,102 +21,168 @@
     }
   </script>
 
-  <!-- Supabase + App JS -->
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/app.js" defer></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
 
-  <!-- HEADER -->
-  <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold tracking-wider">TAILIEUTX1</a>
-      <div id="header-user" class="flex items-center space-x-4"></div>
-    </div>
-  </header>
+<!-- HEADER -->
+<header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+    <a href="index1.html" class="text-2xl font-black tracking-wider">
+      TAILIEUTX1
+    </a>
+    <div id="user-box" class="flex items-center gap-4"></div>
+  </div>
+</header>
 
-  <!-- MAIN CONTENT -->
-  <main class="container mx-auto px-4 py-10 max-w-7xl">
-    <div class="flex justify-between items-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-800">Khóa học của tôi</h1>
-      <a href="index.html" class="text-primary hover:underline font-medium">
-        ← Quay lại mua thêm
-      </a>
-    </div>
+<!-- MAIN -->
+<main class="container mx-auto px-4 py-10 max-w-7xl">
 
-    <!-- COURSE GRID -->
-    <div id="my-courses-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-      <!-- JS sẽ tự động đổ dữ liệu vào đây -->
-    </div>
+  <div class="flex justify-between items-center mb-10">
+    <h1 class="text-4xl font-black text-gray-800">Khóa học của tôi</h1>
+    <a href="index1.html" class="text-primary font-semibold hover:underline">
+      ← Mua thêm khóa học
+    </a>
+  </div>
 
-    <!-- TRẠNG THÁI RỖNG -->
-    <div id="empty-state" class="text-center py-20 hidden">
-      <div class="max-w-md mx-auto">
-        <img src="images/empty-courses.svg" alt="Chưa có khóa học" class="w-64 mx-auto mb-8 opacity-70">
-        <p class="text-2xl font-semibold text-gray-700 mb-4">Bạn chưa sở hữu khóa học nào</p>
-        <p class="text-gray-500 mb-8">Hãy kích hoạt mã hoặc mua khóa học để bắt đầu hành trình chinh phục kiến thức!</p>
-        <a href="index.html" class="inline-block bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-hover transition shadow-lg">
-          Xem khóa học ngay
-        </a>
-      </div>
-    </div>
+  <!-- LOADING -->
+  <div id="loading-state" class="text-center py-24">
+    <div class="inline-block animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full"></div>
+    <p class="mt-4 text-gray-600 text-lg">Đang tải khóa học của bạn...</p>
+  </div>
 
-    <!-- LOADING STATE -->
-    <div id="loading-state" class="text-center py-20">
-      <div class="inline-block animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full"></div>
-      <p class="mt-4 text-gray-600">Đang tải khóa học của bạn...</p>
-    </div>
-  </main>
+  <!-- EMPTY -->
+  <div id="empty-state" class="hidden text-center py-24">
+    <p class="text-2xl font-bold text-gray-700 mb-4">
+      Bạn chưa sở hữu khóa học nào
+    </p>
+    <a href="index1.html"
+       class="inline-block bg-primary text-white px-10 py-4 rounded-xl font-bold hover:bg-primary-hover transition shadow-lg">
+      Xem khóa học
+    </a>
+  </div>
+
+  <!-- COURSE LIST -->
+  <div id="my-courses-list"
+       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+  </div>
+
+</main>
 
 <script>
-// ==================== RENDER KHÓA HỌC CỦA TÔI – PHIÊN BẢN HOÀN HẢO ====================
-async function renderMyCourses() {
-  const listEl = document.getElementById("my-courses-list");
-  const emptyEl = document.getElementById("empty-state");
-  const loadingEl = document.getElementById("loading-state");
+/* ================= SUPABASE INIT ================= */
+const { createClient } = supabase;
 
-  const { data: { user } } = await supabase.auth.getUser();
+const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_ANON_KEY_HERE";
+
+const supabaseClient = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true
+    }
+  }
+);
+
+/* ================= AUTH HELPERS ================= */
+async function getCurrentUser() {
+  const { data } = await supabaseClient.auth.getSession();
+  return data.session?.user || null;
+}
+
+async function logout() {
+  await supabaseClient.auth.signOut();
+  location.href = "login.html";
+}
+
+/* ================= HEADER USER ================= */
+async function renderHeaderUser() {
+  const box = document.getElementById("user-box");
+  const user = await getCurrentUser();
+
   if (!user) {
     location.href = "login.html";
     return;
   }
 
-  const stored = localStorage.getItem("myCourses_" + user.id);
-  const myCourses = stored ? JSON.parse(stored) : [];
+  const name =
+    user.user_metadata?.full_name ||
+    user.user_metadata?.name ||
+    user.email.split("@")[0];
 
-  // Ẩn loading
+  box.innerHTML = `
+    <span class="font-semibold">${name}</span>
+    <button onclick="logout()"
+      class="bg-white/20 px-4 py-2 rounded-lg font-semibold hover:bg-white/30 transition">
+      Đăng xuất
+    </button>
+  `;
+}
+
+/* ================= LOAD COURSES ================= */
+async function renderMyCourses() {
+  const listEl = document.getElementById("my-courses-list");
+  const emptyEl = document.getElementById("empty-state");
+  const loadingEl = document.getElementById("loading-state");
+
+  loadingEl.classList.remove("hidden");
+  emptyEl.classList.add("hidden");
+  listEl.innerHTML = "";
+
+  const user = await getCurrentUser();
+  if (!user) return;
+
+  const { data, error } = await supabaseClient
+    .from("user_courses")
+    .select(`
+      progress,
+      courses (
+        id,
+        title,
+        image,
+        slug
+      )
+    `)
+    .eq("user_id", user.id);
+
   loadingEl.classList.add("hidden");
 
-  if (!myCourses || myCourses.length === 0) {
+  if (error || !data || data.length === 0) {
     emptyEl.classList.remove("hidden");
     return;
   }
 
-  emptyEl.classList.add("hidden");
-
-  listEl.innerHTML = myCourses.map(item => {
-    const course = window.courses[item.id];
-    if (!course) return "";
-
+  listEl.innerHTML = data.map(item => {
+    const c = item.courses;
     const progress = item.progress || 0;
 
     return `
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2">
-        <div class="relative">
-          <img src="${course.image || 'images/default-course.jpg'}" 
-               alt="${course.title}" class="w-full h-56 object-cover">
-          <div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
-            ${progress}% hoàn thành
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1">
+        <img src="${c.image || 'images/default-course.jpg'}"
+             class="w-full h-56 object-cover">
+
+        <div class="p-6 flex flex-col h-full">
+          <h3 class="font-black text-xl text-gray-800 mb-4 line-clamp-2">
+            ${c.title}
+          </h3>
+
+          <div class="mb-4">
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div class="bg-primary h-3 rounded-full"
+                   style="width:${progress}%"></div>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">
+              Hoàn thành ${progress}%
+            </p>
           </div>
-        </div>
-        <div class="p-6">
-          <h3 class="font-bold text-xl text-gray-800 mb-2 line-clamp-2">${course.title}</h3>
-          <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-            <div class="bg-primary h-3 rounded-full transition-all duration-500" style="width: ${progress}%"></div>
-          </div>
-          <a href="course-toan-hamso.html?course=${course.id}" 
-             class="block text-center bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary-hover transition">
+
+          <a href="course-${c.slug}.html"
+             class="mt-auto block text-center bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-hover transition">
             Vào học ngay
           </a>
         </div>
@@ -125,10 +191,10 @@ async function renderMyCourses() {
   }).join("");
 }
 
-// ==================== KHỞI ĐỘNG ====================
+/* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", async () => {
-  await initAuth();        // hàm này nằm trong app.js
-  renderMyCourses();
+  await renderHeaderUser();
+  await renderMyCourses();
 });
 </script>
 

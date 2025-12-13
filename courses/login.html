@@ -51,77 +51,81 @@
     <p id="message" class="text-center font-medium"></p>
   </div>
 </div>
-
-<!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ================== CONFIG ================== */
-const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
-const SUPABASE_KEY = "sb_publishable_c_8MhuPqqpbgrw11AdA_ew_EK1iUlbp";
+  // Lấy namespace đúng cho CDN
+  const { createClient } = supabase;
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU"; // anon public key
 
-/* ================== ELEMENTS ================== */
-const emailEl = document.getElementById("email");
-const passEl  = document.getElementById("password");
-const msgEl   = document.getElementById("message");
+  const supabaseClient = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
-/* ================== LOGIN EMAIL ================== */
-document.getElementById("loginBtn").onclick = async () => {
-  const email = emailEl.value.trim();
-  const password = passEl.value;
+  const emailEl = document.getElementById("email");
+  const passEl  = document.getElementById("password");
+  const msgEl   = document.getElementById("message");
 
-  if (!email || password.length < 6) {
-    showMsg("Email hoặc mật khẩu không hợp lệ", true);
-    return;
+  document.getElementById("loginBtn").onclick = async () => {
+    const email = emailEl.value.trim();
+    const password = passEl.value;
+
+    if (!email || password.length < 6) {
+      showMsg("Vui lòng nhập email và mật khẩu hợp lệ", true);
+      return;
+    }
+
+    showMsg("Đang đăng nhập...");
+
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      showMsg(error.message, true);
+      return;
+    }
+
+    showMsg("Đăng nhập thành công!");
+    redirect();
+  };
+
+  document.getElementById("googleBtn").onclick = async () => {
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin + "/courses/index1.html"
+      }
+    });
+
+    if (error) {
+      showMsg(error.message, true);
+    }
+  };
+
+  function showMsg(text, isError = false) {
+    msgEl.textContent = text;
+    msgEl.style.color = isError ? "#dc2626" : "#10b981";
   }
 
-  showMsg("Đang đăng nhập...");
+  function redirect() {
+    setTimeout(() => {
+      window.location.href = "/courses/index1.html";
+    }, 800);
+  }
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email, password
+  supabaseClient.auth.getSession().then(({ data }) => {
+    if (data.session) redirect();
   });
 
-  if (error) {
-    showMsg(error.message, true);
-    return;
-  }
-
-  showMsg("Đăng nhập thành công!");
-  redirect();
-};
-
-/* ================== LOGIN GOOGLE ================== */
-document.getElementById("googleBtn").onclick = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: window.location.origin + "/courses/index1.html"
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session) {
+      redirect();
     }
   });
-
-  if (error) showMsg(error.message, true);
-};
-
-/* ================== HELPERS ================== */
-function showMsg(text, isError = false) {
-  msgEl.textContent = text;
-  msgEl.style.color = isError ? "#dc2626" : "#10b981";
-}
-
-function redirect() {
-  setTimeout(() => {
-    window.location.href = "/courses/index1.html";
-  }, 1200);
-}
-
-/* ================== AUTO LOGIN ================== */
-supabase.auth.getSession().then(({ data }) => {
-  if (data.session) redirect();
-});
 </script>
 
 </body>
