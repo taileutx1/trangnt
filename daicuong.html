@@ -6,145 +6,33 @@
   <title>Đại cương - TAILIEUTX1</title>
   <meta name="description" content="Tài liệu các môn Đại cương dành cho sinh viên ngành Công nghệ Dệt May">
 
-  <style>
-    /* ====================== RESET & BASIC ====================== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.6;
-      background: #fff;
-      color: #333;
-    }
-    a { text-decoration: none; color: inherit; }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    /* ====================== HEADER – GIỐNG HỆT INDEX.HTML ====================== */
-    header {
-      background: linear-gradient(90deg, #d60ca4, #cd099c);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    .header-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 20px;
-      height: 70px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo a {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 1px;
-    }
-    .nav { display: flex; gap: 12px; }
-    .nav a {
-      width: 140px; height: 48px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 12px;
-      color: #fff; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.3s ease;
-    }
-    .nav a:hover { background: rgba(255,255,255,0.3); transform: translateY(-3px); }
-    .mobile-menu { display: none; color: #fff; font-size: 2rem; background: none; cursor: pointer; }
+  <!-- Link đến file CSS chung (bạn nên dùng chung cho tất cả các trang) -->
+  <link rel="stylesheet" href="style.css">
 
-    /* Mobile menu */
-    @media (max-width: 768px) {
-      .mobile-menu { display: block; }
-      .nav {
-        position: fixed; top: 70px; left: 0; right: 0;
-        background: linear-gradient(90deg, #d60ca4, #cd099c);
-        flex-direction: column; padding: 20px; gap: 15px;
-        transform: translateY(-100%); opacity: 0; visibility: hidden;
-        transition: all 0.4s ease; height: calc(100vh - 70px); overflow-y: auto;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      }
-      .nav.nav-active { transform: translateY(0); opacity: 1; visibility: visible; }
-      .nav a { width: 100%; height: 60px; font-size: 1.2rem; }
-    }
-
-    /* ====================== MAIN CONTENT ====================== */
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h1.page-title {
-      text-align: center;
-      color: #be185d;
-      font-size: 2.2rem;
-      margin-bottom: 40px;
-    }
-    .subject-card {
-      background: white;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-    }
-    .subject-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    }
-    .subject-title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #333;
-    }
-    .subject-button {
-      background: #f472b6;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .subject-button:hover {
-      background: #ec4899;
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    footer {
-      background: #222;
-      color: #ddd;
-      text-align: center;
-      padding: 25px;
-      margin-top: 60px;
-      font-size: 0.95rem;
-    }
-
-    /* Highlight khi tìm kiếm từ index.html */
-    @keyframes cardBlink {
-      0%,100% { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-      50% { box-shadow: 0 0 25px #ff1493; transform: scale(1.02); }
-    }
-    .card-highlight { animation: cardBlink 0.8s ease 4; }
-  </style>
 </head>
 <body>
 
-  <!-- Header – giống hệt index.html -->
+  <!-- Header -->
   <header>
     <div class="header-container">
       <h1 class="logo"><a href="index.html">TAILIEUTX1</a></h1>
       <nav class="nav">
-        <a href="daicuong.html">Đại cương</a>
+        <a href="daicuong.html" class="active">Đại cương</a>
         <a href="chuyennganh.html">Chuyên ngành</a>
         <a href="tienganh.html">Tiếng anh</a>
-        <a href="phanmem.html">Phần mềm</a>
-        <a href="tudien.html">Từ điển</a>
+                <a href="phanmem.html">Phần mềm</a>
+        <a href="courses/index1.html" class="nav-course-btn">
+          <i class="fas fa-graduation-cap"></i> Khóa học</a>
+      
+        
       </nav>
-       <button class="mobile-menu">☰</button>
+      <button class="mobile-menu" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
@@ -154,42 +42,42 @@
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Toán cao cấp</span>
-      <a href="toancaocap.html" class="subject-button">Xem</a>
+      <a href="pages/toancaocap.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Vật lý đại cương</span>
-      <a href="vatly.html" class="subject-button">Xem</a>
+      <a href="pages/vatly.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Hóa học đại cương</span>
-      <a href="hoahoc.html" class="subject-button">Xem</a>
+      <a href="pages/hoahoc.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Triết</span>
-      <a href="triet.html" class="subject-button">Xem</a>
+      <a href="pages/triet.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Bổ trợ</span>
-      <a href="botro.html" class="subject-button">Xem</a>
+      <a href="pages/botro.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu môn Tin học đại cương</span>
-      <a href="tinhoc.html" class="subject-button">Xem</a>
+      <a href="pages/tinhoc.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Giáo dục thể chất</span>
-      <a href="gdthechat.html" class="subject-button">Xem</a>
+      <a href="pages/gdthechat.html" class="subject-button">Xem</a>
     </div>
 
     <div class="subject-card">
       <span class="subject-title">Tài liệu các môn Giáo dục quốc phòng</span>
-      <a href="gdqp.html" class="subject-button">Xem</a>
+      <a href="pages/gdqp.html" class="subject-button">Xem</a>
     </div>
   </main>
 
@@ -198,28 +86,7 @@
     <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
   </footer>
 
-  <!-- JS: Mobile Menu + Highlight từ tìm kiếm -->
-  <script>
-    // Mobile menu
-    document.querySelector('.mobile-menu').addEventListener('click', () => {
-      document.querySelector('.nav').classList.toggle('nav-active');
-    });
-
-    // Highlight card khi được tìm từ index.html
-    document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(location.search);
-      const highlight = params.get("highlight");
-      if (!highlight) return;
-
-      document.querySelectorAll(".subject-card").forEach(card => {
-        const title = card.querySelector(".subject-title");
-        if (title && title.textContent.toLowerCase().includes(highlight.toLowerCase())) {
-          card.scrollIntoView({ behavior: "smooth", block: "center" });
-          card.classList.add("card-highlight");
-          setTimeout(() => card.classList.remove("card-highlight"), 4000);
-        }
-      });
-    });
-  </script>
+  <!-- Link đến file JS chung -->
+  <script src="script.js"></script>
 </body>
 </html>

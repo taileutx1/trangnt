@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAILIEUTX1 - Khóa học chất lượng cao</title>
+<meta name="description" content="Khóa học Toán, Hóa, Lý THPT - Luyện thi đại học hiệu quả">
+
+<!-- Tailwind build sẵn (production) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css">
+
+<!-- CSS custom -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+
+<!-- HEADER -->
+<header class="bg-gradient-to-r from-pink-500 to-pink-400 text-white shadow-2xl sticky top-0 z-40">
+  <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+    <a href="index.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+      <a href="index.html" class="hover:opacity-80 transition">Trang chủ</a>
+      <button onclick="goMyCourses()" class="hover:opacity-80 transition font-semibold">Khóa học của tôi</button>
+      <button onclick="openActivateModal()" class="bg-white text-pink-500 px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Kích hoạt mã</button>
+      <button id="desktop-login-btn" onclick="window.location.href='login.html'" class="bg-white text-pink-500 px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Đăng nhập</button>
+      <div id="desktop-user-info" class="hidden relative">
+        <button onclick="toggleDropdown('desktop-dropdown')" class="focus:outline-none">
+          <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-pink-500 to-pink-400 transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+            <img id="desktop-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+          </div>
+        </button>
+        <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+          <div class="px-5 py-4 border-b border-pink-100">
+            <p class="font-bold text-pink-500" id="desktop-username"></p>
+            <p class="text-sm text-gray-600 mt-1" id="desktop-email"></p>
+          </div>
+          <button onclick="logout()" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 transition font-semibold">Đăng xuất</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Hamburger -->
+    <button aria-label="Mở menu" class="md:hidden flex flex-col space-y-1.5 hamburger" onclick="toggleMobileMenu()">
+      <span class="block w-8 h-1 bg-white transition-transform"></span>
+      <span class="block w-8 h-1 bg-white transition-transform"></span>
+      <span class="block w-8 h-1 bg-white transition-transform"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4">
+    <a href="index.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+    <button onclick="goMyCourses(); toggleMobileMenu()" class="block text-left py-2 text-lg hover:opacity-80">Khóa học của tôi</button>
+    <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+      <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-pink-500 to-pink-400">
+        <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+      </div>
+      <div class="flex-1">
+        <p id="mobile-username" class="text-white font-semibold"></p>
+      </div>
+    </div>
+    <button id="mobile-login-btn" onclick="window.location.href='login.html'; toggleMobileMenu()" class="bg-white text-pink-500 px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">Đăng nhập</button>
+    <div id="mobile-user-menu" class="hidden space-y-2">
+      <button onclick="logout(); toggleMobileMenu()" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">Đăng xuất</button>
+    </div>
+    <button onclick="openActivateModal(); toggleMobileMenu()" class="bg-white text-pink-500 px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">Kích hoạt mã</button>
+  </nav>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="container mx-auto px-4 py-12">
+  <h1 class="text-4xl md:text-5xl font-black text-center mb-4 text-gray-800">KHÓA HỌC MỚI - ƯU ĐÃI CỰC SỐC</h1>
+
+  <!-- SEARCH -->
+  <div class="max-w-3xl mx-auto mb-12">
+    <input type="text" id="search-input" placeholder="Tìm kiếm khóa học..." 
+           class="w-full px-6 py-4 rounded-2xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none text-lg shadow-lg"
+           oninput="filterCourses()">
+  </div>
+
+  <!-- COURSE GRID -->
+  <div id="course-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <a href="checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block">
+      <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+        <div class="absolute top-4 left-4 z-10">
+          <span class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+        </div>
+        <div class="absolute top-4 right-4 z-10">
+          <span class="bg-white text-pink-500 text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-pink-500">HOT</span>
+        </div>
+        <div class="relative overflow-hidden">
+          <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
+               alt="Khóa học VSTEP Reading Online"
+               class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+               loading="lazy">
+        </div>
+        <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+          <div>
+            <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-pink-500 transition-colors">Khóa học VSTEP Reading Online</h3>
+            <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <span class="text-gray-400 line-through text-lg">999.000đ</span>
+              <p class="text-3xl font-black text-pink-500">199.000đ</p>
+            </div>
+            <button class="w-full py-4 bg-gradient-to-r from-pink-500 to-pink-400 text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">Mua ngay</button>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div id="empty-state" class="text-center py-32 text-gray-500 hidden">
+    <p class="text-3xl mb-6">Không tìm thấy khóa học nào phù hợp 😔</p>
+    <a href="index.html" class="text-pink-500 text-xl underline hover:opacity-80">Quay về trang chủ</a>
+  </div>
+</main>
+
+<!-- MODAL KÍCH HOẠT MÃ -->
+<div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+  <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+    <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+    <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt"
+           class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-500 focus:outline-none text-lg mb-3">
+    <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+    <div class="flex gap-3">
+      <button onclick="activateCode()" class="flex-1 bg-gradient-to-r from-pink-500 to-pink-400 text-white py-3 rounded-xl font-bold hover:opacity-90">Kích hoạt</button>
+      <button onclick="closeActivateModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

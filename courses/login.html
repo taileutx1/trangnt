@@ -2,10 +2,10 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Đăng nhập - TAILIEUTX1</title>
 
-  <!-- Tailwind (DEV OK – khi build thì chuyển CLI) -->
+  <!-- Tailwind CSS via CDN (dùng cho dev, production nên build bằng CLI) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,51 +23,82 @@
 </head>
 
 <body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen flex items-center justify-center px-4">
+  <!-- Card đăng nhập -->
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-primary to-accent text-white p-8 text-center">
+      <h1 class="text-4xl font-black">TAILIEUTX1</h1>
+      <p class="mt-2 opacity-90">Đăng nhập tài khoản</p>
+    </div>
 
-<div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
-  <div class="bg-gradient-to-r from-primary to-accent text-white p-8 text-center">
-    <h1 class="text-4xl font-black">TAILIEUTX1</h1>
-    <p class="mt-2 opacity-90">Đăng nhập tài khoản</p>
+    <!-- Form -->
+    <div class="p-8 space-y-6">
+      <input
+        id="email"
+        type="email"
+        placeholder="Email"
+        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"
+      />
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Mật khẩu (≥ 6 ký tự)"
+        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"
+      />
+
+      <button
+        id="loginBtn"
+        class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl hover:opacity-90 transition"
+      >
+        Đăng nhập
+      </button>
+
+      <button
+        id="googleBtn"
+        class="w-full py-4 border-2 border-gray-300 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+      >
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6" />
+        <span>Google</span>
+      </button>
+
+      <p id="message" class="text-center font-medium min-h-[1.5em]"></p>
+    </div>
   </div>
 
-  <div class="p-8 space-y-6">
-    <input id="email" type="email" placeholder="Email"
-      class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"/>
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <input id="password" type="password" placeholder="Mật khẩu (≥ 6 ký tự)"
-      class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"/>
-
-    <button id="loginBtn"
-      class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl">
-      Đăng nhập
-    </button>
-
-    <button id="googleBtn"
-      class="w-full py-4 border-2 rounded-2xl font-bold flex items-center justify-center gap-3">
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6">
-      Google
-    </button>
-
-    <p id="message" class="text-center font-medium"></p>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // Lấy namespace đúng cho CDN
+  <!-- Script logic -->
+  <script>
   const { createClient } = supabase;
 
+  // Cấu hình Supabase
   const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU"; // anon public key
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
 
-  const supabaseClient = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // Elements
   const emailEl = document.getElementById("email");
-  const passEl  = document.getElementById("password");
-  const msgEl   = document.getElementById("message");
+  const passEl = document.getElementById("password");
+  const msgEl = document.getElementById("message");
 
+  // Hàm hiển thị thông báo
+  function showMsg(text, isError = false) {
+    msgEl.textContent = text;
+    msgEl.style.color = isError ? "#dc2626" : "#10b981";
+  }
+
+  // Hàm chuyển hướng sau đăng nhập thành công (SỬA LẠI ĐÚNG)
+  function redirect() {
+    setTimeout(() => {
+      window.location.href = "/index1.html";  // hoặc window.location.origin + "/index1.html" nếu cần full URL
+    }, 800);
+  }
+
+  // Đăng nhập bằng email/password
   document.getElementById("loginBtn").onclick = async () => {
     const email = emailEl.value.trim();
     const password = passEl.value;
@@ -81,7 +112,7 @@
 
     const { error } = await supabaseClient.auth.signInWithPassword({
       email,
-      password
+      password,
     });
 
     if (error) {
@@ -93,12 +124,13 @@
     redirect();
   };
 
+  // Đăng nhập bằng Google (SỬA LẠI ĐÚNG)
   document.getElementById("googleBtn").onclick = async () => {
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/index1.html"
-      }
+        redirectTo: window.location.origin + "/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
+      },
     });
 
     if (error) {
@@ -106,27 +138,17 @@
     }
   };
 
-  function showMsg(text, isError = false) {
-    msgEl.textContent = text;
-    msgEl.style.color = isError ? "#dc2626" : "#10b981";
-  }
-
-  function redirect() {
-    setTimeout(() => {
-      window.location.href = "/index1.html";
-    }, 800);
-  }
-
+  // Kiểm tra session hiện tại khi load trang
   supabaseClient.auth.getSession().then(({ data }) => {
     if (data.session) redirect();
   });
 
+  // Lắng nghe thay đổi trạng thái auth
   supabaseClient.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_IN" && session) {
       redirect();
     }
   });
 </script>
-
 </body>
 </html>

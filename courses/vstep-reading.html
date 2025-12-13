@@ -14,15 +14,62 @@
             primary: '#ec4899',
             accent: '#f472b6',
             danger: '#dc2626',
-          }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
         }
       }
     }
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    #timer {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #ec4899;
+      text-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);
+    }
+    .passage-text {
+      line-height: 2;
+      font-size: 1.15rem;
+      background: #fdf2f8;
+      padding: 2rem;
+      border-left: 6px solid #ec4899;
+      border-radius: 1rem;
+    }
+    .option-label {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      padding: 1rem 1.5rem;
+      margin-bottom: 0.75rem;
+      border-radius: 1rem;
+    }
+    .option-label:hover {
+      background-color: #fce7f3;
+      border-color: #ec4899;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15);
+    }
+    #submit-btn {
+      background: linear-gradient(to right, #ec4899, #f472b6);
+      transition: all 0.4s ease;
+    }
+    #submit-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(236, 72, 153, 0.4);
+    }
+    .progress-bar {
+      height: 8px;
+      background: linear-gradient(to right, #ec4899, #f472b6);
+      transition: width 0.5s ease;
+    }
+    .correct { @apply bg-green-100 border-green-500 font-bold; }
+    .incorrect { @apply bg-red-100 border-red-500; }
+  </style>
 </head>
 
-<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
-
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen font-sans">
   <!-- HEADER (giống các trang khác) -->
   <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
     <div class="container mx-auto px-4 py-5 flex justify-between items-center">
@@ -83,25 +130,88 @@
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="container mx-auto px-4 py-12">
-    <!-- Course Header -->
-    <div class="bg-white rounded-3xl shadow-2xl p-8 mb-12 text-center">
-      <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg" 
-           alt="VSTEP Reading" class="w-full max-w-4xl mx-auto rounded-2xl mb-8 object-cover h-96">
-      <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-4">Khóa học VSTEP Reading Online</h1>
-      <p class="text-xl text-gray-600 max-w-4xl mx-auto">Trọn đời • 120+ bài giảng chất lượng cao • Đạt điểm cao phần Reading VSTEP B1, B2, C1</p>
+ <!-- MAIN CONTENT -->
+  <main class="container mx-auto px-4 py-12 max-w-5xl">
+    <!-- Course Header + Timer -->
+    <div class="bg-white rounded-3xl shadow-2xl p-10 mb-12 text-center overflow-hidden relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10"></div>
+      <div class="relative z-10">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg" 
+             alt="VSTEP Reading" class="w-full max-w-4xl mx-auto rounded-2xl mb-8 object-cover h-96 shadow-xl">
+        <h1 class="text-5xl font-black text-gray-800 mb-6">Bài Thi Thử VSTEP Reading</h1>
+        <p class="text-2xl text-gray-600 mb-8">4 passages • 40 câu hỏi • Thời gian: 60 phút</p>
+        
+        <div class="flex flex-col items-center">
+          <div id="timer" class="mb-4">60:00</div>
+          <div class="w-full max-w-md bg-gray-200 rounded-full h-2 overflow-hidden">
+            <div id="progress" class="progress-bar w-full"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Lessons List -->
-    <div id="access-denied" class="text-center py-20 hidden">
-      <p class="text-3xl text-gray-600 mb-6">Bạn chưa sở hữu khóa học này 😔</p>
-      <a href="index1.html" class="bg-gradient-to-r from-primary to-accent text-white px-8 py-4 rounded-full font-bold text-xl hover:opacity-90 shadow-lg">
-        Về trang chủ mua/kích hoạt
-      </a>
+    <!-- Form thi (bạn cần thêm đầy đủ 4 passages và 40 câu hỏi ở đây) -->
+    <form id="reading-form" class="space-y-16 bg-white rounded-3xl shadow-2xl p-10">
+      <!-- PASSAGE 1 (mẫu) -->
+      <section class="passage-section">
+        <h2 class="text-3xl font-bold text-primary mb-6 border-b-4 border-primary pb-4">Passage 1</h2>
+        <div class="passage-text">
+          <p class="text-gray-800">
+            Online learning has become very popular in recent years, especially after the pandemic. Many students now choose to study courses online because it is convenient and flexible. They can learn from home at any time that suits them. However, online learning also has some disadvantages. Students may feel isolated without face-to-face interaction with teachers and classmates. It requires strong self-discipline because there are no fixed class times. This has raised questions about how to make online learning more inclusive and fair.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-8 md:grid-cols-2">
+          <div class="question">
+            <p class="font-bold text-lg mb-4">1. What is the main topic of the passage?</p>
+            <div class="space-y-3">
+              <label class="option-label block cursor-pointer">
+                <input type="radio" name="q1" value="A" class="accent-primary mr-4 text-lg"> A. The history of online learning
+              </label>
+              <label class="option-label block cursor-pointer">
+                <input type="radio" name="q1" value="B" class="accent-primary mr-4 text-lg"> B. Advantages and disadvantages of online learning
+              </label>
+              <label class="option-label block cursor-pointer">
+                <input type="radio" name="q1" value="C" class="accent-primary mr-4 text-lg"> C. How to teach online courses
+              </label>
+              <label class="option-label block cursor-pointer">
+                <input type="radio" name="q1" value="D" class="accent-primary mr-4 text-lg"> D. The pandemic and education
+              </label>
+            </div>
+          </div>
+          <!-- Thêm câu 2 đến 40 tương tự -->
+        </div>
+      </section>
+
+      <!-- Thêm Passage 2, 3, 4 tương tự -->
+
+      <div class="text-center">
+        <button type="button" id="submit-btn" class="inline-block px-12 py-6 text-2xl font-bold text-white rounded-2xl shadow-2xl">
+          NỘP BÀI & XEM KẾT QUẢ
+        </button>
+      </div>
+    </form>
+
+    <!-- Kết quả -->
+    <div id="result" class="hidden mt-12 bg-white rounded-3xl shadow-2xl p-12 text-center">
+      <h2 class="text-4xl font-bold text-primary mb-8">Kết quả của bạn 🎉</h2>
+      <p class="text-3xl mb-6" id="score"></p>
+      <p class="text-2xl text-gray-600">Điểm quy đổi (thang 10): <span id="scaled-score" class="font-bold text-primary text-3xl"></span></p>
+      
+      <button onclick="location.reload()" class="mt-8 mx-4 px-10 py-4 bg-primary text-white rounded-xl font-bold hover:opacity-90">Làm lại bài thi</button>
+      
+      <button id="explanation-btn" class="mt-8 mx-4 px-10 py-4 bg-accent text-white rounded-xl font-bold hover:opacity-90">Xem video chữa đề</button>
     </div>
 
-    <div id="lessons-container" class="space-y-6"></div>
+    <!-- Video chữa đề (ẩn ban đầu) -->
+    <div id="explanation-video" class="hidden mt-12 bg-white rounded-3xl shadow-2xl p-8">
+      <h2 class="text-3xl font-bold text-primary mb-6 text-center">Video chữa đề chi tiết</h2>
+      <div class="aspect-video rounded-2xl overflow-hidden shadow-lg">
+        <!-- Video mẫu chữa đề VSTEP Reading từ kênh uy tín -->
+        <iframe src="https://www.youtube.com/embed/_002wHwAAgU" title="Chữa đề VSTEP Reading" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+      </div>
+      <p class="text-center mt-6 text-gray-600">Nếu bạn muốn video chữa chính xác đề này, hãy luyện thêm các đề tương tự trên PREP hoặc FME.</p>
+    </div>
   </main>
 
   <!-- MODAL KÍCH HOẠT MÃ (giống các trang khác) -->
@@ -133,71 +243,7 @@
       // (Bạn copy phần updateUserUI từ my-courses.html hoặc index1.html vào đây)
     }
 
-    async function checkAccessAndLoadLessons() {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-
-      if (!user) {
-        document.getElementById('access-denied').classList.remove('hidden');
-        document.getElementById('lessons-container').innerHTML = '';
-        return;
-      }
-
-      // Kiểm tra user có sở hữu khóa học này không
-      const { data: owned } = await supabaseClient
-        .from('user_courses')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('course_id', COURSE_ID)
-        .single();
-
-      if (!owned) {
-        document.getElementById('access-denied').classList.remove('hidden');
-        return;
-      }
-
-      // Load danh sách bài giảng
-      const { data: lessons, error } = await supabaseClient
-        .from('lessons')
-        .select('*')
-        .eq('course_id', COURSE_ID)
-        .order('order_index', { ascending: true });
-
-      if (error || !lessons || lessons.length === 0) {
-        document.getElementById('lessons-container').innerHTML = '<p class="text-center text-gray-600 text-xl">Chưa có bài giảng nào.</p>';
-        return;
-      }
-
-      const container = document.getElementById('lessons-container');
-      container.innerHTML = '';
-
-      lessons.forEach((lesson, index) => {
-        const item = document.createElement('div');
-        item.className = 'bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all';
-        item.innerHTML = `
-          <div class="p-6 bg-gradient-to-r from-primary to-accent text-white">
-            <h3 class="text-2xl font-black">Bài ${index + 1}: ${lesson.title}</h3>
-            ${lesson.description ? `<p class="mt-2 opacity-90">${lesson.description}</p>` : ''}
-          </div>
-          <div class="p-8 space-y-6">
-            ${lesson.video_url ? `
-              <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-lg">
-                <iframe src="${lesson.video_url}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="w-full h-96"></iframe>
-              </div>
-            ` : ''}
-            ${lesson.document_url ? `
-              <a href="${lesson.document_url}" target="_blank" class="inline-flex items-center gap-3 bg-primary text-white px-6 py-4 rounded-full font-bold hover:bg-accent transition shadow-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Tải tài liệu bài giảng
-              </a>
-            ` : ''}
-          </div>
-        `;
-        container.appendChild(item);
-      });
-    }
-
-    // Các hàm khác: toggleMobileMenu, logout, openActivateModal, activateCode... (copy từ trang cũ)
-
+   
     // Khởi chạy
     window.addEventListener('load', () => {
       updateUserUI();
@@ -208,6 +254,135 @@
       updateUserUI();
       checkAccessAndLoadLessons();
     });
+
+    async function loadReadingPassage(passageId) {
+  // Load passage
+  const { data: passage } = await supabaseClient
+    .from('reading_passages')
+    .select('*')
+    .eq('id', passageId)
+    .single();
+
+  const { data: questions } = await supabaseClient
+    .from('reading_questions')
+    .select('*')
+    .eq('passage_id', passageId)
+    .order('id');
+
+  const container = document.getElementById('lessons-container');
+  container.innerHTML = `
+    <div class="bg-white rounded-2xl shadow-2xl p-8 space-y-6">
+      <h2 class="text-2xl font-bold">${passage.title}</h2>
+      <p class="text-gray-700 whitespace-pre-wrap">${passage.passage_text}</p>
+      <form id="reading-form" class="space-y-4"></form>
+      <div id="reading-feedback" class="hidden mt-4 text-lg font-bold"></div>
+      <div id="reading-video" class="hidden mt-6"></div>
+    </div>
+  `;
+
+  const form = document.getElementById('reading-form');
+
+  questions.forEach((q, index) => {
+    const qEl = document.createElement('div');
+    qEl.innerHTML = `
+      <p class="font-semibold mb-2">Câu ${index + 1}: ${q.question_text}</p>
+      <div class="space-y-1">
+        ${['a','b','c','d'].map(opt => `
+          <label class="flex items-center gap-2">
+            <input type="radio" name="q${q.id}" value="${opt}" class="accent-primary">
+            <span>${q['option_' + opt]}</span>
+          </label>
+        `).join('')}
+      </div>
+    `;
+    form.appendChild(qEl);
+  });
+
+  const submitBtn = document.createElement('button');
+  submitBtn.type = 'button';
+  submitBtn.textContent = 'Xem đáp án';
+  submitBtn.className = 'mt-4 px-6 py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90';
+  submitBtn.onclick = () => showAnswers(questions);
+  form.appendChild(submitBtn);
+}
+function showAnswers(questions) {
+  let score = 0;
+
+  questions.forEach(q => {
+    const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+    const parent = selected ? selected.parentElement : null;
+
+    if (selected && selected.value === q.correct_option) score++;
+    if (parent) {
+      parent.classList.add(selected.value === q.correct_option ? 'bg-green-100' : 'bg-red-100');
+    }
+  });
+
+  const feedback = document.getElementById('reading-feedback');
+  feedback.textContent = `Bạn đúng ${score} / ${questions.length} câu`;
+  feedback.classList.remove('hidden');
+
+  const videoContainer = document.getElementById('reading-video');
+  videoContainer.innerHTML = `<iframe src="${questions[0].video_url}" frameborder="0" allowfullscreen class="w-full h-96 rounded-2xl shadow-lg"></iframe>`;
+  videoContainer.classList.remove('hidden');
+}
+
+  </script>
+
+  <script>
+    let timeLeft = 3600;
+    const timerDisplay = document.getElementById('timer');
+    const progressBar = document.getElementById('progress');
+    const timerInterval = setInterval(() => {
+      timeLeft--;
+      const min = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const sec = (timeLeft % 60).toString().padStart(2, '0');
+      timerDisplay.textContent = `${min}:${sec}`;
+      const percentage = ((3600 - timeLeft) / 3600) * 100;
+      progressBar.style.width = `${percentage}%`;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+
+    // Đáp án đúng (thay bằng đáp án thực của đề bạn dùng)
+    const correctAnswers = {
+      q1: 'B',
+      // Thêm đủ 40 câu...
+    };
+
+    document.getElementById('submit-btn').onclick = submitTest;
+
+    function submitTest() {
+      clearInterval(timerInterval);
+      let score = 0;
+      const total = Object.keys(correctAnswers).length || 40;
+
+      for (const key in correctAnswers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        const correct = correctAnswers[key];
+        document.querySelectorAll(`input[name="${key}"]`).forEach(input => {
+          const label = input.parentElement;
+          if (input.value === correct) label.classList.add('correct');
+          else if (input.checked && input.value !== correct) label.classList.add('incorrect');
+        });
+        if (selected && selected.value === correct) score++;
+      }
+
+      document.getElementById('score').innerHTML = `Bạn đúng <span class="text-green-600 text-4xl">${score}</span> / ${total} câu`;
+      const scaled = (score / total * 10).toFixed(1);
+      document.getElementById('scaled-score').textContent = scaled;
+      document.getElementById('result').classList.remove('hidden');
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('submit-btn').textContent = 'Đã nộp bài';
+    }
+
+    // Nút Xem video chữa
+    document.getElementById('explanation-btn').onclick = () => {
+      document.getElementById('explanation-video').classList.remove('hidden');
+      document.getElementById('explanation-video').scrollIntoView({ behavior: 'smooth' });
+    };
   </script>
 </body>
 </html>

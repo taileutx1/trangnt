@@ -1,12 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thanh toán khóa học - TAILIEUTX1</title>
-  <meta name="description" content="Thanh toán khóa học online chất lượng cao">
+  <meta name="description" content="Thanh toán Khóa học chất lượng cao">
 
-  <!-- Tailwind CDN để đồng bộ style với index.html -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -47,11 +46,11 @@
     <!-- LEFT: Thông tin đơn hàng -->
     <div class="bg-white rounded-3xl shadow-2xl p-8">
       <div class="flex gap-6 items-start mb-8">
-        <img id="course-image" src="https://thithuvstep.vstepeasy.edu.vn/assets/frontend/img/img-slider-vstep-1.jpeg" 
-             alt="Khóa học" class="w-32 h-32 object-cover rounded-2xl shadow-lg">
+
+        
         <div>
           <h2 class="text-2xl font-black text-gray-800 mb-2" id="course-title">Đang tải...</h2>
-          <p class="text-gray-600">Trọn đời • 120+ bài giảng</p>
+          <p class="text-gray-600">1 năm • 120+ bài giảng</p>
         </div>
       </div>
 
@@ -78,13 +77,6 @@
         <i class="ri-bank-line text-3xl text-primary"></i>
       </label>
 
-      <!-- Có thể thêm Momo, ZaloPay sau -->
-      <!-- <label class="pay-item">
-        <input type="radio" name="pay" value="momo">
-        <span>Momo</span>
-        <i class="ri-qr-code-line text-3xl text-pink-600"></i>
-      </label> -->
-
       <div class="flex justify-between mt-12">
         <button onclick="history.back()" class="px-8 py-4 border-2 border-gray-300 rounded-2xl font-bold hover:bg-gray-100 transition">
           Hủy bỏ
@@ -99,20 +91,16 @@
 </div>
 
 <script>
-  // Lấy dữ liệu từ URL (sẽ được truyền từ index.html khi click card)
+  // Lấy dữ liệu từ URL parameters
   const params = new URLSearchParams(window.location.search);
   const title = params.get('title') || 'Khóa học VSTEP Reading Online';
   const price = parseInt(params.get('price')) || 199000;
   const orderId = params.get('orderId') || 'HD' + Date.now();
 
-  // Đổ dữ liệu lên giao diện
+  // Cập nhật giao diện
   document.getElementById('course-title').textContent = title;
   document.getElementById('order-id').textContent = orderId;
   document.getElementById('price-display').textContent = price.toLocaleString('vi-VN') + ' VND';
-
-  // Ảnh khóa học (có thể thay bằng ảnh khác nếu cần)
-  document.getElementById('course-image').src = 
-    'https://thithuvstep.vstepeasy.edu.vn/assets/frontend/img/img-slider-vstep-1.jpeg'; // Ảnh đẹp từ VSTEP EASY
 
   // Timer đếm ngược 20 phút
   let timeLeft = 20 * 60;
@@ -133,7 +121,7 @@
     }
   }, 1000);
 
-  // Nút Tiếp tục → chuyển sang trang thông tin chuyển khoản
+  // Chuyển sang trang checkout-bank.html khi nhấn Tiếp tục
   continueBtn.addEventListener('click', () => {
     if (timeLeft <= 0) return;
     const nextParams = new URLSearchParams({ title, price, orderId });
