@@ -64,7 +64,17 @@
 
     <!-- Mobile Menu (giữ nguyên + thêm id) -->
     <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4 pb-6">
-      <!-- ... giữ nguyên các button và div của bạn ... -->
+  <a href="index1.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+      <button id="mobile-my-courses-btn" class="block text-left py-2 text-lg hover:opacity-80">Khóa học của tôi</button>
+
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+        </div>
+        <div>
+          <p id="mobile-username" class="text-white font-semibold"></p>
+        </div>
+      </div>
       <a href="login.html" id="mobile-login-btn" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full text-center block">Đăng nhập</a>
 
       <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
@@ -82,12 +92,160 @@
           Đăng xuất
         </button>
       </div>
-      <!-- ... phần còn lại giữ nguyên ... -->
+    <button id="mobile-activate-btn" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Kích hoạt mã
+      </button>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT (giữ nguyên phần khóa học của bạn) -->
-  <!-- ... toàn bộ phần <main> với course-list, modal, etc. ... -->
+<!-- MAIN CONTENT -->
+  <main class="container mx-auto px-4 py-12">
+    <section aria-labelledby="main-heading">
+      <h1 id="main-heading" class="text-4xl md:text-5xl font-black text-center mb-4 text-gray-800">
+        KHÓA HỌC MỚI - ƯU ĐÃI CỰC SỐC
+      </h1>
+
+      <div class="max-w-3xl mx-auto mb-12">
+        <input type="text" id="search-input" placeholder="Tìm kiếm khóa học..." 
+               class="w-full px-6 py-4 rounded-2xl border-2 border-pink-200 focus:border-primary focus:outline-none text-lg shadow-lg">
+      </div>
+
+      <div id="course-list" class="grid grid-cols-1 lg:grid-cols-3 gap-6">  <!-- Chia 1 cột trên mobile, 3 cột trên desktop (lg: 1024px+) -->
+  <!-- Khóa học 1 -->
+  <a href="/courses/checkout/checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Reading Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Reading Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Khóa học 2 -->
+  <a href="/courses/checkout/checkout.html?title=Khóa học VSTEP Listening Online&price=199000" class="group block hidden">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-listening-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Listening Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Listening Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Khóa học 3 -->
+  <a href="/courses/checkout/checkout.html?title=Khóa học VSTEP Listening Online&price=199000" class="group block hidden">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-listening-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Listening Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Listening Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+        
+        
+      
+      
+      
+
+      <div id="empty-state" class="text-center py-32 text-gray-500 hidden">
+        <p class="text-3xl mb-6">Không tìm thấy khóa học nào phù hợp 😔</p>
+        <a href="index1.html" class="text-primary text-xl underline hover:opacity-80">Quay về trang chủ</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL KÍCH HOẠT MÃ -->
+  <div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+      <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+      <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt"
+             class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
+      <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+      <div class="flex gap-3">
+        <button id="activate-submit" class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">
+          Kích hoạt
+        </button>
+        <button id="activate-cancel" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Supabase + Auth Handling (PHẦN QUAN TRỌNG NHẤT) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
