@@ -94,7 +94,7 @@
   // Hàm chuyển hướng sau đăng nhập thành công (SỬA LẠI ĐÚNG)
   function redirect() {
     setTimeout(() => {
-      window.location.href = "/index1.html";  // hoặc window.location.origin + "/index1.html" nếu cần full URL
+      window.location.href = "courses/index1.html";  // hoặc window.location.origin + "/index1.html" nếu cần full URL
     }, 800);
   }
 
@@ -129,7 +129,7 @@
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
+        redirectTo: window.location.origin + "/courses/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
       },
     });
 
