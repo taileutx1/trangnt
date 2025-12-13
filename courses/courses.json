@@ -1,16 +1,12 @@
 [
   {
-    "id": "toan",
-    "title": "Toán THPT - Chuyên đề Hàm số",
-    "describe": "Khóa học dành cho người bắt đầu",
-    "thumbnail": "https://i.imgur.com/u7ZLxGQ.jpg",
-    "price": "499.000đ"
-  },
-  {
-    "id": "hoa",
-    "title": "Hóa học 12 - Luyên thi đại học",
-    "describe": "Khóa học dành cho bạn mục tiêu cao",
-    "thumbnail": "https://i.imgur.com/3Cj5kqM.jpg",
-    "price": "299.000đ"
+  "id": "vstep-reading",
+  "title": "Khóa học VSTEP Reading Online",
+  "desc": "Khóa học dành cho người bắt đầu",
+  "image": "https://i.imgur.com/u7ZLxGQ.jpg",
+  "price": 499000,
+  "oldPrice": 999000,
+  "rating": 4.8,
+  "badge": "hot"
   }
-]
+  ]

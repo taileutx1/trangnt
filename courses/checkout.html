@@ -1,174 +1,144 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thanh toán khóa học</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thanh toán khóa học - TAILIEUTX1</title>
+  <meta name="description" content="Thanh toán khóa học online chất lượng cao">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
-<link rel="stylesheet" href="checkout.css"> <!-- giữ nguyên file css của bạn -->
-<style>
-  /* Bổ sung nhanh để 2 cột nằm ngang đẹp */
-  .checkout-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-  }
-  .checkout-box, .payment {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  }
-  .payment h3 {
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  .pay-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px;
-    border: 2px solid #eee;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .pay-item:hover {
-    border-color: #667eea;
-    background: #f8fbff;
-  }
-  .pay-item input[type="radio"] {
-    width: 20px;
-    height: 20px;
-  }
-  .pay-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  .ghost {
-    padding: 14px 30px;
-    border: 2px solid #ddd;
-    background: transparent;
-    border-radius: 12px;
-    cursor: pointer;
-  }
-  .primary {
-    padding: 14px 40px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .primary:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-  }
-  @media (min-width: 768px) {
-    .checkout-wrapper {
-      flex-direction: row;
+  <!-- Tailwind CDN để đồng bộ style với index.html -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ec4899',
+            accent: '#f472b6',
+            danger: '#dc2626',
+          }
+        }
+      }
     }
-    .checkout-box {
-      flex: 1;
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+
+  <style>
+    .timer { @apply text-danger font-bold text-xl mt-6; }
+    .pay-item {
+      @apply flex items-center gap-4 p-5 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300;
     }
-    .payment {
-      width: 380px;
+    .pay-item:hover {
+      @apply border-primary bg-pink-50;
     }
-  }
-</style>
+    .pay-item input[type="radio"] {
+      @apply w-6 h-6 accent-primary;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
 
-<div class="checkout-wrapper">
+<div class="max-w-5xl mx-auto px-4 py-12">
+  <h1 class="text-4xl font-black text-center text-gray-800 mb-12">Thanh toán khóa học</h1>
 
-  <!-- LEFT: Thông tin đơn hàng -->
-  <div class="checkout-box">
-    <h2 id="price-display">0 VND</h2>
+  <div class="grid md:grid-cols-2 gap-12">
 
-    <p><strong>Khóa học:</strong> <span id="course-title">Thanh toán khóa học</span></p>
-    <p><strong>Nội dung chuyển khoản:</strong> <span id="order-id">Đang tải...</span></p>
-  
-  
-    <p><strong>Giá trị:</strong> <span id="price-value">0 VND</span></p>
-  
+    <!-- LEFT: Thông tin đơn hàng -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <div class="flex gap-6 items-start mb-8">
+        <img id="course-image" src="https://thithuvstep.vstepeasy.edu.vn/assets/frontend/img/img-slider-vstep-1.jpeg" 
+             alt="Khóa học" class="w-32 h-32 object-cover rounded-2xl shadow-lg">
+        <div>
+          <h2 class="text-2xl font-black text-gray-800 mb-2" id="course-title">Đang tải...</h2>
+          <p class="text-gray-600">Trọn đời • 120+ bài giảng</p>
+        </div>
+      </div>
 
-    <div class="timer">
-      Còn lại <span id="timer">20:00</span>
+      <div class="space-y-4 text-lg">
+        <p><strong>Mã đơn hàng:</strong> <span id="order-id" class="font-bold text-primary">Đang tạo...</span></p>
+        <p><strong>Giá trị thanh toán:</strong> <span id="price-display" class="text-3xl font-black text-primary">0 VND</span></p>
+      </div>
+
+      <div class="timer text-center bg-red-50 rounded-2xl py-4 mt-8">
+        Thời gian giữ giá còn lại: <span id="timer" class="text-3xl">20:00</span>
+      </div>
     </div>
-  </div>
 
-  <!-- RIGHT: Chọn phương thức -->
-  <div class="payment">
-    <h3>Chọn phương thức thanh toán</h3>
+    <!-- RIGHT: Phương thức thanh toán -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <h3 class="text-2xl font-bold mb-8">Chọn phương thức thanh toán</h3>
 
-    <label class="pay-item">
-      <input type="radio" name="pay" checked>
-      <span>Chuyển khoản ngân hàng</span>
-      <i class="ri-bank-line"></i>
-    </label>
+      <label class="pay-item mb-6">
+        <input type="radio" name="pay" value="bank" checked>
+        <div class="flex-1">
+          <div class="font-bold">Chuyển khoản ngân hàng</div>
+          <div class="text-sm text-gray-600">Nhận thông tin tài khoản ngay sau khi xác nhận</div>
+        </div>
+        <i class="ri-bank-line text-3xl text-primary"></i>
+      </label>
 
-    <!-- Bạn có thể thêm Momo, ZaloPay, thẻ tín dụng ở đây sau -->
+      <!-- Có thể thêm Momo, ZaloPay sau -->
+      <!-- <label class="pay-item">
+        <input type="radio" name="pay" value="momo">
+        <span>Momo</span>
+        <i class="ri-qr-code-line text-3xl text-pink-600"></i>
+      </label> -->
 
-    <div class="pay-actions">
-      <button class="ghost" onclick="history.back()">Hủy</button>
-     <button class="primary btn-pay" id="continue-to-bank">
-  Tiếp tục
-</button>
+      <div class="flex justify-between mt-12">
+        <button onclick="history.back()" class="px-8 py-4 border-2 border-gray-300 rounded-2xl font-bold hover:bg-gray-100 transition">
+          Hủy bỏ
+        </button>
+        <button id="continue-to-bank" class="px-10 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed">
+          Tiếp tục
+        </button>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <script>
-// Lấy dữ liệu từ URL
-const params = new URLSearchParams(window.location.search);
-const title = params.get('title') || "Khóa học Premium";
-const price = parseInt(params.get('price')) || 0;
-const orderId = params.get('orderId') || "HD" + Date.now();
+  // Lấy dữ liệu từ URL (sẽ được truyền từ index.html khi click card)
+  const params = new URLSearchParams(window.location.search);
+  const title = params.get('title') || 'Khóa học VSTEP Reading Online';
+  const price = parseInt(params.get('price')) || 199000;
+  const orderId = params.get('orderId') || 'HD' + Date.now();
 
-// Đổ dữ liệu lên giao diện
-document.getElementById('course-title').textContent = title;
-document.getElementById('order-id').textContent = orderId;
-document.getElementById('price-value').textContent = price.toLocaleString() + " VND";
-document.getElementById('price-display').textContent = price.toLocaleString() + " VND";
+  // Đổ dữ liệu lên giao diện
+  document.getElementById('course-title').textContent = title;
+  document.getElementById('order-id').textContent = orderId;
+  document.getElementById('price-display').textContent = price.toLocaleString('vi-VN') + ' VND';
 
-// Đếm ngược 20 phút
-let timeLeft = 20 * 60;
-const timerElement = document.getElementById('timer');
-const continueBtn = document.querySelector('.btn-pay');
+  // Ảnh khóa học (có thể thay bằng ảnh khác nếu cần)
+  document.getElementById('course-image').src = 
+    'https://thithuvstep.vstepeasy.edu.vn/assets/frontend/img/img-slider-vstep-1.jpeg'; // Ảnh đẹp từ VSTEP EASY
 
-const countdown = setInterval(() => {
-  timeLeft--;
-  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-  const seconds = String(timeLeft % 60).padStart(2, '0');
-  timerElement.textContent = `${minutes}:${seconds}`;
+  // Timer đếm ngược 20 phút
+  let timeLeft = 20 * 60;
+  const timerEl = document.getElementById('timer');
+  const continueBtn = document.getElementById('continue-to-bank');
 
-  if (timeLeft <= 0) {
-    clearInterval(countdown);
-    timerElement.textContent = "Hết hạn!";
-    continueBtn.disabled = true;
-    continueBtn.textContent = "ĐÃ HẾT HẠN";
-  }
-}, 1000);
-</script>
-<script>
-// === THÊM ĐOẠN NÀY VÀO CUỐI SCRIPT CỦA checkout.html ===
-document.getElementById('continue-to-bank').addEventListener('click', function() {
-  const params = new URLSearchParams({
-    title: title,
-    price: price,
-    orderId: orderId
+  const countdown = setInterval(() => {
+    timeLeft--;
+    const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const s = String(timeLeft % 60).padStart(2, '0');
+    timerEl.textContent = `${m}:${s}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      timerEl.textContent = 'Hết hạn';
+      continueBtn.disabled = true;
+      continueBtn.textContent = 'ĐÃ HẾT HẠN';
+    }
+  }, 1000);
+
+  // Nút Tiếp tục → chuyển sang trang thông tin chuyển khoản
+  continueBtn.addEventListener('click', () => {
+    if (timeLeft <= 0) return;
+    const nextParams = new URLSearchParams({ title, price, orderId });
+    window.location.href = 'checkout-bank.html?' + nextParams.toString();
   });
-  window.location.href = 'checkout-bank.html?' + params.toString();
-});
-// =======================================================
 </script>
 
 </body>
