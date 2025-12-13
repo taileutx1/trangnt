@@ -129,7 +129,7 @@
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin + "/courses/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
+        redirectTo: window.location.origin + "/trangnt/courses/index1.html"  // ĐÚNG: dùng giá trị origin, không gán vào nó
       },
     });
 
