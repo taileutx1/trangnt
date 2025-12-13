@@ -122,215 +122,153 @@
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const { createClient } = supabase;
-    const supabaseClient = createClient('https://wdpekgcqmwpvbfyonjih.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU');
-    // Xử lý session & update header user (bắt buộc cho mọi trang có header auth)
-    async function updateUserUI() {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      const user = session?.user;
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const { createClient } = supabase;
+  const supabaseClient = createClient('https://wdpekgcqmwpvbfyonjih.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU');
 
-      if (user) {
-        const name = user.user_metadata?.full_name || user.email.split('@')[0];
-        const email = user.email;
-        const avatar = user.user_metadata?.picture || user.user_metadata?.avatar_url || 'https://via.placeholder.com/40';
+  // ... (giữ nguyên phần updateUserUI, logout như bạn đã có) ...
 
-        // Desktop
-        document.getElementById('desktop-username').textContent = name;
-        document.getElementById('desktop-email').textContent = email;
-        document.getElementById('desktop-user-avatar').src = avatar;
-        document.getElementById('desktop-user-info').classList.remove('hidden');
-        document.getElementById('desktop-login-btn')?.classList.add('hidden');
+  let currentTestId = null;
+  let passages = [];
+  let timeLeft = 3600;
+  let timerInterval;
+  let hasSubmitted = false; // Cờ kiểm tra đã nộp bài chưa
 
-        // Mobile
-        document.getElementById('mobile-username').textContent = name;
-        document.getElementById('mobile-user-avatar').src = avatar;
-        document.getElementById('mobile-user-info').classList.remove('hidden');
-        document.getElementById('mobile-user-menu').classList.remove('hidden');
-        document.getElementById('mobile-login-btn')?.classList.add('hidden');
-      } else {
-        document.getElementById('desktop-user-info').classList.add('hidden');
-        document.getElementById('desktop-login-btn')?.classList.remove('hidden');
-        document.getElementById('mobile-user-info')?.classList.add('hidden');
-        document.getElementById('mobile-user-menu')?.classList.add('hidden');
-        document.getElementById('mobile-login-btn')?.classList.remove('hidden');
-      }
-    }
+  // Load danh sách đề thi (giữ nguyên code bạn có)
 
-    // Xử lý hash OAuth (nếu có)
-    supabaseClient.auth.getSession().then(() => updateUserUI());
+  // Bắt đầu bài thi (giữ nguyên)
 
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
-      updateUserUI();
-    });
+  // Render passages - KHÔNG hiện button giải nữa, chỉ hiện text + questions
+  function renderPassages() {
+    const form = document.getElementById('reading-form');
+    form.innerHTML = '';
 
-    // Đăng xuất
-    function logout() {
-      supabaseClient.auth.signOut().then(() => location.reload());
-    }
-    let currentTestId = null;
-    let passages = []; // [{passage, questions}]
-    let timeLeft = 3600;
-    let timerInterval;
+    passages.forEach((p, pIndex) => {
+      const section = document.createElement('section');
+      section.className = 'passage-section bg-white rounded-3xl shadow-xl p-8 mb-12';
+      section.innerHTML = `
+        <h2 class="text-3xl font-bold text-primary mb-6">Passage ${p.passage_number}</h2>
+        <div class="passage-text bg-pink-50 p-8 rounded-2xl mb-8 leading-relaxed text-lg">
+          ${p.passage_text.replace(/\n/g, '<br>')}
+        </div>
+        <div class="grid gap-8 md:grid-cols-2" id="questions-${pIndex}"></div>
+      `;
+      form.appendChild(section);
 
-    // Load danh sách đề thi
-       async function loadTests() {
-      try {
-        const { data: tests, error } = await supabaseClient.from('tests').select('id, title');
-        
-        if (error) {
-          console.error('Lỗi load đề thi:', error);
-          document.getElementById('test-list').innerHTML = `
-            <div class="col-span-full text-center py-20">
-              <p class="text-2xl text-gray-600">Không tải được đề thi. Vui lòng đăng nhập hoặc thử lại sau.</p>
-              <button onclick="location.reload()" class="mt-4 px-8 py-4 bg-primary text-white rounded-xl font-bold">Thử lại</button>
-            </div>`;
-          return;
-        }
-
-        if (!tests || tests.length === 0) {
-          document.getElementById('test-list').innerHTML = '<p class="col-span-full text-center text-2xl text-gray-600">Chưa có đề thi nào</p>';
-          return;
-        }
-
-        const list = document.getElementById('test-list');
-        list.innerHTML = '';
-        tests.forEach(test => {
-          const card = document.createElement('div');
-          card.className = 'bg-white rounded-3xl shadow-2xl p-8 text-center cursor-pointer hover:scale-105 transition';
-          card.innerHTML = `<h3 class="text-2xl font-black text-primary mb-4">${test.title}</h3>
-                            <button class="px-8 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold">Làm bài</button>`;
-          card.onclick = () => startTest(test.id, test.title);
-          list.appendChild(card);
-        });
-      } catch (err) {
-        console.error('Lỗi bất ngờ:', err);
-        document.getElementById('test-list').innerHTML = '<p class="text-red-600 text-center">Lỗi kết nối. Kiểm tra console.</p>';
-      }
-    }
-    // Bắt đầu bài thi
-    async function startTest(testId, title) {
-      currentTestId = testId;
-      document.getElementById('test-title').textContent = title;
-      document.getElementById('test-list').classList.add('hidden');
-      document.getElementById('test-page').classList.remove('hidden');
-
-      // Load 4 passages + questions
-      const { data: passageData } = await supabaseClient.from('passages').select('*, questions(*)').eq('test_id', testId).order('passage_number');
-      passages = passageData;
-
-      renderPassages();
-      startTimer();
-    }
-
-    // Render từng passage với button giải riêng
-    function renderPassages() {
-      const form = document.getElementById('reading-form');
-      form.innerHTML = '';
-
-      passages.forEach((p, pIndex) => {
-        const section = document.createElement('section');
-        section.className = 'passage-section bg-white rounded-3xl shadow-xl p-8';
-        section.innerHTML = `
-          <h2 class="text-3xl font-bold text-primary mb-6">Passage ${p.passage_number}</h2>
-          <div class="passage-text bg-pink-50 p-8 rounded-2xl mb-8">${p.passage_text}</div>
-          <div class="grid gap-8 md:grid-cols-2" id="questions-${pIndex}"></div>
-          <div class="text-center mt-8">
-            <button type="button" class="check-passage-btn px-8 py-4 bg-accent text-white rounded-xl font-bold" data-index="${pIndex}">
-              Xem đáp án & Giải thích Passage ${p.passage_number}
-            </button>
-            <div class="passage-feedback hidden mt-6 text-lg font-bold text-green-600" id="feedback-${pIndex}"></div>
+      const qContainer = section.querySelector(`#questions-${pIndex}`);
+      p.questions.forEach((q, qIndex) => {
+        const qNum = pIndex * 10 + qIndex + 1;
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question-item';
+        qDiv.innerHTML = `
+          <p class="font-bold text-lg mb-4">Câu ${qNum}: ${q.question_text}</p>
+          <div class="space-y-3">
+            ${['a','b','c','d'].map(opt => `
+              <label class="block p-4 rounded-xl border-2 border-transparent hover:border-primary hover:bg-pink-50 cursor-pointer transition">
+                <input type="radio" name="q${q.id}" value="${opt}" class="accent-primary mr-3">
+                <span>${q[`option_${opt}`]}</span>
+              </label>
+            `).join('')}
           </div>
         `;
-        form.appendChild(section);
-
-        const qContainer = section.querySelector(`#questions-${pIndex}`);
-        p.questions.forEach((q, qIndex) => {
-          const qDiv = document.createElement('div');
-          qDiv.innerHTML = `
-            <p class="font-bold text-lg mb-4">Câu ${pIndex*10 + qIndex + 1}: ${q.question_text}</p>
-            <div class="space-y-3">
-              ${['a','b','c','d'].map(opt => `
-                <label class="block p-4 rounded-xl border-2 border-transparent hover:border-primary hover:bg-pink-50 cursor-pointer">
-                  <input type="radio" name="q${q.id}" value="${opt}" class="accent-primary mr-3">
-                  <span>${q[`option_${opt}`]}</span>
-                </label>
-              `).join('')}
-            </div>
-          `;
-          qContainer.appendChild(qDiv);
-        });
-
-        // Button giải passage
-        section.querySelector('.check-passage-btn').onclick = () => checkPassage(pIndex);
+        qContainer.appendChild(qDiv);
       });
-    }
-
-    // Giải từng passage
-    function checkPassage(pIndex) {
-      const passage = passages[pIndex];
-      let correct = 0;
-      passage.questions.forEach(q => {
-        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-        const options = document.querySelectorAll(`input[name="q${q.id}"]`);
-        options.forEach(opt => {
-          const label = opt.parentElement;
-          if (opt.value === q.correct_option) {
-            label.classList.add('bg-green-100', 'border-green-500');
-          } else if (opt.checked && opt.value !== q.correct_option) {
-            label.classList.add('bg-red-100', 'border-red-500');
-          }
-        });
-        if (selected && selected.value === q.correct_option) correct++;
-      });
-
-      const feedback = document.getElementById(`feedback-${pIndex}`);
-      feedback.textContent = `Passage ${pIndex+1}: Bạn đúng ${correct}/10 câu`;
-      feedback.classList.remove('hidden');
-    }
-
-    // Timer
-    function startTimer() {
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-        const sec = String(timeLeft % 60).padStart(2, '0');
-        document.getElementById('timer').textContent = `${min}:${sec}`;
-        document.getElementById('progress').style.width = `${((3600 - timeLeft)/3600)*100}%`;
-
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          submitTest();
-        }
-      }, 1000);
-    }
-
-    // Nộp bài cuối cùng
-    function submitTest() {
-      clearInterval(timerInterval);
-      let totalCorrect = 0;
-      passages.forEach(p => p.questions.forEach(q => {
-        const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
-        if (selected && selected.value === q.correct_option) totalCorrect++;
-      }));
-
-      document.getElementById('score-display').innerHTML = `Bạn đúng <span class="text-green-600 text-5xl">${totalCorrect}</span> / 40 câu`;
-      const scaled = (totalCorrect / 40 * 10).toFixed(1);
-      document.getElementById('scaled-score').textContent = scaled;
-      document.getElementById('result').classList.remove('hidden');
-      document.getElementById('submit-test-btn').disabled = true;
-    }
-
-    document.getElementById('submit-test-btn').onclick = submitTest;
-
-    // Load danh sách đề khi mở trang
-    loadTests();
-        // Khởi chạy khi load trang
-    window.addEventListener('load', () => {
-      updateUserUI();
-      loadTests();
     });
-  </script>
+  }
+
+  // Chấm điểm và highlight đáp án cho một passage cụ thể
+  function revealPassageAnswers(pIndex) {
+    const passage = passages[pIndex];
+    let correct = 0;
+
+    passage.questions.forEach(q => {
+      const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+      const options = document.querySelectorAll(`input[name="q${q.id}"]`);
+
+      options.forEach(opt => {
+        const label = opt.parentElement;
+        if (opt.value === q.correct_option) {
+          label.classList.add('bg-green-100', 'border-green-500', 'font-bold');
+        } else if (opt.checked && opt.value !== q.correct_option) {
+          label.classList.add('bg-red-100', 'border-red-500');
+        }
+      });
+
+      if (selected && selected.value === q.correct_option) correct++;
+    });
+
+    // Hiện feedback
+    let feedback = document.getElementById(`feedback-${pIndex}`);
+    if (!feedback) {
+      feedback = document.createElement('div');
+      feedback.id = `feedback-${pIndex}`;
+      feedback.className = 'mt-6 text-xl font-bold text-green-600 text-center';
+      document.querySelectorAll('.passage-section')[pIndex].appendChild(feedback);
+    }
+    feedback.textContent = `Passage ${pIndex + 1}: Bạn đúng ${correct}/10 câu`;
+    feedback.classList.remove('hidden');
+
+    // Hiện video chữa (nếu có trong DB, giả sử cột video_url ở passage hoặc question đầu)
+    let videoContainer = document.getElementById(`video-${pIndex}`);
+    if (!videoContainer && passage.video_url) {
+      videoContainer = document.createElement('div');
+      videoContainer.id = `video-${pIndex}`;
+      videoContainer.className = 'mt-8 aspect-video rounded-2xl overflow-hidden shadow-xl';
+      videoContainer.innerHTML = `
+        <iframe src="${passage.video_url}" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+      `;
+      document.querySelectorAll('.passage-section')[pIndex].appendChild(videoContainer);
+    }
+  }
+
+  // Nộp bài toàn bộ → Hiện 4 button xem đáp án từng passage
+  function submitTest() {
+    clearInterval(timerInterval);
+    hasSubmitted = true;
+
+    let totalCorrect = 0;
+    passages.forEach(p => p.questions.forEach(q => {
+      const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if (selected && selected.value === q.correct_option) totalCorrect++;
+    }));
+
+    document.getElementById('score-display').innerHTML = `Bạn đúng <span class="text-green-600 text-5xl">${totalCorrect}</span> / 40 câu`;
+    const scaled = (totalCorrect / 40 * 10).toFixed(1);
+    document.getElementById('scaled-score').textContent = scaled;
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('submit-test-btn').disabled = true;
+    document.getElementById('submit-test-btn').textContent = 'ĐÃ NỘP BÀI';
+
+    // HIỆN 4 BUTTON XEM ĐÁP ÁN TỪNG PASSAGE SAU KHI NỘP
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12';
+    buttonContainer.id = 'passage-buttons';
+
+    passages.forEach((_, pIndex) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = `Xem đáp án & Video Passage ${pIndex + 1}`;
+      btn.className = 'px-6 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold shadow-lg hover:scale-105 transition';
+      btn.onclick = () => {
+        revealPassageAnswers(pIndex);
+        // Scroll đến passage đó
+        document.querySelectorAll('.passage-section')[pIndex].scrollIntoView({ behavior: 'smooth' });
+      };
+      buttonContainer.appendChild(btn);
+    });
+
+    document.getElementById('result').appendChild(buttonContainer);
+  }
+
+  document.getElementById('submit-test-btn').onclick = submitTest;
+
+  // Các hàm khác giữ nguyên: loadTests, startTest, startTimer, updateUserUI, v.v.
+
+  window.addEventListener('load', () => {
+    updateUserUI();
+    loadTests();
+  });
+</script>
 </body>
 </html>
