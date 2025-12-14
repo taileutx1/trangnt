@@ -357,7 +357,7 @@ activateSubmit?.addEventListener('click', async () => {
 
   activateMessage.textContent = 'Đang kiểm tra...';
   // Ví dụ gọi Supabase (thay bằng table thật của bạn, ví dụ table 'activation_codes')
-  const { data, error } = await supabaseClient.from('activation_codes').select('*').eq('code', code).single();
+  const { data, error } = await supabaseClient.from('course_codes').select('*').eq('code', code).single();
 
   if (error || !data) {
     activateMessage.textContent = 'Mã không hợp lệ hoặc đã dùng!';
