@@ -346,30 +346,66 @@ document.getElementById('mobile-activate-btn')?.addEventListener('click', openAc
 // Đóng modal
 activateCancel?.addEventListener('click', closeActivateModal);
 
-// Submit mã kích hoạt (ví dụ gọi Supabase để check mã)
-activateSubmit?.addEventListener('click', async () => {
+activateSubmit.addEventListener('click', async () => {
   const code = activateCode.value.trim();
-  if (!code) {
-    activateMessage.textContent = 'Vui lòng nhập mã!';
+  activateMessage.textContent = 'Đang kiểm tra...';
+
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+  const user = sessionData.session?.user;
+  if (!user) {
+    activateMessage.textContent = 'Vui lòng đăng nhập!';
     activateMessage.style.color = '#dc2626';
     return;
   }
 
-  activateMessage.textContent = 'Đang kiểm tra...';
-  // Ví dụ gọi Supabase (thay bằng table thật của bạn, ví dụ table 'activation_codes')
-  const { data, error } = await supabaseClient.from('course_codes').select('*').eq('code', code).single();
+  // 1. Kiểm tra mã
+  const { data: codeData, error } = await supabaseClient
+    .from('course_codes')
+    .select('*')
+    .eq('code', code)
+    .eq('used', false)
+    .single();
 
-  if (error || !data) {
+  if (error || !codeData) {
     activateMessage.textContent = 'Mã không hợp lệ hoặc đã dùng!';
     activateMessage.style.color = '#dc2626';
-  } else {
-    activateMessage.textContent = 'Kích hoạt thành công! Khóa học đã được thêm.';
-    activateMessage.style.color = '#10b981';
-    // Thêm logic: update user profile trong Supabase
-    await supabaseClient.from('profiles').update({ activated_courses: data.course_id }).eq('id', (await supabaseClient.auth.getUser()).data.user.id);
-    setTimeout(closeActivateModal, 2000);
+    return;
   }
+
+  // 2. Ghi quyền sở hữu khóa học
+  const { error: insertError } = await supabaseClient
+    .from('user_courses')
+    .insert({
+      user_id: user.id,
+      course_id: codeData.course_id
+    });
+
+  if (insertError) {
+    activateMessage.textContent = 'Bạn đã kích hoạt khóa học này!';
+    activateMessage.style.color = '#dc2626';
+    return;
+  }
+
+  // 3. Đánh dấu mã đã dùng
+  await supabaseClient
+    .from('course_codes')
+    .update({
+      used: true,
+      used_by: user.id,
+      used_at: new Date()
+    })
+    .eq('id', codeData.id);
+
+  // 4. Thành công
+  activateMessage.textContent = '🎉 Kích hoạt thành công! Khóa học đã được thêm.';
+  activateMessage.style.color = '#10b981';
+
+  setTimeout(() => {
+    closeActivateModal();
+    window.location.href = 'my-courses.html';
+  }, 1500);
 });
+
 
 // Xử lý "Mua ngay" trên mỗi card (thêm listener cho tất cả button Mua ngay)
 document.querySelectorAll('#course-list button').forEach(btn => {
