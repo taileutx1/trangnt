@@ -12,10 +12,10 @@ let passageTimerInterval = null;
 
 // Hàm quy đổi band CEFR dựa trên số câu đúng (tổng 40 câu)
 function getCEFRBand(correctCount) {
-  if (correctCount >= 33) return { band: "B2+", score: "8.5 - 9.0" };
+  if (correctCount >= 33) return { band: "C", score: "8.5 - 9.0" };
   if (correctCount >= 25) return { band: "B2", score: "6.5 - 8.0" };
   if (correctCount >= 16) return { band: "B1", score: "4.0 - 6.0" };
-  return { band: "Dưới B1", score: "< 4.0" };
+  return { band: "A", score: "< 4.0" };
 }
 
 async function loadTests() {
