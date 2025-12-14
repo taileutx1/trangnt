@@ -27,7 +27,7 @@
   <!-- HEADER (giống index1.html) -->
   <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
     <div class="container mx-auto px-4 py-5 flex justify-between items-center">
-      <a href="index1.html" class="text-3xl font-black tracking-wider">TAILIEUTX1</a>
+    
 
       <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
         <a href="index1.html" class="hover:opacity-80 transition">Trang chủ</a>
@@ -304,7 +304,7 @@
             <p class="text-gray-600 text-sm mb-4">${course.description || '1 năm • Chất lượng cao'}</p>
             ${course.price ? `<p class="text-lg font-bold text-primary">${course.price.toLocaleString()}đ</p>` : ''}
           </div>
-          <button onclick="window.location.href='vstep-reading.html?id=${course.id}'"
+          <button onclick="window.location.href='readingtest/index.html?id=${course.id}'"
                   class="mt-6 w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
             Vào học ngay
           </button>

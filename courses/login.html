@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Đăng nhập - TAILIEUTX1</title>
-
-  <!-- Tailwind CSS via CDN (dùng cho dev, production nên build bằng CLI) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -14,16 +12,15 @@
           colors: {
             primary: '#ec4899',
             accent: '#f472b6',
-            danger: '#dc2626'
+            danger: '#dc2626',
+            success: '#10b981'
           }
         }
       }
     }
   </script>
 </head>
-
 <body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen flex items-center justify-center px-4">
-  <!-- Card đăng nhập -->
   <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
     <!-- Header -->
     <div class="bg-gradient-to-r from-primary to-accent text-white p-8 text-center">
@@ -37,31 +34,67 @@
         id="email"
         type="email"
         placeholder="Email"
-        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"
+        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition"
       />
 
       <input
         id="password"
         type="password"
         placeholder="Mật khẩu (≥ 6 ký tự)"
-        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none"
+        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition"
       />
 
       <button
         id="loginBtn"
-        class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl hover:opacity-90 transition"
+        class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center"
       >
-        Đăng nhập
+        <span id="loginText">Đăng nhập</span>
+        <svg id="loginSpinner" class="hidden animate-spin w-5 h-5 ml-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+        </svg>
       </button>
 
       <button
-        id="googleBtn"
-        class="w-full py-4 border-2 border-gray-300 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+        id="signupBtn"
+        class="w-full py-4 bg-white border-2 border-primary text-primary font-bold rounded-2xl hover:bg-pink-50 transition"
       >
-        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6" />
-        <span>Google</span>
+        Đăng ký tài khoản mới
       </button>
 
+      <p class="text-center">
+        <button id="forgotBtn" class="text-sm text-primary hover:underline">
+          Quên mật khẩu?
+        </button>
+      </p>
+
+      <!-- Social Login -->
+      <div class="space-y-3">
+        <button
+          id="googleBtn"
+          class="w-full py-4 border-2 border-gray-300 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition"
+        >
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6" />
+          <span>Tiếp tục với Google</span>
+        </button>
+
+        <button
+          id="facebookBtn"
+          class="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center gap-3"
+        >
+          <img src="https://www.svgrepo.com/show/475647/facebook.svg" class="w-6 h-6" />
+          <span>Tiếp tục với Facebook</span>
+        </button>
+      </div>
+
+      <!-- Logout Button -->
+      <div id="logoutContainer" class="hidden text-center pt-4">
+        <button id="logoutBtn" class="text-primary font-medium hover:underline">
+          Đăng xuất
+        </button>
+      </div>
+
+      <!-- Message -->
       <p id="message" class="text-center font-medium min-h-[1.5em]"></p>
     </div>
   </div>
@@ -69,85 +102,129 @@
   <!-- Supabase JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Script logic -->
   <script>
-  const { createClient } = supabase;
+    // === CẤU HÌNH SUPABASE - BẮT BUỘC TẠO PROJECT MỚI ===
+    const SUPABASE_URL = 'https://wdpekgcqmwpvbfyonjih.supabase.co';     // ← THAY BẰNG URL MỚI
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU';             // ← THAY BẰNG ANON KEY MỚI
 
-  // Cấu hình Supabase
-  const SUPABASE_URL = "https://wdpekgcqmwpvbfyonjih.supabase.co";
-  const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU";
+    // Khởi tạo đúng cách với CDN (global variable là "supabase")
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Redirect URL
+    const REDIRECT_URL = `${window.location.origin}/courses/index1.html`;
 
-  // Elements
-  const emailEl = document.getElementById("email");
-  const passEl = document.getElementById("password");
-  const msgEl = document.getElementById("message");
+    // Elements
+    const emailEl = document.getElementById('email');
+    const passwordEl = document.getElementById('password');
+    const messageEl = document.getElementById('message');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginText = document.getElementById('loginText');
+    const loginSpinner = document.getElementById('loginSpinner');
+    const logoutContainer = document.getElementById('logoutContainer');
 
-  // Hàm hiển thị thông báo
-  function showMsg(text, isError = false) {
-    msgEl.textContent = text;
-    msgEl.style.color = isError ? "#dc2626" : "#10b981";
-  }
-
-  // Hàm chuyển hướng sau đăng nhập thành công (SỬA LẠI ĐÚNG)
-  function redirect() {
-    setTimeout(() => {
-      window.location.href = "courses/index1.html";  // hoặc window.location.origin + "/index1.html" nếu cần full URL
-    }, 800);
-  }
-
-  // Đăng nhập bằng email/password
-  document.getElementById("loginBtn").onclick = async () => {
-    const email = emailEl.value.trim();
-    const password = passEl.value;
-
-    if (!email || password.length < 6) {
-      showMsg("Vui lòng nhập email và mật khẩu hợp lệ", true);
-      return;
+    function showMessage(text, isError = false) {
+      messageEl.textContent = text;
+      messageEl.style.color = isError ? '#dc2626' : '#10b981';
     }
 
-    showMsg("Đang đăng nhập...");
+    function setLoginLoading(loading) {
+      loginBtn.disabled = loading;
+      loginText.textContent = loading ? 'Đang xử lý...' : 'Đăng nhập';
+      loginSpinner.classList.toggle('hidden', !loading);
+    }
 
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
+    function redirect() {
+      setTimeout(() => window.location.href = REDIRECT_URL, 800);
+    }
+
+    async function checkSession() {
+      const { data } = await supabaseClient.auth.getSession();
+      if (data.session) {
+        logoutContainer.classList.remove('hidden');
+        redirect();
+      }
+    }
+
+    // Đăng nhập
+    loginBtn.addEventListener('click', async () => {
+      const email = emailEl.value.trim();
+      const password = passwordEl.value;
+
+      if (!email || password.length < 6) return showMessage('Vui lòng nhập email và mật khẩu hợp lệ', true);
+
+      setLoginLoading(true);
+      showMessage('Đang đăng nhập...');
+
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      setLoginLoading(false);
+
+      if (error) {
+        showMessage(error.message, true);
+      } else {
+        showMessage('Đăng nhập thành công! Đang chuyển hướng...');
+        logoutContainer.classList.remove('hidden');
+        redirect();
+      }
     });
 
-    if (error) {
-      showMsg(error.message, true);
-      return;
-    }
+    // Đăng ký
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const email = emailEl.value.trim();
+      const password = passwordEl.value;
 
-    showMsg("Đăng nhập thành công!");
-    redirect();
-  };
+      if (!email || password.length < 6) return showMessage('Email hợp lệ & mật khẩu ≥ 6 ký tự', true);
 
-  document.getElementById("googleBtn").onclick = async () => {
-  const { data, error } = await supabaseClient.auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: window.location.origin + "/trangnt/courses/index1.html"  // THÊM /trangnt/
-    }
-  });
+      showMessage('Đang tạo tài khoản...');
+      const { error } = await supabaseClient.auth.signUp({ email, password });
 
-  if (error) {
-    showMsg(error.message, true);
-  }
-};
+      if (error) showMessage(error.message, true);
+      else showMessage('Đăng ký thành công! Vui lòng kiểm tra email để xác nhận 🎉');
+    });
 
-  // Kiểm tra session hiện tại khi load trang
-  supabaseClient.auth.getSession().then(({ data }) => {
-    if (data.session) redirect();
-  });
+    // Quên mật khẩu
+    document.getElementById('forgotBtn').addEventListener('click', async () => {
+      const email = emailEl.value.trim();
+      if (!email) return showMessage('Vui lòng nhập email để khôi phục', true);
 
-  // Lắng nghe thay đổi trạng thái auth
-  supabaseClient.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_IN" && session) {
-      redirect();
-    }
-  });
-</script>
+      showMessage('Đang gửi email khôi phục...');
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password.html`
+      });
+
+      if (error) showMessage(error.message, true);
+      else showMessage('Đã gửi link khôi phục vào email của bạn ✅');
+    });
+
+    // Google & Facebook
+    document.getElementById('googleBtn').addEventListener('click', () => {
+      supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: REDIRECT_URL } });
+    });
+
+    document.getElementById('facebookBtn').addEventListener('click', () => {
+      supabaseClient.auth.signInWithOAuth({ provider: 'facebook', options: { redirectTo: REDIRECT_URL } });
+    });
+
+    // Đăng xuất
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await supabaseClient.auth.signOut();
+      logoutContainer.classList.add('hidden');
+      showMessage('Đã đăng xuất');
+      setTimeout(() => location.reload(), 1000);
+    });
+
+    // Auth state change
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        logoutContainer.classList.remove('hidden');
+        redirect();
+      } else if (event === 'SIGNED_OUT') {
+        logoutContainer.classList.add('hidden');
+      }
+    });
+
+    // Khởi chạy
+    checkSession();
+  </script>
 </body>
 </html>
