@@ -20,8 +20,9 @@
     }
   </script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen flex items-center justify-center px-4">
-  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden">
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen flex flex-col justify-center">
+
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md mx-auto overflow-hidden">
     <!-- Header -->
     <div class="bg-gradient-to-r from-primary to-accent text-white p-8 text-center">
       <h1 class="text-4xl font-black">TAILIEUTX1</h1>
@@ -30,24 +31,11 @@
 
     <!-- Form -->
     <div class="p-8 space-y-6">
-      <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition"
-      />
+      <input id="email" type="email" placeholder="Email" class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition" />
 
-      <input
-        id="password"
-        type="password"
-        placeholder="Mật khẩu (≥ 6 ký tự)"
-        class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition"
-      />
+      <input id="password" type="password" placeholder="Mật khẩu (≥ 6 ký tự)" class="w-full px-5 py-4 border-2 border-pink-200 rounded-2xl focus:border-primary focus:outline-none transition" />
 
-      <button
-        id="loginBtn"
-        class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center"
-      >
+      <button id="loginBtn" class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center">
         <span id="loginText">Đăng nhập</span>
         <svg id="loginSpinner" class="hidden animate-spin w-5 h-5 ml-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -55,33 +43,22 @@
         </svg>
       </button>
 
-      <button
-        id="signupBtn"
-        class="w-full py-4 bg-white border-2 border-primary text-primary font-bold rounded-2xl hover:bg-pink-50 transition"
-      >
+      <button id="signupBtn" class="w-full py-4 bg-white border-2 border-primary text-primary font-bold rounded-2xl hover:bg-pink-50 transition">
         Đăng ký tài khoản mới
       </button>
 
       <p class="text-center">
-        <button id="forgotBtn" class="text-sm text-primary hover:underline">
-          Quên mật khẩu?
-        </button>
+        <button id="forgotBtn" class="text-sm text-primary hover:underline">Quên mật khẩu?</button>
       </p>
 
       <!-- Social Login -->
       <div class="space-y-3">
-        <button
-          id="googleBtn"
-          class="w-full py-4 border-2 border-gray-300 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition"
-        >
+        <button id="googleBtn" class="w-full py-4 border-2 border-gray-300 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-50 transition">
           <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6" />
           <span>Tiếp tục với Google</span>
         </button>
 
-        <button
-          id="facebookBtn"
-          class="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center gap-3"
-        >
+        <button id="facebookBtn" class="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl hover:opacity-90 transition flex items-center justify-center gap-3">
           <img src="https://www.svgrepo.com/show/475647/facebook.svg" class="w-6 h-6" />
           <span>Tiếp tục với Facebook</span>
         </button>
@@ -89,30 +66,35 @@
 
       <!-- Logout Button -->
       <div id="logoutContainer" class="hidden text-center pt-4">
-        <button id="logoutBtn" class="text-primary font-medium hover:underline">
-          Đăng xuất
-        </button>
+        <button id="logoutBtn" class="text-primary font-medium hover:underline">Đăng xuất</button>
       </div>
 
       <!-- Message -->
-      <p id="message" class="text-center font-medium min-h-[1.5em]"></p>
+      <p id="message" class="text-center font-medium min-h-[1.5em] text-lg"></p>
     </div>
   </div>
 
-  <!-- Supabase JS CDN -->
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-primary to-accent text-white py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="text-sm font-medium">
+        © 2025 Developed by <span class="font-bold">Nguyễn Thu Trang</span>. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
-    // === CẤU HÌNH SUPABASE - BẮT BUỘC TẠO PROJECT MỚI ===
-    const SUPABASE_URL = 'https://wdpekgcqmwpvbfyonjih.supabase.co';     // ← THAY BẰNG URL MỚI
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU';             // ← THAY BẰNG ANON KEY MỚI
+    // CẤU HÌNH SUPABASE
+    const SUPABASE_URL = 'https://wdpekgcqmwpvbfyonjih.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU';
 
-    // Khởi tạo đúng cách với CDN (global variable là "supabase")
     const { createClient } = supabase;
     const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Redirect URL
-    const REDIRECT_URL = `${window.location.origin}/courses/index1.html`;
+    // Redirect URL sau khi đăng nhập thành công (OAuth hoặc email)
+    const REDIRECT_URL = `${window.location.origin}/trangnt/courses/index1.html`;
 
     // Elements
     const emailEl = document.getElementById('email');
@@ -135,23 +117,29 @@
     }
 
     function redirect() {
-      setTimeout(() => window.location.href = REDIRECT_URL, 800);
+      setTimeout(() => {
+        window.location.href = REDIRECT_URL;
+      }, 800);
     }
 
+    // Kiểm tra session khi load trang
     async function checkSession() {
       const { data } = await supabaseClient.auth.getSession();
       if (data.session) {
         logoutContainer.classList.remove('hidden');
-        redirect();
+        redirect(); // Đã login → chuyển hướng ngay
       }
     }
 
-    // Đăng nhập
+    // Đăng nhập email/password
     loginBtn.addEventListener('click', async () => {
       const email = emailEl.value.trim();
       const password = passwordEl.value;
 
-      if (!email || password.length < 6) return showMessage('Vui lòng nhập email và mật khẩu hợp lệ', true);
+      if (!email || password.length < 6) {
+        showMessage('Vui lòng nhập email và mật khẩu hợp lệ', true);
+        return;
+      }
 
       setLoginLoading(true);
       showMessage('Đang đăng nhập...');
@@ -164,7 +152,7 @@
       } else {
         showMessage('Đăng nhập thành công! Đang chuyển hướng...');
         logoutContainer.classList.remove('hidden');
-        redirect();
+        redirect(); // Thêm dòng này để redirect sau login thường
       }
     });
 
@@ -173,7 +161,10 @@
       const email = emailEl.value.trim();
       const password = passwordEl.value;
 
-      if (!email || password.length < 6) return showMessage('Email hợp lệ & mật khẩu ≥ 6 ký tự', true);
+      if (!email || password.length < 6) {
+        showMessage('Email hợp lệ & mật khẩu ≥ 6 ký tự', true);
+        return;
+      }
 
       showMessage('Đang tạo tài khoản...');
       const { error } = await supabaseClient.auth.signUp({ email, password });
@@ -185,7 +176,10 @@
     // Quên mật khẩu
     document.getElementById('forgotBtn').addEventListener('click', async () => {
       const email = emailEl.value.trim();
-      if (!email) return showMessage('Vui lòng nhập email để khôi phục', true);
+      if (!email) {
+        showMessage('Vui lòng nhập email để khôi phục', true);
+        return;
+      }
 
       showMessage('Đang gửi email khôi phục...');
       const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
@@ -196,24 +190,30 @@
       else showMessage('Đã gửi link khôi phục vào email của bạn ✅');
     });
 
-    // Google & Facebook
+    // Google & Facebook Login (OAuth)
     document.getElementById('googleBtn').addEventListener('click', () => {
-      supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: REDIRECT_URL } });
+      supabaseClient.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: REDIRECT_URL }
+      });
     });
 
     document.getElementById('facebookBtn').addEventListener('click', () => {
-      supabaseClient.auth.signInWithOAuth({ provider: 'facebook', options: { redirectTo: REDIRECT_URL } });
+      supabaseClient.auth.signInWithOAuth({
+        provider: 'facebook',
+        options: { redirectTo: REDIRECT_URL }
+      });
     });
 
     // Đăng xuất
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       await supabaseClient.auth.signOut();
       logoutContainer.classList.add('hidden');
-      showMessage('Đã đăng xuất');
+      showMessage('Đã đăng xuất thành công');
       setTimeout(() => location.reload(), 1000);
     });
 
-    // Auth state change
+    // Lắng nghe trạng thái auth
     supabaseClient.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session) {
         logoutContainer.classList.remove('hidden');
@@ -223,15 +223,8 @@
       }
     });
 
-    // Khởi chạy
+    // Khởi chạy kiểm tra session
     checkSession();
   </script>
-<footer class="bg-gradient-to-r from-primary to-accent text-white py-8 mt-20">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <p class="text-sm font-medium">
-      © 2025 Developed by <span class="font-bold">Nguyễn Thu Trang</span>. All rights reserved.
-    </p>
-  </div>
-</footer>
 </body>
 </html>
