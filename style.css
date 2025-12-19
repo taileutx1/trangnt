@@ -377,3 +377,63 @@ h1.page-title {
 .card-highlight {
   animation: cardBlink 0.8s ease 4;
 }
+/* Container */
+.nav-item {
+  position: relative;
+}
+
+/* Nút Khóa học */
+.nav-course-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+  padding: 10px 14px;
+}
+
+/* Menu trổ xuống */
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  width: 220px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  list-style: none;
+  padding: 8px 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s ease;
+  z-index: 999;
+}
+
+/* Item */
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-menu li a:hover {
+  background: #f5f5f5;
+  color: #c4161c; /* giống màu đỏ HUST */
+}
+
+/* Hover thì hiện */
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav-item.active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}

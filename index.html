@@ -10,7 +10,7 @@
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="style.css">
-</head>
+</head> 
 <body>
 
   <!-- Header -->
@@ -22,8 +22,20 @@
         <a href="chuyennganh.html">Chuyên ngành</a>
         <a href="tienganh.html">Tiếng anh</a>
                 <a href="phanmem.html">Phần mềm</a>
-        <a href="courses/index1.html" class="nav-course-btn">
-          <i class="fas fa-graduation-cap"></i> Khóa học</a>
+   <li class="nav-item dropdown">
+  <a href="#" class="nav-course-btn">
+    <i class="fas fa-graduation-cap"></i> Khóa học
+    <i class="fas fa-chevron-down"></i>
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a href="/courses/index1.html">VSTEP</a></li>
+    <li><a href="/math/mathtest.html">TOÁN 12</a></li>
+
+
+  </ul>
+</li>
+
  
       </nav>
       <button class="mobile-menu" aria-label="Menu">
@@ -68,6 +80,13 @@
   <footer class="footer">
     <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
   </footer>
+  <script>
+document.querySelector('.nav-course-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  this.parentElement.classList.toggle('active');
+});
+</script>
+
   <script src="script.js"></script>
 </body>
 </html>
