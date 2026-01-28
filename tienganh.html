@@ -3,189 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đại cương - TAILIEUTX1</title>
+  <title>Tiếng Anh - TAILIEUTX1</title>
+  <meta name="description" content="Tài liệu Tiếng Anh: IELTS, TOEIC, VSTEP, APTIS dành cho sinh viên ngành Công nghệ Dệt May">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Dùng chung file CSS -->
   <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-mobile.css">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-    }
-
-      header {
-      background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
-      padding: 0px 200px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      margin: 0;
-      cursor: pointer;
-    }
-
-    nav a {
-      margin-left: 15px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    h1.page-title {
-      text-align: center;
-      color: #be185d;
-      margin-bottom: 30px;
-    }
-
-    .subject-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .subject-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .subject-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .subject-button {
-      background: #f472b6;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .subject-button:hover {
-      background: #ec4899;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #222;
-      color: white;
-      margin-top: 40px;
-    }
-  </style>
 </head>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const highlight = params.get("highlight");
-  if (!highlight) return;
-
-  const cards = document.querySelectorAll(".doc-card");
-
-  cards.forEach(card => {
-    const titleElement = card.querySelector(".doc-title");
-
-    if (titleElement && titleElement.innerText.toLowerCase().includes(highlight.toLowerCase())) {
-
-      // Cuộn vào giữa màn hình
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-
-      // Thêm hiệu ứng nhấp nháy
-      card.classList.add("card-highlight");
-
-      // Tự tắt sau 4 giây
-      setTimeout(() => {
-        card.classList.remove("card-highlight");
-      }, 4000);
-    }
-  });
-});
-</script>
-
-<script src="highlight.js"></script>
 <body>
 
-<!-- Header -->
-<header class="header">
-  <div class="header-container">
-    <!-- Logo link tới index.html -->
-    <h1 class="logo">
-      <a href="index.html">TAILIEUTX1</a>
-    </h1>
-
-    <!-- Menu -->
-    <nav class="nav">
-      <a href="daicuong.html" class="nav-button">Đại cương</a>
-      <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
-      <a href="tienganh.html" class="nav-button">Tiếng anh</a>
-      <a href="phanmem.html" class="nav-button">Phần mềm</a>
-      <a href="tudien.html" class="nav-button">Từ điển</a>
-    </nav>
-
-    <!-- Nút menu di động -->
-    <button class="mobile-menu">☰</button>
-  </div>
-</header>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h1 class="logo"><a href="index.html">TAILIEUTX1</a></h1>
+      <nav class="nav">
+        <a href="daicuong.html">Đại cương</a>
+        <a href="chuyennganh.html">Chuyên ngành</a>
+        <a href="tienganh.html" class="active">Tiếng anh</a>
+                <a href="phanmem.html">Phần mềm</a>
+        <a href="courses/index1.html" class="nav-course-btn">
+          <i class="fas fa-graduation-cap"></i> Khóa học</a>
+        <a href="courses/index1.html" class="nav-course-btn">
+          <i class="fas fa-graduation-cap"></i> Khóa học</a>
+        
+      </nav>
+      <button class="mobile-menu" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
 
   <!-- Main Content -->
   <main>
-    <h1 class="page-title">Tài liệu Tiếng anh</h1>
+    <h1 class="page-title">Tài liệu Tiếng Anh</h1>
 
-    <!-- Subjects List -->
     <div class="subject-card">
-      <span class="subject-title">Ielts</span>
-      <a href="ielts.html" class="subject-button">Xem →</a>
+      <span class="subject-title">IELTS</span>
+      <a href="pages/ielts.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
-      <span class="subject-title">Toeic</span>
-      <a href="toeic.html" class="subject-button">Xem →</a>
+      <span class="subject-title">TOEIC</span>
+      <a href="pages/toeic.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
-      <span class="subject-title">Vstep</span>
-      <a href="vstep.html" class="subject-button">Xem →</a>
+      <span class="subject-title">VSTEP</span>
+      <a href="pages/vstep.html" class="subject-button">Xem →</a>
     </div>
 
     <div class="subject-card">
-      <span class="subject-title">Aptis</span>
-      <a href="aptis.html" class="subject-button">Xem →</a>
+      <span class="subject-title">APTIS</span>
+      <a href="pages/aptis.html" class="subject-button">Xem →</a>
     </div>
-
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
+    <p>Since 2025 © Developed by Phạm Nhật Huy</p>
   </footer>
 
+  <!-- Dùng chung file JS -->
+  <script src="script.js"></script>
 </body>
 </html>

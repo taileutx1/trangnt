@@ -3,626 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homepage - TAILIEUTX1</title>
+  <title>TAILIEUTX1 - Tài liệu Công nghệ Dệt May</title>
+  <meta name="description" content="Tài liệu đại cương, chuyên ngành, tiếng Anh, phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt May - TAILIEUTX1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-mobile.css">
-
-  
-  <style>
-    /* ===== Reset cơ bản ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.5;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* ===== Header ===== */
-    header {
-      background: linear-gradient(90deg, #f472b6, #ec4899, #8b5cf6);
-      padding: 0px 200px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      margin: 0;
-      cursor: pointer;
-    }
-
-    nav a {
-      margin-left: 15px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    h1.page-title {
-      text-align: center;
-      color: #be185d;
-      margin-bottom: 30px;
-    }
-
-    .subject-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .subject-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .subject-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .subject-button {
-      background: #f472b6;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .subject-button:hover {
-      background: #ec4899;
-    }
-    .mobile-menu {
-      display: none;
-      font-size: 1.5rem;
-      background: none;
-      border: none;
-      color: #fff;
-    }
-
-    /* ===== Banner ===== */
-    #banner {
-      background-color: #f5f5f5;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .banner-content h1 {
-      font-size: 4rem;
-      margin-bottom: 5px;
-      margin-top: -25px;
-      font-display: bold;
-    }
-
-    .banner-content p {
-      margin-bottom: 15px;
-      margin-left: 190px;
-      margin-right: 190px;
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .search-bar input {
-      padding: 15px;
-      width: 1000px;
-      max-width: 80%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .search-bar button {
-      padding: 8px 12px;
-      background-color: #000000;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-    }
-
-    .btn-donggop {
-      padding: 20px 40px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 15px;
-      font-size: 2rem;
-      margin-top: 10px;
-      margin-bottom: -20px;
-    }
-
-    /* ===== Categories ===== */
-    .categories {
-      padding: 10px;
-    }
-
-    .categories-header {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .categories ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .categories li {
-      background-color: #eee;
-      padding: 10px;
-      border-radius: 5px;
-      flex: 1 1 45%;
-      text-align: center;
-    }
-
-    /* ===== Footer ===== */
-    .footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #333;
-      color: #fff;
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      .nav {
-        display: none;
-        flex-direction: column;
-        background-color: #333;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 200px;
-        padding: 10px;
-      }
-
-      .nav a {
-        padding: 10px 0;
-      }
-
-      .nav.nav-active {
-        display: flex;
-      }
-
-      .mobile-menu {
-        display: block;
-      }
-
-      .categories ul {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const highlight = params.get("highlight");
-  if (!highlight) return;
-
-  const cards = document.querySelectorAll(".doc-card");
-
-  cards.forEach(card => {
-    const titleElement = card.querySelector(".doc-title");
-
-    if (titleElement && titleElement.innerText.toLowerCase().includes(highlight.toLowerCase())) {
-
-      // Cuộn vào giữa màn hình
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-
-      // Thêm hiệu ứng nhấp nháy
-      card.classList.add("card-highlight");
-
-      // Tự tắt sau 4 giây
-      setTimeout(() => {
-        card.classList.remove("card-highlight");
-      }, 4000);
-    }
-  });
-});
-</script>
-
-<script src="highlight.js"></script>
+</head> 
 <body>
 
- <!-- Header -->
-<header class="header">
-  <div class="header-container">
-    <!-- Logo link tới index.html -->
-    <h1 class="logo">
-      <a href="index.html">TAILIEUTX1</a>
-    </h1>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h2 class="logo"><a href="index.html">TAILIEUTX1</a></h2>
+      <nav class="nav">
+        <a href="daicuong.html">Đại cương</a>
+        <a href="chuyennganh.html">Chuyên ngành</a>
+        <a href="tienganh.html">Tiếng anh</a>
+                <a href="phanmem.html">Phần mềm</a>
+   <li class="nav-item dropdown">
+  <a href="#" class="nav-course-btn">
+    <i class="fas fa-graduation-cap"></i> Nháp code 
+    <i class="fas fa-chevron-down"></i>
+  </a>
 
-    <!-- Menu -->
-    <nav class="nav">
-      <a href="daicuong.html" class="nav-button">Đại cương</a>
-      <a href="chuyennganh.html" class="nav-button">Chuyên ngành</a>
-      <a href="tienganh.html" class="nav-button">Tiếng anh</a>
-      <a href="phanmem.html" class="nav-button">Phần mềm</a>
-      <a href="tudien.html" class="nav-button">Từ điển</a>
-    </nav>
+  <ul class="dropdown-menu">
+    <li><a href="courses/index1.html">VSTEP</a></li>
+    <li><a href="math/mathtest.html">TOÁN 12</a></li>
+    <li><a href="luong/nhan-vien-cham-cong.html">CHẤM CÔNG</a></li>
+    <li><a href="luong/quan-ly.html">QUẢN LÝ LƯƠNG</a></li>
 
-    <!-- Nút menu di động -->
-    <button class="mobile-menu">☰</button>
-  </div>
-</header>
 
+  </ul>
+</li>
+
+ 
+      </nav>
+      <button class="mobile-menu" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
 
   <!-- Banner -->
   <section id="banner">
     <div class="banner-content">
       <h1>TÀI LIỆU TX1</h1>
-      <p>
-        Tài liệu TX1 chuyên chia sẻ tài liệu đại cương, cơ sở ngành, chuyên ngành, tiếng anh và phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt may. Tuy nhiên, mình đã ra trường và kiến thức cũng thay đổi rất nhiều rồi, nên mong các bạn có tài liệu nào hay thì cho mình xin nhé.
-      </p>
-      <div class="search-bar" style="position: relative;">
-        <input type="text" placeholder="Tìm kiếm tài liệu..." id="searchInput">
-        <button id="searchBtn">Tìm kiếm</button>
-        <div id="suggestions" class="suggestions"></div> <!-- bắt buộc phải ở đây -->
+      <p>Tài liệu TX1 chuyên chia sẻ tài liệu đại cương, cơ sở ngành, chuyên ngành, tiếng anh và phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt may. Do mình ra trường rồi nên chưa cập nhật được nhiều tài liệu, các bạn có tài liệu nào hay thì đóng góp để kho tài liệu ngày càng phong phú!</p>
+
+      <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm tài liệu..." id="searchInput" autocomplete="off">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+        <div id="suggestions" class="suggestions"></div>
       </div>
-      
 
-      <button class="btn-donggop" onclick="window.location.href=https://drive.google.com/drive/folders/1TTlAS8UO6iCVI7C5nVIpS9qz3DPvR1tD'">
-  Đóng góp tài liệu →
-</button>
-
-
+      <button class="btn-donggop" onclick="location.href='https://drive.google.com/drive/folders/1Nzq0YsN8Vg71UpfeY-O85GRMWqI9jJBs?usp=sharing'">
+        Đóng góp tài liệu
+      </button>
     </div>
   </section>
 
-<!-- Comment Section -->
-<section class="comment-section">
-  <h2>Hòm thư góp ý</h2>
-  <p>Your email address will not be published. Required fields are marked *</p>
+  <!-- Comment Section -->
+  <section class="comment-section">
+    <div class="comment-box">
+      <h2>Hòm thư góp ý</h2>
+      <p class="note">Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu <span class="required">*</span></p>
 
-  <form id="feedbackForm" class="comment-form" action="https://formspree.io/f/mwpgqnwy" method="POST">
-    <label for="content">Nội dung góp ý *</label>
-    <textarea id="content" name="content" placeholder="Bạn muốn góp ý điều gì?" required></textarea>
-
-    <button class="post-comment" type="submit">POST COMMENT</button>
-  </form>
-
-  <p id="status" style="margin-top:10px; font-weight:bold;"></p>
-</section>
-<script>
-document.getElementById("feedbackForm").addEventListener("submit", async function(e) {
-    e.preventDefault(); // ❗ Không cho reload / chuyển trang
-
-    const form = e.target;
-    const status = document.getElementById("status");
-
-    // Lấy dữ liệu form
-    const data = new FormData(form);
-
-    // Gửi bằng fetch API (AJAX)
-    try {
-        const response = await fetch(form.action, {
-            method: "POST",
-            body: data,
-            headers: {
-                "Accept": "application/json"
-            }
-        });
-
-        if (response.ok) {
-            status.innerHTML = "✔ Gửi góp ý thành công! Cảm ơn bạn ❤️";
-            form.reset(); // Xoá nội dung
-        } else {
-            status.innerHTML = "❌ Gửi thất bại. Vui lòng thử lại.";
-        }
-    } catch (error) {
-        status.innerHTML = "❌ Có lỗi khi gửi.";
-    }
-});
-</script>
-
-
-
-
+      <form id="feedbackForm" action="https://formspree.io/f/xeeavpqz" method="POST">
+        <textarea name="content" id="content" placeholder="Bạn muốn góp ý điều gì?" required></textarea>
+        <button type="submit" class="submit-btn">POST COMMENT</button>
+      </form>
+      <p id="status" class="status-msg"></p>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Since 2025 © Developed by Nguyễn Thu Trang</p>
+    <p>Since 2025 © Developed by Phạm Nhật Huy</p>
   </footer>
-
-  <!-- JS Menu Mobile -->
   <script>
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const nav = document.querySelector('.nav');
-
-    mobileMenuBtn.addEventListener('click', () => {
-      nav.classList.toggle('nav-active');
-    });
-  </script>
-</body>
-<style>
-  .suggestions {
-  position: absolute;
-  top: 100%;
-  left: 189px;
-  width: 68%;
-  background-color: #030000;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 50px 70px rgba(0,0,0,0.15);
-  z-index: 100;
-  display: none;
-  overflow: hidden;
-  font-size: 2rem;
-}
-
-.suggestions div {
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.suggestions div:hover {
-  background-color: #f0f0f0;
-}
-
-.highlight {
-  background-color: #df14ba; /* vàng sáng, đẹp hơn */
-  font-weight: bold;
-}
-
-</style>
-
-<script>
-const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('searchBtn');
-const suggestionsDiv = document.getElementById('suggestions');
-
-// Bảng từ khóa → trang
-const searchMap = [
-  // triết học
-  { keywords: ["EM1170 Pháp luật đại cương"], page: "triet.html" },
-  { keywords: ["SSH1111 Triết học Mác-Lênin"], page: "triet.html" },
-  { keywords: ["SSH1121 Kinh tế chính trị"], page: "triet.html" },
-  { keywords: ["SSH1131 Chủ nghĩa xã hội khoa học"], page: "triet.html" },
-  { keywords: ["SSH1141 Lịch sử Đảng"], page: "triet.html" },
-  { keywords: ["SSH1151 Tư tưởng Hồ Chí Minh"], page: "triet.html" },
-// toán, lý, tin 
-  { keywords: ["MI1142 Đại số tuyến tính"], page: "toancaocap.html" },
-  { keywords: ["MI1112 Giải tích 1"], page: "toancaocap.html" },
-  { keywords: ["MI1122 Giải tích 2"], page: "toancaocap.html" },
-  { keywords: ["MI1132 Giải tích 3"], page: "toancaocap.html" },
-  { keywords: ["MI2021 Xác suất thống kê"], page: "toancaocap.html" },
-  { keywords: ["MI2010 Phương pháp tính"], page: "toancaocap.html" },
-
-  { keywords: ["PH1111 Vật lý đại cương 1"], page: "vatly.html" },
-  { keywords: ["PH1121 Vật lý đại cương 2"], page: "vatly.html" },
-  { keywords: ["PH1131 Vật lý đại cương 3"], page: "vatly.html" },
-
-  { keywords: ["IT1140 Tin học đại cương"], page: "tinhoc.html" },
-
-  { keywords: ["CH1017 Hóa học"], page: "hoahoc.html" },
-  { keywords: ["CH3223 Hóa hữu cơ"], page: "hoahoc.html" },
-// cơ so và cốt lõi ngành chung 
-
-// cơ sở ngành học chung
-  { keywords: ["EE2012 Kỹ thuật điện"], page: "cosonganhchung.html" },
-  { keywords: ["ME2015 Đồ họa kỹ thuật cơ bản"], page: "cosonganhchung.html" },
-  { keywords: ["HE2012 Kỹ thuật nhiệt"], page: "cosonganhchung.html" },
-  { keywords: ["ME3211 Nguyên lý máy"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3090 Cơ sở mỹ thuật sản phẩm dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3180 Cấu trúc vải sợi"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3140 Tiếng anh chuyên ngành dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3131 Quản lý chất lượng dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3010 Quản lý sản xuất dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3141 Cơ sở xử lý hóa học sản phẩm dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3161 Thực hành sợi, vải"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3030 Marketing dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3060 Thực hành kiểm tra và phân tích vật liệu dệt may"], page: "cosonganhchung.html" },
-  { keywords: ["TEX3150 Vật liệu dệt may"], page: "cosonganhchung.html" },
-
-// cơ sở ngành khối may
-
-  { keywords: ["TEX4352 Thực hành may cơ bản"], page: "cosonganhkhoimay.html" },
-  { keywords: ["TEX4372 Thực hành may nâng cao"], page: "cosonganhkhoimay.html" },
-  { keywords: ["TEX4502 Công nghệ gia công sản phẩm may"], page: "cosonganhkhoimay.html" },
-  { keywords: ["TEX4382 Thiết kế trang phục"], page: "cosonganhkhoimay.html" },
-  { keywords: ["TEX4462 Thực hành thiết kế trang phục"], page: "cosonganhkhoimay.html" },
-
-
-  { keywords: ["TEX4851 Công nghệ kéo xơ sợi ngắn"], page: "cosonganhkhoidet.html" },
-  { keywords: ["TEX4591 Công nghệ dệt kim cơ bản"], page: "cosonganhkhoidet.html" },
-  { keywords: ["TEX4503 Khoa học màu sắc"], page: "cosonganhkhoidet.html" },
-  { keywords: ["TEX4601 CÔng nghệ dệt thoi I"], page: "cosonganhkhoidet.html" },
-  { keywords: ["TEX3070 An toàn lao động và môi trường dệt may"], page: "cosonganhkhoidet.html" },
-  { keywords: ["TEX4432 Hệ thống công nghệ và quá trình may"], page: "cosonganhkhoidet.html" },
-
-// công nghệ sản xuất sản phẩm dệt
-
-  { keywords: ["TEX4471 Công nghệ không dệt"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX4611 Công nghệ dệt thoi II"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX4451 Kỹ thuật dệt kim hoa"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX4621 Công nghệ kéo sợi xơ dài"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX4631 Thiết kế dây chuyền sợi dệt"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX4551 Thực hành dệt 1"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX641 Cấu trúc sợi"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX3081 Cấu trúc vải dệt thoi"], page: "congnhesanxuatsanphamdet.html" },
-  { keywords: ["TEX3091 Cấu trúc vải dệt kim"], page: "congnhesanxuatsanphamdet.html" },
-
-  // công nghệ may
-  { keywords: ["TEX4332 Thiết bị may công nghiệp"], page: "congnhemay.html" },
-  { keywords: ["TEX4442 Công nghệ sản xuất sản phẩm may"], page: "congnhemay.html" },
-  { keywords: ["TEX4422 Thiết kế dây chuyền may"], page: "congnhemay.html" },
-  { keywords: ["TEX4002 Thiết kế công nghệ quá trình sản phẩm may"], page: "congnhemay.html" },
-  { keywords: ["TEX4282 Thiết kế mẫu sản xuất"], page: "congnhemay.html" },
-  { keywords: ["TEX4272 Thiết kế sản phẩm may theo đơn hàng"], page: "congnhemay.html" },
-  { keywords: ["TEX4512 Ứng dụng công nghệ thông tin trong công nghiệp may"], page: "congnhemay.html" },
-// hóa dệt
-  { keywords: ["CH3071 Hóa lý"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX4023 Hóa học thực phẩm"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX4463 Công nghệ và thiết bị sản phẩm dệt"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX4523 Phân tích thành phần hoá học vải liệu dệt may"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX4473 Công nghệ và thiết bị nhuộm – in hoàn tất sản phẩm dệt may"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX4513 Thực hành công nghệ nhuộm – in hoàn tất sản phẩm dệt may"], page: "vatlieuvacongnghehoantat.html" },
-  { keywords: ["TEX5253 Kiểm soát chất lượng sản phẩm nhuộm và hoàn tất"], page: "vatlieuvacongnghehoantat.html" },
-
-  { keywords: ["TEX4455 Hình họa thời trang"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4465 Thiết kế mỹ thuật trang phục"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4475 Tin học ứng dụng trong thiết kế mỹ thuật trang phục"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4125 Tại màu trên trang phục may sẵn"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4445 Phần mềm ứng dụng trong thiết kế thời trang"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4485 Thiết kế bộ sưu tập thời trang"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4525 Thiết kế sản phẩm thời trang giá y"], page: "thietkethoitrangvadagiay.html" },
-  { keywords: ["TEX4515 Thiết kế và công nghệ sản phẩm áo dài"], page: "thietkethoitrangvadagiay.html" },
-
-  { keywords: ["TEX4382 Thiết kế trang phục"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4016 Thiết kế sản phẩm sơ mi"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4026 Thiết kế vải dệt thoi đơn giản"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4116 Thiết kế sản phẩm vest dệt kim"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4106 Thực hành phần tử và thiết kế vải I"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4066 Nguyên lý tạo mẫu sản phẩm dệt may"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4076 Phần mềm ứng dụng trong thiết kế vải"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4086 Thực hành tạo mẫu sản phẩm dệt may"], page: "thietkevaidetmay.html" },
-  { keywords: ["TEX4096 Tín học ứng dụng trong thiết kế vải"], page: "thietkevaidetmay.html" },
-];
-
-// Tìm các gợi ý khớp 1 phần với input
-function getSuggestions(query) {
-  query = query.toLowerCase();
-  const results = [];
-  for (let item of searchMap) {
-    for (let kw of item.keywords) {
-      if (kw.toLowerCase().includes(query) && !results.some(r => r.keyword === kw)) {
-        results.push({ keyword: kw, page: item.page });
-      }
-    }
-  }
-  return results;
-}
-
-// Highlight phần chữ khớp
-function highlightMatch(text, query) {
-  const regex = new RegExp(`(${query})`, "gi");
-  return text.replace(regex, '<span class="highlight">$1</span>');
-}
-
-// Hiển thị gợi ý khi gõ
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.trim();
-  if (!query) {
-    suggestionsDiv.style.display = 'none';
-    return;
-  }
-
-  const results = getSuggestions(query);
-  if (results.length === 0) {
-    suggestionsDiv.style.display = 'none';
-    return;
-  }
-
-  suggestionsDiv.innerHTML = '';
-  results.forEach(r => {
-    const div = document.createElement('div');
-    div.innerHTML = highlightMatch(r.keyword, query); // highlight
-    div.addEventListener('click', () => {
-      window.location.href = `${r.page}?highlight=${encodeURIComponent(r.keyword)}`;
-    });
-    suggestionsDiv.appendChild(div);
-  });
-
-  suggestionsDiv.style.display = 'block';
+document.querySelector('.nav-course-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  this.parentElement.classList.toggle('active');
 });
-
-// Nhấn tìm kiếm hoặc Enter
-function handleSearch() {
-  const query = searchInput.value.trim().toLowerCase();
-  if (!query) {
-    alert("Vui lòng nhập từ khóa tìm kiếm!");
-    return;
-  }
-
-  const match = searchMap.find(item => item.keywords.some(kw => kw.toLowerCase() === query));
-  if (match) {
-    window.location.href = match.page;
-  } else {
-    alert("Không tìm thấy kết quả phù hợp!");
-  }
-}
-
-searchBtn.addEventListener('click', handleSearch);
-searchInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') handleSearch();
-});
-
-// Ẩn gợi ý khi click ra ngoài
-document.addEventListener('click', (e) => {
-  if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
-    suggestionsDiv.style.display = 'none';
-  }
-});
-
-// ======= Xử lý ENTER để chuyển tới trang gần đúng nhất =======
-searchInput.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault(); // tránh reload
-
-    const query = searchInput.value.trim().toLowerCase();
-    if (!query) return;
-
-    // Lấy danh sách gợi ý phù hợp
-    const suggestions = getSuggestions(query);
-
-    if (suggestions.length > 0) {
-      // Lấy gợi ý khớp nhất (gợi ý đầu tiên)
-      const bestMatch = suggestions[0];
-
-      // Chuyển trang
-      window.location.href = `${bestMatch.page}?highlight=${encodeURIComponent(bestMatch.keyword)}`;
-    } else {
-      alert("❌ Không tìm thấy tài liệu phù hợp!");
-    }
-  }
-});
-
 </script>
 
-
+  <script src="script.js"></script>
+</body>
 </html>
