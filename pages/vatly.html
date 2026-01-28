@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Tài liệu - TAILIEUTX1</title>
+  <meta name="description" id="metaDesc" content="Tài liệu học tập ngành Công nghệ Dệt May">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h1 class="logo"><a href="../index.html">TAILIEUTX1</a></h1>
+      <nav class="nav">
+        <a href="../daicuong.html" id="menu-daicuong">Đại cương</a>
+        <a href="../chuyennganh.html" id="menu-chuyennganh">Chuyên ngành</a>
+        <a href="../tienganh.html" id="menu-tienganh">Tiếng anh</a>
+        <a href="../phanmem.html" id="menu-phanmem">Phần mềm</a>
+        <a href="../tudien.html" id="menu-tudien">Từ điển</a>
+        <a href="../courses/index1.html" class="nav-course-btn">
+          <i class="fas fa-graduation-cap"></i> Khóa học
+          <span class="new-badge">NEW</span>
+        </a>
+      </nav>
+      <button class="mobile-menu" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="documents-page">
+    <h1 class="page-title" id="mainTitle">Đang tải...</h1>
+    <div id="documentsList">
+      <!-- Các card sẽ được JS render vào đây -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Since 2025 © Developed by Phạm Nhật Huy</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Load dữ liệu và render trang
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Lấy tên trang từ URL (ví dụ: toancaocap.html → "toancaocap")
+      const pageKey = location.pathname.split('/').pop().replace('.html', '');
+
+      try {
+        const response = await fetch('../data/documents.json');
+        const data = await response.json();
+
+        const pageData = data[pageKey];
+        if (!pageData) {
+          document.getElementById('mainTitle').textContent = 'Không tìm thấy trang';
+          return;
+        }
+
+        // Cập nhật title, meta, menu active
+        document.getElementById('pageTitle').textContent = pageData.pageTitle + ' - TAILIEUTX1';
+        document.getElementById('metaDesc').setAttribute('content', pageData.metaDescription);
+        document.getElementById('mainTitle').textContent = pageData.pageTitle;
+
+        if (pageData.activeMenu) {
+          document.getElementById(`menu-${pageData.activeMenu}`)?.classList.add('active');
+        }
+
+        // Render các card tài liệu
+        const listEl = document.getElementById('documentsList');
+        pageData.documents.forEach(doc => {
+          const card = document.createElement('div');
+          card.className = 'doc-card';
+          card.innerHTML = `
+            <div class="doc-info">
+              <div class="doc-title">${doc.code ? doc.code + ' ' + doc.name : doc.name}</div>
+              <div class="doc-desc">${doc.desc}</div>
+              <div class="doc-size">${doc.size || ''}</div>
+            </div>
+            <a href="${doc.link}" class="download-btn" target="_blank" rel="noopener">
+              Tải về
+            </a>
+          `;
+          // Highlight nếu có từ khóa tìm kiếm
+          if (location.search.includes('highlight=')) {
+            const highlight = new URLSearchParams(location.search).get('highlight').toLowerCase();
+            if (doc.code && doc.code.toLowerCase().includes(highlight) || doc.name.toLowerCase().includes(highlight)) {
+              card.classList.add('card-highlight');
+            }
+          }
+          listEl.appendChild(card);
+        });
+
+      } catch (err) {
+        document.getElementById('mainTitle').textContent = 'Lỗi tải dữ liệu';
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

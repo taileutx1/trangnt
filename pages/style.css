@@ -1,0 +1,418 @@
+/* ====================== BASE ====================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Arial", Helvetica, sans-serif;
+    background: #fafafa;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* ====================== HEADER ====================== */
+header {
+    background: linear-gradient(90deg, #d60ca4, #cd099c);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.nav {
+    display: flex;
+    gap: 12px;
+}
+
+.nav a {
+    width: 140px;
+    height: 48px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav a:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-3px);
+}
+
+.nav a.active {
+    background: rgba(255,255,255,0.4);
+    font-weight: 900;
+}
+
+.mobile-menu {
+    display: none;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.nav-course-btn {
+    position: relative;
+    background: linear-gradient(135deg, #ff1493, #ff69b4) !important;
+    color: #fff !important;
+    font-weight: 900;
+    box-shadow: 0 4px 15px rgba(255,20,147,0.4);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-course-btn:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+    box-shadow: 0 10px 25px rgba(255,20,147,0.6);
+}
+
+.new-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ff0040;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* ====================== MOBILE MENU ====================== */
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+    }
+
+    .nav {
+        position: fixed;
+        top: 70px;
+        inset-inline: 0;
+        background: linear-gradient(90deg, #d60ca4, #cd099c);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+
+    .nav.nav-active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav a {
+        width: 100%;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
+
+/* ====================== FOOTER ====================== */
+.footer {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d0b1e 100%);
+    color: #e0e0e0;
+    text-align: center;
+    padding: 50px 20px 30px;
+    border-top: 5px solid #ff69b4;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Hiệu ứng gradient nhẹ ở nền */
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 105, 180, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  /* Logo hoặc tên thương hiệu */
+  .footer-logo {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff69b4, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  
+  /* Text chính (copyright + tên) */
+  .footer-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 10px 0 20px;
+    color: #ddd;
+  }
+  
+  /* Social icons (nếu muốn thêm) */
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .footer-social a {
+    color: #ff69b4;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-social a:hover {
+    color: #ec4899;
+    transform: translateY(-4px) scale(1.15);
+    text-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+  }
+  
+  /* Credit / Developed by */
+  .footer-credit {
+    font-size: 0.95rem;
+    color: #aaa;
+    margin-top: 20px;
+    opacity: 0.9;
+  }
+  
+  .footer-credit a {
+    color: #ff69b4;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .footer-credit a:hover {
+    color: #ec4899;
+    text-decoration: underline;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 40px 16px 25px;
+    }
+  
+    .footer-logo {
+      font-size: 1.8rem;
+    }
+  
+    .footer-text {
+      font-size: 1rem;
+    }
+  
+    .footer-social {
+      gap: 20px;
+    }
+  
+    .footer-social a {
+      font-size: 1.6rem;
+    }
+  }
+
+/* ====================== DOCUMENTS PAGE ====================== */
+.documents-page {
+    max-width: 900px;
+    margin: 60px auto 40px;
+    padding: 0 20px;
+}
+
+.documents-page .page-title {
+    text-align: center;
+    color: #be185d;
+    font-size: 2.3rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+/* ====================== SEARCH BOX ====================== */
+.search-box {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #d60ca4;
+    box-shadow: 0 0 15px rgba(214, 12, 164, 0.2);
+}
+
+.search-clear {
+    padding: 14px 20px;
+    background: #ff4d7d;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.search-clear:hover {
+    background: #ff1493;
+    transform: scale(1.05);
+}
+
+.search-info {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ====================== DOCUMENTS CARD ====================== */
+.doc-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    gap: 20px;
+    opacity: 1;
+}
+
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.doc-card.hidden {
+    display: none;
+}
+
+.doc-info {
+    flex: 1;
+}
+
+.doc-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.doc-desc {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.doc-size {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.download-btn {
+    background: #f472b6;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+}
+
+.download-btn:hover {
+    background: #ec4899;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+}
+
+/* ====================== SEARCH HIGHLIGHT ANIMATION ====================== */
+@keyframes cardBlink {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px #ff1493, inset 0 0 20px rgba(255, 20, 147, 0.1);
+        transform: scale(1.02);
+    }
+}
+
+.card-highlight {
+    animation: cardBlink 0.6s ease-in-out 3;
+}
+
+/* ====================== MOBILE RESPONSIVE ====================== */
+@media (max-width: 768px) {
+    .doc-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .download-btn {
+        align-self: flex-end;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+}

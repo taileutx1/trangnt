@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAILIEUTX1 - Khóa học chất lượng cao</title>
+  <meta name="description" content="Khóa học Toán, Hóa, Lý THPT - Luyện thi đại học hiệu quả">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ec4899',
+            accent: '#f472b6',
+            danger: '#dc2626'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+  <!-- HEADER (giữ nguyên structure của bạn, chỉ thêm id cho login btn) -->
+  <header class="bg-gradient-to-r from-primary to-accent text-white shadow-2xl sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6 text-lg font-medium">
+        <a href="index1.html" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Trang chủ</a>
+        <button id="my-courses-btn" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Khóa học của tôi</button>
+        <button id="activate-btn" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Kích hoạt mã</button>
+
+        <a href="login.html" id="desktop-login-btn" class="bg-white text-primary px-6 py-2 rounded-full font-bold hover:bg-gray-100 transition">Đăng nhập</a>
+
+        <div id="desktop-user-info" class="hidden relative">
+          <button id="desktop-dropdown-toggle" class="focus:outline-none">
+            <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent hover:scale-105 transition">
+              <img id="desktop-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full object-cover bg-white">
+            </div>
+          </button>
+          <div id="desktop-dropdown" class="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl hidden z-50">
+            <div class="px-5 py-4 border-b border-pink-100">
+              <p class="font-bold text-primary" id="desktop-username"></p>
+              <p class="text-sm text-gray-600 mt-1" id="desktop-email"></p>
+            </div>
+            <button id="logout-btn-desktop" class="block w-full text-left px-5 py-4 text-gray-800 hover:bg-pink-100 font-semibold">
+              Đăng xuất
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Hamburger (giữ nguyên) -->
+      <button id="mobile-menu-toggle" aria-label="Mở menu" class="md:hidden flex flex-col space-y-1.5">
+        <span class="block w-8 h-1 bg-white"></span>
+        <span class="block w-8 h-1 bg-white"></span>
+        <span class="block w-8 h-1 bg-white"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu (giữ nguyên + thêm id) -->
+    <nav id="mobile-menu" class="md:hidden mt-6 flex-col space-y-4 hidden px-4 pb-6">
+  <a href="index1.html" class="block py-2 text-lg hover:opacity-80">Trang chủ</a>
+      <button id="mobile-my-courses-btn" class="block text-left py-2 text-lg hover:opacity-80">Khóa học của tôi</button>
+
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-10 h-10 rounded-full p-1 bg-gradient-to-br from-primary to-accent">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full bg-white">
+        </div>
+        <div>
+          <p id="mobile-username" class="text-white font-semibold"></p>
+        </div>
+      </div>
+      <a href="login.html" id="mobile-login-btn" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full text-center block">Đăng nhập</a>
+
+      <div id="mobile-user-info" class="hidden flex items-center space-x-4 bg-white/10 rounded-xl p-4">
+        <div class="w-12 h-12 rounded-full p-1 bg-gradient-to-br from-primary to-accent">
+          <img id="mobile-user-avatar" src="" alt="Avatar" class="w-full h-full rounded-full object-cover bg-white">
+        </div>
+        <div>
+          <p id="mobile-username" class="text-white font-semibold"></p>
+          <p id="mobile-email" class="text-sm text-white/80"></p>
+        </div>
+      </div>
+
+      <div id="mobile-user-menu" class="hidden space-y-2">
+        <button id="logout-btn-mobile" class="block w-full text-left py-3 px-4 bg-white/10 rounded-lg hover:bg-white/20">
+          Đăng xuất
+        </button>
+      </div>
+    <button id="mobile-activate-btn" class="bg-white text-primary px-6 py-3 rounded-full font-bold w-full hover:bg-gray-100">
+        Kích hoạt mã
+      </button>
+    </nav>
+  </header>
+
+<!-- MAIN CONTENT -->
+  <main class="container mx-auto px-4 py-12">
+    <section aria-labelledby="main-heading">
+      <h1 id="main-heading" class="text-4xl md:text-5xl font-black text-center mb-4 text-gray-800">
+        KHÓA HỌC MỚI - ƯU ĐÃI CỰC SỐC
+      </h1>
+
+      <div class="max-w-3xl mx-auto mb-12">
+        <input type="text" id="search-input" placeholder="Tìm kiếm khóa học..." 
+               class="w-full px-6 py-4 rounded-2xl border-2 border-pink-200 focus:border-primary focus:outline-none text-lg shadow-lg">
+      </div>
+
+      <div id="course-list" class="grid grid-cols-1 lg:grid-cols-3 gap-6">  <!-- Chia 1 cột trên mobile, 3 cột trên desktop (lg: 1024px+) -->
+  <!-- Khóa học 1 -->
+  <a href="/trangnt/courses/checkout/checkout.html?title=Khóa học VSTEP Reading Online&price=199000" class="group block">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-reading-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Reading Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Reading Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Khóa học 2 -->
+  <a href="/trangnt/courses/checkout/checkout.html?title=Khóa học VSTEP Listening Online&price=199000" class="group block hidden">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-listening-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Listening Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Listening Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Khóa học 3 -->
+  <a href="/trangnt/courses/checkout/checkout.html?title=Khóa học VSTEP Listening Online&price=199000" class="group block hidden">
+    <div class="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-pink-100 flex flex-col h-full">
+      <div class="absolute top-4 left-4 z-10">
+        <span class="bg-danger text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md animate-pulse">-80%</span>
+      </div>
+      <div class="absolute top-4 right-4 z-10">
+        <span class="bg-white text-primary text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg border border-primary">HOT</span>
+      </div>
+      <div class="relative overflow-hidden">
+        <img src="https://fme.edu.vn/wp-content/uploads/2024/06/khoa-hoc-listening-vstep-fme-768x432.jpg"
+             alt="Khóa học VSTEP Listening Online"
+             class="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
+             loading="lazy">
+      </div>
+      <div class="p-6 bg-gradient-to-b from-white to-pink-50 flex flex-col flex-1 justify-between">
+        <div>
+          <h3 class="text-xl font-black text-gray-800 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+            Khóa học VSTEP Listening Online
+          </h3>
+          <p class="text-gray-600 text-sm mb-4">1 năm • 120+ bài giảng chất lượng cao</p>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <span class="text-gray-400 line-through text-lg">999.000đ</span>
+            <p class="text-3xl font-black text-primary">199.000đ</p>
+          </div>
+          <button class="w-full py-4 bg-gradient-to-r from-primary to-accent text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+            Mua ngay
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+        
+        
+      
+      
+      
+
+      <div id="empty-state" class="text-center py-32 text-gray-500 hidden">
+        <p class="text-3xl mb-6">Không tìm thấy khóa học nào phù hợp 😔</p>
+        <a href="index1.html" class="text-primary text-xl underline hover:opacity-80">Quay về trang chủ</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL KÍCH HOẠT MÃ -->
+  <div id="activate-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+      <h2 class="text-2xl font-black mb-4 text-gray-800">Kích hoạt khóa học</h2>
+      <input id="activate-code" type="text" placeholder="Nhập mã kích hoạt"
+             class="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-primary focus:outline-none text-lg mb-3">
+      <p id="activate-message" class="text-sm mb-4 text-red-500 min-h-[20px]"></p>
+      <div class="flex gap-3">
+        <button id="activate-submit" class="flex-1 bg-gradient-to-r from-primary to-accent text-white py-3 rounded-xl font-bold hover:opacity-90">
+          Kích hoạt
+        </button>
+        <button id="activate-cancel" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300">
+          Hủy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase + Auth Handling (PHẦN QUAN TRỌNG NHẤT) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const supabaseClient = createClient(
+      "https://wdpekgcqmwpvbfyonjih.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU"
+    );
+
+    function updateUI(session) {
+      const user = session?.user;
+      if (user) {
+        const name = user.user_metadata?.full_name || user.email.split('@')[0];
+        const email = user.email;
+        const avatar = user.user_metadata?.picture || user.user_metadata?.avatar_url || 'https://via.placeholder.com/40';
+
+        // Desktop
+        document.getElementById('desktop-username').textContent = name;
+        document.getElementById('desktop-email').textContent = email;
+        document.getElementById('desktop-user-avatar').src = avatar;
+        document.getElementById('desktop-user-info').classList.remove('hidden');
+        document.getElementById('desktop-login-btn').classList.add('hidden');
+
+        // Mobile
+        document.getElementById('mobile-username').textContent = name;
+        document.getElementById('mobile-email').textContent = email;
+        document.getElementById('mobile-user-avatar').src = avatar;
+        document.getElementById('mobile-user-info').classList.remove('hidden');
+        document.getElementById('mobile-user-menu').classList.remove('hidden');
+        document.getElementById('mobile-login-btn').classList.add('hidden');
+      } else {
+        document.getElementById('desktop-user-info').classList.add('hidden');
+        document.getElementById('desktop-login-btn').classList.remove('hidden');
+        document.getElementById('mobile-user-info').classList.add('hidden');
+        document.getElementById('mobile-user-menu').classList.add('hidden');
+        document.getElementById('mobile-login-btn').classList.remove('hidden');
+      }
+    }
+
+    // Xử lý hash từ OAuth ngay khi load
+    supabaseClient.auth.getSession().then(({ data: { session } }) => updateUI(session));
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') updateUI(session);
+      if (event === 'SIGNED_OUT') updateUI(null);
+    });
+
+    // Đăng xuất
+    document.getElementById('logout-btn-desktop')?.addEventListener('click', () => supabaseClient.auth.signOut().then(() => location.reload()));
+    document.getElementById('logout-btn-mobile')?.addEventListener('click', () => supabaseClient.auth.signOut().then(() => location.reload()));
+
+    // Dropdown desktop
+    document.getElementById('desktop-dropdown-toggle')?.addEventListener('click', () => {
+      document.getElementById('desktop-dropdown').classList.toggle('hidden');
+    });
+    // Xử lý button "Khóa học của tôi" (ví dụ: redirect đến trang khóa học cá nhân)
+document.getElementById('my-courses-btn')?.addEventListener('click', () => {
+  if (supabaseClient.auth.getSession().then(({ data }) => data.session)) {
+    window.location.href = 'my-courses.html';  // Tạo file my-courses.html nếu chưa có
+  } else {
+    alert('Vui lòng đăng nhập để xem khóa học của bạn!');
+    window.location.href = 'login.html';
+  }
+});
+document.getElementById('mobile-my-courses-btn')?.addEventListener('click', () => {
+  // Tương tự desktop
+  if (supabaseClient.auth.getSession().then(({ data }) => data.session)) {
+    window.location.href = 'my-courses.html';
+  } else {
+    alert('Vui lòng đăng nhập!');
+    window.location.href = 'login.html';
+  }
+});
+
+// Xử lý modal "Kích hoạt mã"
+const activateModal = document.getElementById('activate-modal');
+const activateSubmit = document.getElementById('activate-submit');
+const activateCancel = document.getElementById('activate-cancel');
+const activateCode = document.getElementById('activate-code');
+const activateMessage = document.getElementById('activate-message');
+
+function openActivateModal() {
+  activateModal.classList.remove('hidden');
+  activateModal.classList.add('flex');
+}
+
+function closeActivateModal() {
+  activateModal.classList.add('hidden');
+  activateModal.classList.remove('flex');
+  activateMessage.textContent = '';
+  activateCode.value = '';
+}
+
+// Mở modal khi click button (desktop & mobile)
+document.getElementById('activate-btn')?.addEventListener('click', openActivateModal);
+document.getElementById('mobile-activate-btn')?.addEventListener('click', openActivateModal);
+
+// Đóng modal
+activateCancel?.addEventListener('click', closeActivateModal);
+
+activateSubmit.addEventListener('click', async () => {
+  const code = activateCode.value.trim();
+  activateMessage.textContent = 'Đang kiểm tra...';
+
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+  const user = sessionData.session?.user;
+  if (!user) {
+    activateMessage.textContent = 'Vui lòng đăng nhập!';
+    activateMessage.style.color = '#dc2626';
+    return;
+  }
+
+  // 1. Kiểm tra mã
+  const { data: codeData, error } = await supabaseClient
+    .from('course_codes')
+    .select('*')
+    .eq('code', code)
+    .eq('used', false)
+    .single();
+
+  if (error || !codeData) {
+    activateMessage.textContent = 'Mã không hợp lệ hoặc đã dùng!';
+    activateMessage.style.color = '#dc2626';
+    return;
+  }
+
+  // 2. Ghi quyền sở hữu khóa học
+  const { error: insertError } = await supabaseClient
+    .from('user_courses')
+    .insert({
+      user_id: user.id,
+      course_id: codeData.course_id
+    });
+
+  if (insertError) {
+    activateMessage.textContent = 'Bạn đã kích hoạt khóa học này!';
+    activateMessage.style.color = '#dc2626';
+    return;
+  }
+
+  // 3. Đánh dấu mã đã dùng
+  await supabaseClient
+    .from('course_codes')
+    .update({
+      used: true,
+      used_by: user.id,
+      used_at: new Date()
+    })
+    .eq('id', codeData.id);
+
+  // 4. Thành công
+  activateMessage.textContent = '🎉 Kích hoạt thành công! Khóa học đã được thêm.';
+  activateMessage.style.color = '#10b981';
+
+  setTimeout(() => {
+    closeActivateModal();
+    window.location.href = 'my-courses.html';
+  }, 1500);
+});
+
+
+// Xử lý "Mua ngay" trên mỗi card (thêm listener cho tất cả button Mua ngay)
+document.querySelectorAll('#course-list button').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const link = e.target.closest('a').href;  // Lấy href từ <a> bao quanh
+    window.location.href = link;  // Redirect đến checkout
+  });
+});
+
+// Hamburger menu toggle (nếu chưa có)
+document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+  </script>
+  
+<footer class="bg-gradient-to-r from-primary to-accent text-white py-8 mt-20">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-sm font-medium">
+      © 2025 Developed by <span class="font-bold">Phạm Nhật Huy</span>. All rights reserved.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

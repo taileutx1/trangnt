@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhân viên tự chấm công</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background:#f0f2f5; min-height:100vh; padding:15px; color:#333;
+    }
+    .container {
+        max-width:520px; margin:0 auto; background:white;
+        border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.08); overflow:hidden;
+    }
+    .header {
+        background:linear-gradient(135deg,#2c3e50,#34495e); color:white;
+        padding:20px 16px; text-align:center;
+    }
+    .header h2 { font-size:1.5rem; margin:0; }
+    .content { padding:20px 16px; }
+    
+    input, select, button {
+        width:100%; padding:14px; margin:12px 0; border-radius:10px;
+        font-size:1rem; border:1px solid #ddd; background:#fafafa;
+    }
+    input:focus, select:focus {
+        outline:none; border-color:#3498db; box-shadow:0 0 0 3px rgba(52,152,219,0.15);
+    }
+    button {
+        background:#27ae60; color:white; border:none; font-weight:600;
+        cursor:pointer; font-size:1.1rem;
+    }
+    button:hover:not(:disabled) { background:#219653; transform:translateY(-1px); }
+    button:disabled { background:#95a5a6; cursor:not-allowed; }
+    
+    .msg {
+        padding:12px; border-radius:10px; text-align:center; font-weight:500;
+        margin:12px 0; min-height:48px; display:flex; align-items:center; justify-content:center;
+    }
+    .success  { background:#e8f5e9; color:#1b5e20; }
+    .error    { background:#ffebee; color:#b71c1c; }
+    .warning  { background:#fff8e1; color:#f57f17; }
+
+    .history-section { margin-top: 24px; }
+    .history-section h3 { font-size: 1.2rem; margin-bottom: 12px; color: #2c3e50; }
+    .history-list {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        background: #fafafa;
+    }
+    .history-item {
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+    }
+    .history-item:last-child { border-bottom: none; }
+    .history-item .info { flex: 1; }
+    .history-item .time { color: #7f8c8d; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>NHÂN VIÊN TỰ CHẤM CÔNG</h2>
+    </div>
+    <div class="content">
+        <input type="text" id="name" placeholder="Nhập họ tên của bạn" autocomplete="off">
+
+        <select id="shift">
+            <option value="">-- Chọn ca làm việc --</option>
+            <option value="Sáng">Sáng</option>
+            <option value="Chiều">Chiều</option>
+            <option value="Tối">Tối</option>
+        </select>
+
+        <button onclick="checkIn()">Chấm công ngay</button>
+
+        <div id="msg" class="msg"></div>
+
+        <div class="history-section">
+            <h3>Lịch sử chấm công hôm nay</h3>
+            <div id="historyList" class="history-list">
+                <div style="padding:16px; color:#95a5a6; text-align:center;">
+                    Đang tải lịch sử...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const { createClient } = supabase;
+    const supabaseClient = createClient(
+        "https://wdpekgcqmwpvbfyonjih.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU"
+    );
+
+    const shiftTime = {
+        "Sáng": [0, 24],
+        "Chiều": [12, 18],
+        "Tối": [18, 24]
+    };
+
+    function getTodayLocal() {
+        const now = new Date();
+        const year  = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day   = String(now.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function showMessage(text, type = "error") {
+        const msg = document.getElementById("msg");
+        msg.textContent = text;
+        msg.className = "msg " + type;
+        setTimeout(() => { msg.textContent = ""; msg.className = "msg"; }, 5000);
+    }
+
+    async function checkIn() {
+        const name = document.getElementById("name")?.value?.trim() || "";
+        const shift = document.getElementById("shift")?.value || "";
+
+        if (!name || !shift) {
+            showMessage("Vui lòng nhập tên và chọn ca làm việc", "error");
+            return;
+        }
+
+        const today = getTodayLocal();
+
+        const now = new Date();
+        const hours   = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const time    = `${hours}:${minutes}:${seconds}`;
+
+        const hour = now.getHours();
+
+        const [start, end] = shiftTime[shift] || [0, 24];
+
+        if (hour < start || hour >= end) {
+            showMessage(`Ca ${shift} chỉ cho phép từ ${start}:00 đến ${end}:00`, "error");
+            return;
+        }
+
+        try {
+            const { data: existed } = await supabaseClient
+                .from("attendance")
+                .select("id")
+                .eq("name", name)
+                .eq("shift", shift)
+                .eq("date", today)
+                .maybeSingle();
+
+            if (existed) {
+                showMessage("Bạn đã chấm ca này hôm nay rồi!", "warning");
+                return;
+            }
+
+            const { error } = await supabaseClient
+                .from("attendance")
+                .insert([{
+                    name,
+                    shift,
+                    date: today,
+                    time,
+                    created_at: now.toISOString()
+                }]);
+
+            if (error) throw error;
+
+            showMessage("✓ Chấm công thành công!", "success");
+
+            document.getElementById("shift").value = "";
+            await loadHistory();
+
+        } catch (err) {
+            console.error("Lỗi chấm công:", err);
+            if (err.code === "23505") {
+                showMessage("Bạn đã chấm ca này hôm nay rồi!", "warning");
+            } else {
+                showMessage("Lỗi hệ thống. Vui lòng thử lại.", "error");
+            }
+        }
+    }
+
+    async function loadHistory() {
+        const historyList = document.getElementById("historyList");
+        const today = getTodayLocal();
+
+        try {
+            const { data, error } = await supabaseClient
+                .from("attendance")
+                .select("name, shift, time")
+                .eq("date", today)
+                .order("time", { ascending: false })
+                .limit(50);
+
+            if (error) throw error;
+
+            if (!data || data.length === 0) {
+                historyList.innerHTML = `
+                    <div style="padding:16px; color:#95a5a6; text-align:center;">
+                        Hôm nay chưa có ai chấm công
+                    </div>
+                `;
+                return;
+            }
+
+            let html = "";
+            data.forEach(record => {
+                html += `
+                    <div class="history-item">
+                        <div class="info">
+                            <strong>${record.name}</strong> • Ca ${record.shift}
+                        </div>
+                        <div class="time">${record.time}</div>
+                    </div>
+                `;
+            });
+
+            historyList.innerHTML = html;
+
+        } catch (err) {
+            console.error("Lỗi tải lịch sử:", err);
+            historyList.innerHTML = `
+                <div style="padding:16px; color:#e74c3c; text-align:center;">
+                    Không thể tải lịch sử. Thử lại sau.
+                </div>
+            `;
+        }
+    }
+
+    // Tự động load lịch sử khi trang mở
+    document.addEventListener("DOMContentLoaded", loadHistory);
+</script>
+</body>
+</html>

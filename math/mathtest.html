@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Test Trắc Nghiệm - Nguyên Hàm & Tích Phân</title>
+
+    <!-- MathJax để hiển thị công thức toán đẹp -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            max-width: 1100px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.7;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            background: white;
+            padding: 30px;
+            margin-bottom: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+            transition: transform 0.2s;
+        }
+        .question:hover {
+            transform: translateY(-5px);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .question h3 {
+            display: flex;
+            align-items: center;
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .options label {
+            display: block;
+            padding: 14px 18px;
+            margin: 12px 0;
+            background: #f8fafc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .options label:hover {
+            background: #ebf5ff;
+            border-color: #3498db;
+            transform: translateX(8px);
+        }
+        input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.3);
+            accent-color: #3498db;
+        }
+
+        /* Bảng Đúng - Sai đẹp hơn */
+        .tf-container {
+            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .tf-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tf-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+        .tf-table td {
+            padding: 15px;
+            text-align: center;
+        }
+        .tf-table .tf-statement {
+            text-align: left;
+            font-size: 1.05em;
+            background: #f8fafc;
+        }
+        .tf-table tr:nth-child(even) .tf-statement {
+            background: #eef5ff;
+        }
+
+        /* Câu 6 - Tự luận */
+        .answer-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 320px;
+            padding: 14px;
+            font-size: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 10px rgba(52,152,219,0.2);
+        }
+
+        /* Hình minh họa */
+        .img-box {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .img-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        .img-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        /* Nút nộp bài */
+        button {
+            display: block;
+            margin: 50px auto;
+            padding: 18px 60px;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(39,174,96,0.3);
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(39,174,96,0.4);
+        }
+
+        /* Kết quả */
+        #result {
+            margin: 40px auto;
+            padding: 30px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #27ae60;
+            border-radius: 16px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        #result span {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Nguyên Hàm – Tích Phân</h1>
+
+<form id="quizForm">
+
+    <!-- Câu 5 -->
+    <div class="question">
+        <h3>Câu 1. Họ nguyên hàm của \(f(x)=x^2\) là</h3>
+        <div class="options">
+            <label><input type="radio" name="q5" value="A"> A. \( \dfrac{1}{3}x^3 + C \)</label>
+            <label><input type="radio" name="q5" value="B"> B. \( 2x^3 + C \)</label>
+            <label><input type="radio" name="q5" value="C"> C. \( 3x^3 + C \)</label>
+            <label><input type="radio" name="q5" value="D"> D. \( \dfrac{1}{2}x^3 + C \)</label>
+        </div>
+    </div>
+
+    <!-- Câu 8 -->
+    <div class="question">
+        <h3>Câu 2. Diện tích hình phẳng giới hạn bởi \(y=2x-3\), trục hoành, \(x=1, x=2\)</h3>
+        <div class="options">
+            <label><input type="radio" name="q8" value="A"> A. \( \pi \int_1^2 |2x-3| \, dx \)</label>
+            <label><input type="radio" name="q8" value="B"> B. \( \int_1^2 |2x-3| \, dx \)</label>
+            <label><input type="radio" name="q8" value="C"> C. \( \pi \int_1^2 (2x-3)^2 \, dx \)</label>
+            <label><input type="radio" name="q8" value="D"> D. \( \left| \int_1^2 (2x-3) \, dx \right| \)</label>
+        </div>
+    </div>
+
+    <!-- Câu 2 - Đúng Sai -->
+    <div class="question">
+        <h3><span class="question-number">3</span> Xác định các mệnh đề sau là Đúng hay Sai</h3>
+        <p style="font-size:1.05em; margin-bottom:20px;">
+           Đối với ngành nuôi trồng thủy sản, việc kiểm soát lượng thuốc tồn dư trong nước là
+    một nhiệm vụ quan trọng nhằm đáp ứng các tiêu chuẩn an toàn về môi trường.  Khi nghiên cứu một loại thuốc trị bệnh trong nuôi trồng thủy sản, người ta sử dụng thuốc
+    đó một lần và theo dõi nồng độ thuốc tồn dư trong nước kể từ lúc sử dụng thuốc.  Nồng độ thuốc tồn dư trong nước tại thời điểm \( t \) ngày (\( t \ge 0 \)) được ký hiệu là
+    \( y(t) \) (đơn vị: mg/lít), thỏa mãn:  \[
+      y(t) > 0,\quad y'(t) = k\,y(t)\quad (t \ge 0)
+    \]     trong đó \( k \) là hằng số khác 0.
+    Đo nồng độ thuốc tại các thời điểm \( t=6 \) và \( t=12 \) (ngày) thu được kết quả lần lượt là
+    \( 2\,\text{mg/lít} \) và \( 1\,\text{mg/lít} \).   Biết rằng \( y(t) = e^{g(t)} \) với \( t \ge 0 \).
+        </p>
+
+        <div class="tf-container">
+            <table class="tf-table">
+                <tr>
+                    <th>Mệnh đề</th>
+                    <th>Đúng</th>
+                    <th>Sai</th>
+                </tr>
+                <tr>
+                    <td class="tf-statement">a) \( g(t) = kt + C \) (với \( C \) là hằng số xác định)</td>
+                    <td><input type="radio" name="q2a" value="true"></td>
+                    <td><input type="radio" name="q2a" value="false"></td>
+                </tr>
+                <tr>
+                    <td class="tf-statement">b) \( k = \dfrac{\ln 2}{6} \)</td>
+                    <td><input type="radio" name="q2b" value="true"></td>
+                    <td><input type="radio" name="q2b" value="false"></td>
+                </tr>
+                <tr>
+                    <td class="tf-statement">c) \( C = 2\ln 2 \)</td>
+                    <td><input type="radio" name="q2c" value="true"></td>
+                    <td><input type="radio" name="q2c" value="false"></td>
+                </tr>
+                <tr>
+                    <td class="tf-statement">d) Tại \( t=25 \), nồng độ lớn hơn \( 0{,}25 \) mg/lít</td>
+                    <td><input type="radio" name="q2d" value="true"></td>
+                    <td><input type="radio" name="q2d" value="false"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Câu 6 -->
+    <div class="question">
+         <h3>Câu 4.</h3>
+
+  <p>
+    Để đặt được một vật trang trí trên mặt bàn, người ta thiết kế một chân đế như sau.
+    Lấy một khối gỗ có dạng <b>khối chóp cụt tứ giác đều</b> với độ dài hai cạnh đáy lần lượt là
+    \( 7{,}4\,\text{cm} \) và \( 10{,}4\,\text{cm} \), bề dày của khối gỗ là
+    \( 1{,}5\,\text{cm} \).
+  </p>
+
+  <p>
+    Sau đó khoét bỏ một phần của khối gỗ sao cho phần bị khoét có dạng vật thể \( H \),
+    trong đó \( H \) nhận được bằng cách cắt một khối cầu bán kính
+    \( 5{,}8\,\text{cm} \) bởi một mặt phẳng, sao cho mặt cắt là hình tròn bán kính
+    \( 3{,}5\,\text{cm} \) (xem hình minh họa).
+  </p>
+
+   <div class="img-box">
+    <img src="cau6.jpg" alt="Hình minh họa câu 6">
+    <p class="img-caption">Hình minh họa khối chân đế</p>
+  </div>
+
+  <p>
+    Thể tích của khối chân đế bằng bao nhiêu
+    \( \text{cm}^3 \)?
+    (Không làm tròn các kết quả trung gian, chỉ làm tròn kết quả cuối cùng đến hàng phần mười.)
+  </p>
+
+
+        <div class="answer-box">
+            <input type="text" name="q6" placeholder="Nhập kết quả, ví dụ: 117.3">
+        </div>
+    </div>
+
+</form>
+
+<button onclick="submitQuiz()">Nộp Bài</button>
+<div id="result"></div>
+
+<script>
+function submitQuiz() {
+    let score = 0;
+
+    // Câu 5: A
+    if (document.querySelector('input[name="q5"]:checked')?.value === "A") score++;
+    // Câu 8: B
+    if (document.querySelector('input[name="q8"]:checked')?.value === "B") score++;
+    // Câu 2a: Sai
+    if (document.querySelector('input[name="q2a"]:checked')?.value === "false") score++;
+    // Câu 2b: Đúng
+    if (document.querySelector('input[name="q2b"]:checked')?.value === "true") score++;
+    // Câu 2c: Đúng
+    if (document.querySelector('input[name="q2c"]:checked')?.value === "true") score++;
+    // Câu 2d: Đúng
+    if (document.querySelector('input[name="q2d"]:checked')?.value === "true") score++;
+
+    // Câu 6: 117.3
+    let q6Input = document.querySelector('input[name="q6"]').value.trim().replace(',', '.');
+    let q6 = parseFloat(q6Input);
+    if (!isNaN(q6) && Math.abs(q6 - 117.3) < 0.15) score++;
+
+    document.getElementById("result").innerHTML = 
+        `Điểm của bạn: <span>${score} / 7</span> ${score === 7 ? '🎉 Xuất sắc!' : '📚 Tiếp tục cố lên!'}`;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAILIEUTX1 - Tài liệu Công nghệ Dệt May</title>
+  <meta name="description" content="Tài liệu đại cương, chuyên ngành, tiếng Anh, phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt May - TAILIEUTX1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h2 class="logo"><a href="index.html">TAILIEUTX1</a></h2>
+      <nav class="nav">
+        <a href="daicuong.html">Đại cương</a>
+        <a href="chuyennganh.html">Chuyên ngành</a>
+        <a href="tienganh.html">Tiếng anh</a>
+                <a href="phanmem.html">Phần mềm</a>
+   <li class="nav-item dropdown">
+  <a href="#" class="nav-course-btn">
+    <i class="fas fa-graduation-cap"></i> Nháp code 
+    <i class="fas fa-chevron-down"></i>
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a href="courses/index1.html">VSTEP</a></li>
+    <li><a href="math/mathtest.html">TOÁN 12</a></li>
+    <li><a href="luong/nhan-vien-cham-cong.html">CHẤM CÔNG</a></li>
+    <li><a href="luong/quan-ly.html">QUẢN LÝ LƯƠNG</a></li>
+
+
+  </ul>
+</li>
+
+ 
+      </nav>
+      <button class="mobile-menu" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section id="banner">
+    <div class="banner-content">
+      <h1>TÀI LIỆU TX1</h1>
+      <p>Tài liệu TX1 chuyên chia sẻ tài liệu đại cương, cơ sở ngành, chuyên ngành, tiếng anh và phần mềm miễn phí dành cho sinh viên ngành Công nghệ Dệt may. Do mình ra trường rồi nên chưa cập nhật được nhiều tài liệu, các bạn có tài liệu nào hay thì đóng góp để kho tài liệu ngày càng phong phú!</p>
+
+      <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm tài liệu..." id="searchInput" autocomplete="off">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+        <div id="suggestions" class="suggestions"></div>
+      </div>
+
+      <button class="btn-donggop" onclick="location.href='https://drive.google.com/drive/folders/1Nzq0YsN8Vg71UpfeY-O85GRMWqI9jJBs?usp=sharing'">
+        Đóng góp tài liệu
+      </button>
+    </div>
+  </section>
+
+  <!-- Comment Section -->
+  <section class="comment-section">
+    <div class="comment-box">
+      <h2>Hòm thư góp ý</h2>
+      <p class="note">Email của bạn sẽ không được công khai. Các trường bắt buộc được đánh dấu <span class="required">*</span></p>
+
+      <form id="feedbackForm" action="https://formspree.io/f/xeeavpqz" method="POST">
+        <textarea name="content" id="content" placeholder="Bạn muốn góp ý điều gì?" required></textarea>
+        <button type="submit" class="submit-btn">POST COMMENT</button>
+      </form>
+      <p id="status" class="status-msg"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Since 2025 © Developed by Phạm Nhật Huy</p>
+  </footer>
+  <script>
+document.querySelector('.nav-course-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  this.parentElement.classList.toggle('active');
+});
+</script>
+
+  <script src="script.js"></script>
+</body>
+</html>

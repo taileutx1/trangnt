@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý chấm công</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family:system-ui, sans-serif; background:#f5f7fa; color:#2c3e50;
+        min-height:100vh; padding:12px;
+    }
+    .container {
+        max-width:900px; margin:0 auto; background:white;
+        border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.08); overflow:hidden;
+    }
+    .header {
+        background:linear-gradient(135deg,#1e3c72,#2a5298); color:white;
+        padding:18px 16px; text-align:center;
+    }
+    .header h2 { margin:0; font-size:1.6rem; }
+    .actions { padding:16px; text-align:center; border-bottom:1px solid #eee; }
+    button {
+        padding:12px 24px; background:#27ae60; color:white; border:none;
+        border-radius:10px; font-weight:600; cursor:pointer;
+    }
+    button:hover { background:#219653; }
+    .table-container { overflow-x:auto; padding:0 12px 20px; }
+    table {
+        width:100%; border-collapse:collapse; font-size:0.95rem;
+    }
+    th, td {
+        padding:12px 10px; text-align:left; border-bottom:1px solid #eee;
+    }
+    th {
+        background:#3498db; color:white; position:sticky; top:0; z-index:10;
+    }
+    tr:nth-child(even) { background:#f9fbfc; }
+    tr:hover { background:#f0f8ff; }
+    .empty {
+        text-align:center; color:#95a5a6; padding:60px 20px; font-size:1.1rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>BẢNG CHẤM CÔNG</h2>
+    </div>
+
+    <div class="actions">
+        <button onclick="exportCSV()">Xuất file CSV</button>
+    </div>
+
+    <div class="table-container">
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Tên</th>
+                    <th>Ca</th>
+                    <th>Giờ chấm</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const { createClient } = supabase;
+const supabaseClient = createClient(
+    "https://wdpekgcqmwpvbfyonjih.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndkcGVrZ2NxbXdwdmJmeW9uamloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUzODk4NjUsImV4cCI6MjA4MDk2NTg2NX0.qaIDzIZsGSifXO8PKM2jDAx7E6Earv2K7iFPQ8GqqaU"
+);
+
+async function loadTable() {
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = '<tr><td colspan="4" class="empty">Đang tải dữ liệu...</td></tr>';
+
+    const { data, error } = await supabaseClient
+        .from("attendance")
+        .select("*")
+        .order("date", { ascending: false })
+        .order("time", { ascending: false });
+
+    tbody.innerHTML = "";
+
+    if (error) {
+        console.error("Lỗi tải dữ liệu:", error);
+        tbody.innerHTML = '<tr><td colspan="4" class="empty">Lỗi tải dữ liệu</td></tr>';
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="empty">Chưa có bản ghi chấm công nào</td></tr>';
+        return;
+    }
+
+    data.forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${r.date}</td>
+            <td>${r.name}</td>
+            <td>${r.shift}</td>
+            <td>${r.time}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function exportCSV() {
+    const rows = document.querySelectorAll("#attendanceTable tr:not(:first-child)");
+    if (rows.length === 0 || rows[0].querySelector(".empty")) {
+        alert("Chưa có dữ liệu để xuất!");
+        return;
+    }
+
+    // Thêm BOM UTF-8 ngay đầu file + header
+    let csv = "\uFEFFNgày,Tên,Ca,Giờ chấm\n";  // ← Đây là fix chính!
+
+    rows.forEach(row => {
+        const tds = row.querySelectorAll("td");
+        const values = Array.from(tds).map(td => {
+            let text = td.textContent.trim();
+            // Thoát dấu ngoặc kép và dấu phẩy nếu có
+            if (text.includes('"') || text.includes(',') || text.includes('\n')) {
+                text = '"' + text.replace(/"/g, '""') + '"';
+            }
+            return text;
+        });
+        csv += values.join(",") + "\n";
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Cham_cong_${new Date().toLocaleDateString('vi-VN').replace(/\//g, '-')}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// Load dữ liệu khi mở trang
+window.addEventListener("load", loadTable);
+</script>
+</body>
+</html>

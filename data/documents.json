@@ -1,0 +1,862 @@
+{
+  "toancaocap": {
+    "pageTitle": "Tài liệu Toán cao cấp",
+    "metaDescription": "Tài liệu Toán cao cấp: Đại số tuyến tính, Giải tích 1, 2, 3, Xác suất thống kê, Phương pháp tính",
+    "activeMenu": "daicuong",
+    "documents": [
+      {
+        "code": "MI1142",
+        "name": "Đại số tuyến tính",
+        "desc": "Tài liệu đầy đủ về ma trận, định thức, không gian vector, giá trị riêng",
+        "size": "12.5 MB",
+        "link": "https://drive.google.com/drive/folders/189BDmMh5j7NivzqTl6KDIqk2MnG1GZ4J"
+      },
+      {
+        "code": "MI1112",
+        "name": "Giải tích 1",
+        "desc": "Lý thuyết và bài tập về giới hạn, đạo hàm, tích phân cơ bản",
+        "size": "8.3 MB",
+        "link": "https://drive.google.com/drive/folders/1Yq7Or3COeT960P8V7RZ7dM_tZg78ndir?usp=drive_link"
+      },
+      {
+
+    "code": "MI1122",
+    "name": "Giải tích 2",
+    "desc": "Lý thuyết giới hạn, đạo hàm, tích phân",
+    "size": "15.2 MB",
+    "link": "https://drive.google.com/drive/folders/1T0A2oIwrJBVE9cPhiKRDW_imKMKZGUFK?usp=drive_link"
+  },
+ {
+    "code": "MI1132",
+    "name": "Giải tích 3",
+    "desc": "Bài tập và lời giải chi tiết các chương",
+    "size": "10.8 MB",
+    "link": "https://drive.google.com/drive/folders/1n8SwwWZsMfvSgO1XsXnb1iIGoSvj0S4R?usp=drive_link"
+  },
+   {
+    "code": "MI2021",
+    "name": "Xác suất thống kê",
+    "desc": "Tổng hợp đề thi và đáp án từ 2018-2024",
+    "size": "6.5 MB",
+    "link": "https://drive.google.com/drive/folders/1lZ_hUfyw6-24lgDAfz8E5COQwoVF5guw?usp=drive_link"
+  },
+{
+    "code": "MI2010",
+    "name": "Phương pháp tính",
+    "desc": "Tổng hợp đề thi và đáp án từ 2018-2024",
+    "size": "6.5 MB",
+    "link": "https://drive.google.com/drive/folders/1kLOA2i6XAO_jtdybrutvGU5uE5cSw4Lu?usp=drive_link"
+  }
+        ]},
+
+  "vatly": {
+  "pageTitle": "Tài liệu các môn Vật lý đại cương",
+  "metaDescription": "Tài liệu Vật lý đại cương 1, 2, 3: Cơ học, Điện từ học, Quang học và Vật lý hiện đại",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "code": "PH1111",
+      "name": "Vật lý đại cương 1",
+      "desc": "Cơ học cổ điển: chuyển động thẳng, định luật Newton, công, năng lượng, dao động điều hòa",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1YmCHtUez4SJ5b6E0CrTkj6uVmewzFlc2?usp=drive_link"
+    },
+    {
+      "code": "PH1121",
+      "name": "Vật lý đại cương 2",
+      "desc": "Điện từ học: điện trường, từ trường, dòng điện, định luật Faraday, mạch điện xoay chiều",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1ER7Amr0RlX8kLstAxQX99FRFiR_FnVZQ?usp=drive_link"
+    },
+    {
+      "code": "PH1131",
+      "name": "Vật lý đại cương 3",
+      "desc": "Quang học và vật lý hiện đại: giao thoa, nhiễu xạ, phân cực ánh sáng, hiệu ứng quang điện, nguyên tử Bohr",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1DFj1obVxBzUHyJCrSJeO75VdhakwVnC-?usp=drive_link"
+    }
+  ]
+},
+
+  "triet": {
+  "pageTitle": "Tài liệu các môn Triết",
+  "metaDescription": "Tài liệu Pháp luật đại cương, Triết học Mác-Lênin, Kinh tế chính trị, Chủ nghĩa xã hội khoa học, Lịch sử Đảng, Tư tưởng Hồ Chí Minh",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "code": "EM1170",
+      "name": "Pháp luật đại cương",
+      "desc": "Tài liệu tổng quan về hệ thống pháp luật Việt Nam, quyền và nghĩa vụ công dân, pháp luật dân sự, hình sự cơ bản",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1EKccbs1j0V0ukIj66oFH0SPrZcP3mdPV?usp=drive_link"
+    },
+    {
+      "code": "SSH1111",
+      "name": "Triết học Mác-Lênin",
+      "desc": "Lý luận cơ bản về chủ nghĩa duy vật biện chứng, chủ nghĩa duy vật lịch sử và phép biện chứng duy vật",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/13hEfGkl2xxnxwltUDO-hmOCPy3iwy7gu?usp=drive_link"
+    },
+    {
+      "code": "SSH1121",
+      "name": "Kinh tế chính trị",
+      "desc": "Phân tích quy luật kinh tế của chủ nghĩa tư bản, học thuyết giá trị thặng dư, các hình thái kinh tế - xã hội",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1jbFN_Ol77rexdGJG4nKTL43PsOpcdg9d?usp=drive_link"
+    },
+    {
+      "code": "SSH1131",
+      "name": "Chủ nghĩa xã hội khoa học",
+      "desc": "Sứ mệnh lịch sử của giai cấp công nhân, lý luận về chủ nghĩa xã hội và con đường quá độ lên CNXH ở Việt Nam",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1LmsKs73oa9Lbpc5tMZMRtu6bWCbh4jVg?usp=drive_link"
+    },
+    {
+      "code": "SSH1141",
+      "name": "Lịch sử Đảng",
+      "desc": "Quá trình thành lập, lãnh đạo cách mạng và xây dựng đất nước của Đảng Cộng sản Việt Nam",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1YB3QbXjDl4iMYfbRqKESXUhcNPNJyf6r?usp=drive_link"
+    },
+    {
+      "code": "SSH1151",
+      "name": "Tư tưởng Hồ Chí Minh",
+      "desc": "Hệ thống quan điểm về cách mạng Việt Nam, độc lập dân tộc gắn liền với CNXH, đoàn kết toàn dân",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1Vk9xFN0Jv3pUug17O_0UO11XHqJ8_QTV?usp=drive_link"
+    }
+  ]
+},
+
+"hoahoc": {
+  "pageTitle": "Tài liệu các môn Hóa học",
+  "metaDescription": "Tài liệu Hóa học đại cương và Hóa hữu cơ dành cho sinh viên ngành Công nghệ Dệt May",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "code": "CH1017",
+      "name": "Hóa học",
+      "desc": "Hóa học đại cương: cấu tạo nguyên tử, bảng tuần hoàn, liên kết hóa học, phản ứng oxi hóa khử, dung dịch",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1HJWEt6jZ6GT7AMCx95MsSjowYB9dI-hr?usp=drive_link"
+    },
+    {
+      "code": "CH3223",
+      "name": "Hóa hữu cơ",
+      "desc": "Hidrocacbon, dẫn xuất halogen, ancol, phenol, ete, andehit, xeton, axit cacboxylic, este, amin và hợp chất hữu cơ chứa nitơ",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1ekngyLikFbpaBLlw6BUdMP-FACSRpPhu?usp=drive_link"
+    }
+  ]
+},
+
+"botro": {
+  "pageTitle": "Tài liệu các môn Bổ trợ",
+  "metaDescription": "Tài liệu Kỹ năng mềm, Thiết kế mỹ thuật công nghiệp, Thiết kế quảng bá sản phẩm dành cho sinh viên ngành Công nghệ Dệt May",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "name": "Kỹ năng mềm",
+      "desc": "Tài liệu về giao tiếp, làm việc nhóm, quản lý thời gian, thuyết trình, kỹ năng xin việc và phát triển bản thân",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/12L6Xu_VdlzcivZ74lBHNAEHKPxxd4QJ0?usp=drive_link"
+    },
+    {
+      "name": "Thiết kế mỹ thuật công nghiệp",
+      "desc": "Nguyên lý mỹ thuật, phối màu, bố cục, lịch sử thiết kế công nghiệp, ứng dụng trong sản phẩm dệt may",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1cdCUTvVE273yMa9A-h1mADkX6QQ5zPjg?usp=drive_link"
+    },
+    {
+      "name": "Thiết kế quảng bá sản phẩm",
+      "desc": "Thiết kế catalogue, poster, banner, brochure, chiến lược quảng cáo sản phẩm dệt may và thời trang",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1yrzHVyibWWBzqepAv9t7ihUfaLeyW8dP?usp=drive_link"
+    }
+  ]
+},
+
+"adobe": {
+  "pageTitle": "Phần mềm Adobe",
+  "metaDescription": "Tài liệu và hướng dẫn sử dụng Adobe Illustrator, Photoshop, Premiere, Lightroom Classic dành cho thiết kế thời trang và dệt may",
+  "activeMenu": "phanmem",
+  "documents": [
+    {
+      "name": "Adobe Illustrator",
+      "desc": "Hướng dẫn sử dụng Illustrator từ cơ bản đến nâng cao: vẽ vector, tạo logo, thiết kế pattern, typography cho ngành thời trang và dệt may",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "name": "Adobe Photoshop",
+      "desc": "Tài liệu học Photoshop chuyên sâu: chỉnh sửa ảnh, xử lý màu sắc, thiết kế banner, catalogue, xử lý texture vải và sản phẩm thời trang",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "name": "Adobe Premiere",
+      "desc": "Hướng dẫn dựng video chuyên nghiệp: cắt ghép, hiệu ứng chuyển cảnh, chỉnh màu, làm video quảng cáo sản phẩm thời trang và lookbook",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1D13P0BSQin9rIc9YlKhDKvMBK1RX44Fy?usp=drive_link"
+    },
+    {
+      "name": "Adobe Lightroom Classic",
+      "desc": "Tài liệu chỉnh sửa ảnh hàng loạt: quản lý thư viện, chỉnh màu chuyên nghiệp, preset, xử lý ảnh chụp sản phẩm thời trang và người mẫu",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1OZ1Gt6qS1csVGhEAEBEXlPbKt5kUWbjO?usp=drive_link"
+    }
+  ]
+},
+
+"vatlieuvacongnghehoantat": {
+  "pageTitle": "Tài liệu các môn Vật liệu và công nghệ hoàn tất sản phẩm dệt may",
+  "metaDescription": "Tài liệu chuyên sâu về hóa lý, công nghệ nhuộm - in - hoàn tất, phân tích vật liệu và kiểm soát chất lượng sản phẩm dệt may",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "CH3071",
+      "name": "Hóa lý",
+      "desc": "Nguyên lý hóa học vật lý, nhiệt động học, động học phản ứng, dung dịch, bề mặt và keo trong công nghệ dệt may",
+      "size": "15.2 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4023",
+      "name": "Hóa học thực phẩm",
+      "desc": "Kiến thức về hóa học thực phẩm, an toàn thực phẩm, chất bảo quản, phụ gia trong ngành dệt may liên quan đến sản phẩm tiếp xúc thực phẩm",
+      "size": "18.7 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4463",
+      "name": "Công nghệ và thiết bị sản phẩm dệt",
+      "desc": "Công nghệ sản xuất các sản phẩm dệt kỹ thuật, thiết bị hiện đại trong hoàn tất sản phẩm dệt",
+      "size": "22.4 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4523",
+      "name": "Phân tích thành phần hoá học vải liệu dệt may",
+      "desc": "Phương pháp phân tích định tính và định lượng thành phần hóa học của sợi, vải, phụ gia hoàn tất",
+      "size": "19.8 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4473",
+      "name": "Công nghệ và thiết bị nhuộm – in hoàn tất sản phẩm dệt may",
+      "desc": "Công nghệ nhuộm, in hoa, hoàn tất vải; các loại máy móc, thiết bị hiện đại trong dây chuyền nhuộm-in-hoàn tất",
+      "size": "17.6 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4513",
+      "name": "Thực hành công nghệ nhuộm – in hoàn tất sản phẩm dệt may",
+      "desc": "Thực hành quy trình nhuộm, in, hoàn tất trên các loại vải khác nhau, xử lý sự cố thực tế",
+      "size": "14.3 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX5253",
+      "name": "Kiểm soát chất lượng sản phẩm nhuộm và hoàn tất",
+      "desc": "Tiêu chuẩn kiểm tra độ bền màu, độ co rút, độ bền cơ học, kiểm soát chất lượng sản phẩm sau nhuộm và hoàn tất",
+      "size": "21.9 MB",
+      "link": "#"
+    }
+  ]
+},
+
+"thietkevaidetmay": {
+  "pageTitle": "Thiết kế vải dệt may",
+  "metaDescription": "Tài liệu chuyên sâu về thiết kế trang phục, tạo mẫu, thiết kế vải dệt thoi, dệt kim và ứng dụng phần mềm trong thiết kế dệt may",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4382",
+      "name": "Thiết kế trang phục",
+      "desc": "Tổng hợp tài liệu, bài giảng và bài tập môn Thiết kế trang phục",
+      "size": "18.5 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4016",
+      "name": "Thiết kế sản phẩm sơ mi",
+      "desc": "Bộ tài liệu đầy đủ thiết kế và rập sơ mi nam – nữ",
+      "size": "22.1 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4026",
+      "name": "Thiết kế vải dệt thoi đơn giản",
+      "desc": "Tài liệu lý thuyết và bài tập thiết kế vải dệt thoi",
+      "size": "15.7 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4116",
+      "name": "Thiết kế sản phẩm vest dệt kim",
+      "desc": "Hướng dẫn thiết kế và rập vest dệt kim chi tiết",
+      "size": "19.3 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4106",
+      "name": "Thực hành phần tử và thiết kế vải I",
+      "desc": "Bài tập thực hành phần tử vải và tổ chức vải",
+      "size": "17.8 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4066",
+      "name": "Nguyên lý tạo mẫu sản phẩm dệt may",
+      "desc": "Tài liệu đầy đủ nhất về nguyên lý tạo mẫu và rập",
+      "size": "26.4 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4076",
+      "name": "Phần mềm ứng dụng trong thiết kế vải",
+      "desc": "Hướng dẫn sử dụng phần mềm NedGraphics, Pointcarré và các công cụ thiết kế vải chuyên dụng",
+      "size": "31.2 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4086",
+      "name": "Thực hành tạo mẫu sản phẩm dệt may",
+      "desc": "Tổng hợp bài tập thực hành tạo mẫu các sản phẩm cơ bản",
+      "size": "23.9 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4096",
+      "name": "Tín học ứng dụng trong thiết kế vải",
+      "desc": "Tài liệu và bài tập môn Tín học ứng dụng thiết kế vải",
+      "size": "20.6 MB",
+      "link": "#"
+    }
+  ]
+},
+"thietkethoitrangvadagiay": {
+  "pageTitle": "Tài liệu các môn Thiết kế thời trang và da giày",
+  "metaDescription": "Tài liệu chuyên sâu về hình họa thời trang, thiết kế mỹ thuật, phần mềm thiết kế thời trang, tạo mẫu, bộ sưu tập và sản phẩm áo dài, váy cưới",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4455",
+      "name": "Hình họa thời trang",
+      "desc": "Tổng hợp tài liệu, đề cương và bài tập môn Hình họa thời trang",
+      "size": "16.8 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4465",
+      "name": "Thiết kế mỹ thuật trang phục",
+      "desc": "Tài liệu đầy đủ môn Thiết kế mỹ thuật trang phục",
+      "size": "24.3 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4475",
+      "name": "Tin học ứng dụng trong thiết kế mỹ thuật trang phục",
+      "desc": "Hướng dẫn sử dụng phần mềm thiết kế thời trang (Illustrator, CLO 3D...)",
+      "size": "38.7 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4125",
+      "name": "Tạo màu trên trang phục may sẵn",
+      "desc": "Tổng hợp bài giảng, bài tập và đề thi môn Tạo màu trên trang phục",
+      "size": "19.4 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4445",
+      "name": "Phần mềm ứng dụng trong thiết kế thời trang",
+      "desc": "Tài liệu phần mềm Lectra, Gerber, Optitex, Marvelous Designer...",
+      "size": "42.1 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4485",
+      "name": "Thiết kế bộ sưu tập thời trang",
+      "desc": "Hướng dẫn xây dựng BST từ ý tưởng đến trình diễn",
+      "size": "29.6 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4525",
+      "name": "Thiết kế sản phẩm thời trang giá y",
+      "desc": "Tổng hợp tài liệu thiết kế váy cưới, áo dài, trang phục dạ hội",
+      "size": "35.9 MB",
+      "link": "#"
+    },
+    {
+      "code": "TEX4515",
+      "name": "Thiết kế và công nghệ sản phẩm áo dài",
+      "desc": "Bộ tài liệu đầy đủ nhất về thiết kế và may áo dài truyền thống",
+      "size": "31.2 MB",
+      "link": "#"
+    }
+  ]
+},
+"cosonganhkhoidet": {
+  "pageTitle": "Tài liệu Cơ sở và cốt lõi ngành Khối Dệt",
+  "metaDescription": "Tài liệu chuyên sâu về công nghệ kéo sợi, dệt kim, dệt thoi, khoa học màu sắc, an toàn lao động và hệ thống công nghệ may",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4851",
+      "name": "Công nghệ kéo xơ sợi ngắn",
+      "desc": "Công nghệ kéo sợi ngắn từ xơ tự nhiên và hóa học: chải thô, chải tinh, kéo sợi ring, rotor, air-jet",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4591",
+      "name": "Công nghệ dệt kim cơ bản",
+      "desc": "Nguyên lý dệt kim tròn và dệt kim phẳng, cấu trúc vải dệt kim cơ bản, máy dệt kim và quy trình sản xuất",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4601",
+      "name": "Công nghệ dệt thoi I",
+      "desc": "Nguyên lý dệt thoi, các kiểu dệt cơ bản (dệt chéo, dệt đoạn, dệt nhung), máy dệt thoi và thiết bị phụ trợ",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4503",
+      "name": "Khoa học màu sắc",
+      "desc": "Lý thuyết màu sắc, hệ màu CIE, đo màu, phối màu trong thiết kế dệt may và thời trang",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX3070",
+      "name": "An toàn lao động và môi trường dệt may",
+      "desc": "Quy định an toàn lao động, bảo hộ lao động, xử lý nước thải, khí thải và chất thải rắn trong ngành dệt may",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4432",
+      "name": "Hệ thống công nghệ và quá trình may",
+      "desc": "Tổng quan dây chuyền may công nghiệp, quy trình sản xuất sản phẩm may, bố trí nhà máy may",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    }
+  ]
+},
+"cosonganhkhoimay": {
+  "pageTitle": "Tài liệu Cơ sở và cốt lõi ngành Khối May",
+  "metaDescription": "Tài liệu thực hành may cơ bản - nâng cao, công nghệ gia công sản phẩm may, thiết kế và thực hành thiết kế trang phục",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4352",
+      "name": "Thực hành may cơ bản",
+      "desc": "Hướng dẫn thực hành may các đường may cơ bản, xử lý cổ áo, tay áo, lắp ráp sản phẩm đơn giản",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/18xyi-w-5guyT0Np92QE6N4jyRaAtpj3W?usp=drive_link"
+    },
+    {
+      "code": "TEX4372",
+      "name": "Thực hành may nâng cao",
+      "desc": "Thực hành may sản phẩm phức tạp: vest, áo khoác, xử lý chi tiết khó, hoàn thiện sản phẩm cao cấp",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/18xyi-w-5guyT0Np92QE6N4jyRaAtpj3W?usp=drive_link"
+    },
+    {
+      "code": "TEX4502",
+      "name": "Công nghệ gia công sản phẩm may",
+      "desc": "Công nghệ gia công các loại sản phẩm may, quy trình cắt-may-hoàn thiện, tiêu chuẩn kỹ thuật sản phẩm",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1J8W-5sN-ByIDm7UP_aMwzCrftS3j5wNf?usp=drive_link"
+    },
+    {
+      "code": "TEX4382",
+      "name": "Thiết kế trang phục",
+      "desc": "Tài liệu lý thuyết và thực hành thiết kế trang phục: phác thảo, phối màu, xây dựng ý tưởng thiết kế",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1zhzXf-Sj1x_LezCR10wjmd-retWPWpmq?usp=drive_link"
+    },
+    {
+      "code": "TEX4462",
+      "name": "Thực hành thiết kế trang phục",
+      "desc": "Bài tập thực hành thiết kế trang phục từ bản vẽ đến rập, thực hiện mẫu thử và chỉnh sửa",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1zhzXf-Sj1x_LezCR10wjmd-retWPWpmq?usp=drive_link"
+    }
+  ]
+},
+"cosonganhchung": {
+  "pageTitle": "Tài liệu Cơ sở và cốt lõi ngành chung",
+  "metaDescription": "Tài liệu các môn cơ sở ngành: Kỹ thuật điện, Đồ họa kỹ thuật, Kỹ thuật nhiệt, Nguyên lý máy, Mỹ thuật, Cấu trúc sợi vải, Vật liệu, Quản lý sản xuất và chất lượng dệt may",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "EE2012",
+      "name": "Kỹ thuật điện",
+      "desc": "Nguyên lý mạch điện, điện từ học cơ bản, máy điện, hệ thống điện trong công nghiệp dệt may",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1piNTPJaXSHZe-gYKR3NoQ7BaGI9vWiwi?usp=drive_link"
+    },
+    {
+      "code": "ME2015",
+      "name": "Đồ họa kỹ thuật cơ bản",
+      "desc": "Vẽ kỹ thuật, chiếu hình, bản vẽ cơ khí, đọc và vẽ bản vẽ chi tiết sản phẩm dệt may",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1apYjIsY-n8y5DHxF9PpAKlD86bOIa3O0?usp=drive_link"
+    },
+    {
+      "code": "HE2012",
+      "name": "Kỹ thuật nhiệt",
+      "desc": "Truyền nhiệt, nhiệt động học, máy nhiệt, ứng dụng trong sấy, nhuộm, hoàn tất dệt may",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1U_7ZtHcZ9DaTNxRiSUQKIRPld4OEovEw?usp=drive_link"
+    },
+    {
+      "code": "ME3211",
+      "name": "Nguyên lý máy",
+      "desc": "Cơ cấu máy, truyền động cơ khí, máy dệt, máy may và thiết bị trong ngành dệt may",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1AiJ0xXooBoVL8mrxrOIclB9T_iN7EOV-?usp=drive_link"
+    },
+    {
+      "code": "TEX3090",
+      "name": "Cơ sở mỹ thuật sản phẩm dệt may",
+      "desc": "Nguyên lý mỹ thuật, phối màu, bố cục, ứng dụng trong thiết kế hoa văn và sản phẩm dệt may",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1D13P0BSQin9rIc9YlKhDKvMBK1RX44Fy?usp=drive_link"
+    },
+    {
+      "code": "TEX3180",
+      "name": "Cấu trúc vải sợi",
+      "desc": "Cấu trúc sợi, cấu trúc vải dệt thoi và dệt kim, mối quan hệ giữa cấu trúc và tính chất vải",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1QQ42s6fUn0xQCBPnPbDN4oLkKVnmcj91?usp=drive_link"
+    },
+    {
+      "code": "TEX3140",
+      "name": "Tiếng anh chuyên ngành dệt may",
+      "desc": "Từ vựng chuyên ngành sợi, vải, nhuộm, may, thiết kế thời trang và thương mại dệt may",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1MraXMU9uoehEYeYSwNMdC_-47sx4HZ3v?usp=drive_link"
+    },
+    {
+      "code": "TEX3150",
+      "name": "Vật liệu dệt may",
+      "desc": "Phân loại xơ sợi tự nhiên và hóa học, tính chất vật lý - hóa học - cơ học của vật liệu dệt",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1Zbxa8wuH29WoMZ4AKp-kuVNwpiqN1GD3?usp=drive_link"
+    },
+    {
+      "code": "TEX3060",
+      "name": "Thực hành kiểm tra và phân tích vật liệu dệt may",
+      "desc": "Thực hành kiểm tra độ bền kéo, độ co, độ mài mòn, phân tích thành phần sợi và vải",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1Zbxa8wuH29WoMZ4AKp-kuVNwpiqN1GD3?usp=drive_link"
+    },
+    {
+      "code": "TEX3030",
+      "name": "Marketing dệt may",
+      "desc": "Chiến lược marketing, nghiên cứu thị trường, thương hiệu và phân phối sản phẩm dệt may",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1u_3Wn7JYAqETg6xrq_45teUR-R1kdhwK?usp=drive_link"
+    },
+    {
+      "code": "TEX3161",
+      "name": "Thực hành sợi, vải",
+      "desc": "Thực hành kiểm tra và đánh giá chất lượng sợi, vải, thử nghiệm tính chất cơ lý",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1G5IyNE0XGbLqEcSD0Ziyvfu5urnJoyqY?usp=drive_link"
+    },
+    
+    {
+      "code": "TEX3141",
+      "name": "Cơ sở xử lý hóa học sản phẩm dệt may",
+      "desc": "Quy trình tiền xử lý, nhuộm, in và hoàn tất hóa học cơ bản cho sản phẩm dệt may",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1u_3Wn7JYAqETg6xrq_45teUR-R1kdhwK?usp=drive_link"
+    },
+    {
+      "code": "TEX3010",
+      "name": "Quản lý sản xuất dệt may",
+      "desc": "Lập kế hoạch sản xuất, quản lý dây chuyền, tối ưu hóa quy trình trong nhà máy dệt may",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/14f6Vs-_v5NoYZryl8wS-TgOs7yCZGRKF?usp=drive_link"
+    },
+    {
+      "code": "TEX3131",
+      "name": "Quản lý chất lượng dệt may",
+      "desc": "Hệ thống quản lý chất lượng ISO, kiểm soát chất lượng từ nguyên liệu đến thành phẩm",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1Tj4i3wsfSZMPOvLnvCPKw0u4ZXYxg92v?usp=drive_link"
+    }
+  ]
+},
+"congnhesanxuatsanphamdet": {
+  "pageTitle": "Công nghệ sản xuất sản phẩm dệt",
+  "metaDescription": "Tài liệu chuyên sâu về công nghệ không dệt, dệt thoi nâng cao, dệt kim hoa, kéo sợi xơ dài, thiết kế dây chuyền và cấu trúc sợi - vải",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4471",
+      "name": "Công nghệ không dệt",
+      "desc": "Công nghệ sản xuất vải không dệt: spunbond, meltblown, needle punch, ứng dụng trong y tế, lọc, geotextile",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4611",
+      "name": "Công nghệ dệt thoi II",
+      "desc": "Công nghệ dệt thoi nâng cao: dệt jacquard, dệt đa tầng, dệt vải kỹ thuật và vải thông minh",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4451",
+      "name": "Kỹ thuật dệt kim hoa",
+      "desc": "Thiết kế và sản xuất vải dệt kim hoa văn phức tạp, dệt kim jacquard, intarsia trên máy dệt kim hiện đại",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4621",
+      "name": "Công nghệ kéo sợi xơ dài",
+      "desc": "Công nghệ kéo sợi filament: kéo sợi POY, FDY, DTY từ polyester, polyamide, quy trình kéo sợi hóa học",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4631",
+      "name": "Thiết kế dây chuyền sợi dệt",
+      "desc": "Thiết kế dây chuyền sản xuất sợi từ nguyên liệu đến thành phẩm, tính toán năng suất và bố trí máy móc",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX4551",
+      "name": "Thực hành dệt 1",
+      "desc": "Thực hành vận hành máy dệt thoi và dệt kim cơ bản, điều chỉnh thông số và xử lý lỗi sản xuất",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX641",
+      "name": "Cấu trúc sợi",
+      "desc": "Cấu trúc vi mô và vĩ mô của sợi tự nhiên và hóa học, mối quan hệ cấu trúc - tính chất sợi",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX3081",
+      "name": "Cấu trúc vải dệt thoi",
+      "desc": "Phân tích cấu trúc các kiểu dệt thoi cơ bản và phức tạp, tính toán mật độ, độ co và tính chất vải",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    },
+    {
+      "code": "TEX3091",
+      "name": "Cấu trúc vải dệt kim",
+      "desc": "Cấu trúc vòng sợi, các kiểu dệt kim cơ bản và hoa văn, tính chất cơ lý của vải dệt kim",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/"
+    }
+  ]
+},
+"congnhemay": {
+  "pageTitle": "Công nghệ may",
+  "metaDescription": "Tài liệu chuyên sâu về thiết bị may công nghiệp, công nghệ sản xuất, thiết kế dây chuyền, quy trình sản phẩm may và ứng dụng CNTT trong ngành may",
+  "activeMenu": "chuyennganh",
+  "documents": [
+    {
+      "code": "TEX4332",
+      "name": "Thiết bị may công nghiệp",
+      "desc": "Tổng quan các loại máy may công nghiệp, cấu tạo, nguyên lý hoạt động, bảo dưỡng và điều chỉnh máy may hiện đại",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1OZ1Gt6qS1csVGhEAEBEXlPbKt5kUWbjO?usp=drive_link"
+    },
+    {
+      "code": "TEX4442",
+      "name": "Công nghệ sản xuất sản phẩm may",
+      "desc": "Quy trình công nghệ sản xuất hàng may mặc: từ thiết kế rập, cắt, may đến hoàn thiện và kiểm tra chất lượng sản phẩm",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/16PR7c1WONPh4VWKWRGjSJqxUuCkCPCEI?usp=drive_link"
+    },
+    {
+      "code": "TEX4422",
+      "name": "Thiết kế dây chuyền may",
+      "desc": "Thiết kế bố trí dây chuyền sản xuất may công nghiệp, tính toán năng suất, cân bằng chuyền và tối ưu hóa quy trình",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1--gndBDqPyy1cs-cRtpG9aX3bdwZ5c46?usp=drive_link"
+    },
+    {
+      "code": "TEX4002",
+      "name": "Thiết kế công nghệ quá trình sản phẩm may",
+      "desc": "Phân tích và thiết kế quy trình công nghệ chi tiết cho từng sản phẩm may theo yêu cầu kỹ thuật và đơn hàng",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/12uePNHlAm1xwBqPuy8PN4HXM7OVk-OE6?usp=drive_link"
+    },
+    {
+      "code": "TEX4282",
+      "name": "Thiết kế mẫu sản xuất",
+      "desc": "Thiết kế mẫu sản xuất từ bản vẽ kỹ thuật đến mẫu thử, chỉnh sửa mẫu và chuẩn bị sản xuất hàng loạt",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1h1pvvNVLr4iABUV-YBoMvs4VrPyttwOz?usp=drive_link"
+    },
+    {
+      "code": "TEX4272",
+      "name": "Thiết kế sản phẩm may theo đơn hàng",
+      "desc": "Thiết kế sản phẩm may theo yêu cầu khách hàng, phân tích đơn hàng, lập bảng định mức nguyên liệu và công đoạn",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/11InYqofoBSRbHkD0kOUkGtsRBerVYlXz?usp=drive_link"
+    },
+    {
+      "code": "TEX4512",
+      "name": "Ứng dụng công nghệ thông tin trong công nghiệp may",
+      "desc": "Ứng dụng phần mềm CAD/CAM (Lectra, Gerber), quản lý sản xuất ERP, tự động hóa trong ngành may",
+      "size": "6.5 MB",
+      "link": "https://drive.google.com/drive/folders/1bx_YJ0CHeB4aBUmoq7u8QlZPH9q6B4LW?usp=drive_link"
+    }
+  ]
+},
+"aptis": {
+  "pageTitle": "IELTS",
+  "metaDescription": "Tài liệu luyện thi IELTS đầy đủ 4 kỹ năng: Reading, Listening, Speaking, Writing với đề Cambridge và bài mẫu band cao",
+  "activeMenu": "tienganh",
+  "documents": [
+    {
+      "name": "Ielts Reading",
+      "desc": "Tài liệu luyện Reading IELTS: chiến lược làm bài, từ vựng theo chủ đề, bộ đề Cambridge và bài tập nâng cao",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/u/0/folders/189BDmMh5j7NivzqTl6KDIqk2MnG1GZ4J"
+    },
+    {
+      "name": "Ielts Listening",
+      "desc": "Bộ tài liệu luyện Listening IELTS: script, audio Cambridge, bài tập theo dạng câu hỏi, mẹo nghe và từ vựng",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1Yq7Or3COeT960P8V7RZ7dM_tZg78ndir?usp=drive_link"
+    },
+    {
+      "name": "Ielts Speaking",
+      "desc": "Hướng dẫn Speaking IELTS Part 1-2-3: mẫu trả lời band 7.0+, từ vựng theo topic, cách phát triển ý và phát âm",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1T0A2oIwrJBVE9cPhiKRDW_imKMKZGUFK?usp=drive_link"
+    },
+    {
+      "name": "Ielts Writing",
+      "desc": "Tài liệu Writing Task 1 & Task 2: mẫu band 8.0+, cấu trúc bài viết, từ vựng academic, bài sửa chi tiết và đề thi thật",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1n8SwwWZsMfvSgO1XsXnb1iIGoSvj0S4R?usp=drive_link"
+    }
+  ]
+},
+"gdqp": {
+  "pageTitle": "Tài liệu các môn Giáo dục quốc phòng",
+  "metaDescription": "Tài liệu môn Công tác quốc phòng – an ninh và Đường lối quốc phòng – an ninh của Đảng Cộng sản Việt Nam",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "name": "Công tác quốc phòng – An ninh",
+      "desc": "Tài liệu môn Công tác quốc phòng và an ninh: lý thuyết cơ bản, nhiệm vụ của sinh viên trong bảo vệ Tổ quốc",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID1"
+    },
+    {
+      "name": "Đường lối quốc phòng và an ninh ĐCSVN",
+      "desc": "Tài liệu môn Đường lối quốc phòng – an ninh của Đảng Cộng sản Việt Nam: quan điểm, chủ trương và chính sách quốc phòng toàn dân",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/uc?export=download&id=YOUR_FILE_ID1"
+    }
+  ]
+},
+"ielts": {
+  "pageTitle": "IELTS",
+  "metaDescription": "Tài liệu luyện thi IELTS đầy đủ 4 kỹ năng: Reading, Listening, Speaking, Writing với đề Cambridge và bài mẫu band cao",
+  "activeMenu": "tienganh",
+  "documents": [
+    {
+      "name": "Ielts Reading",
+      "desc": "Tài liệu luyện Reading IELTS: chiến lược làm bài, từ vựng theo chủ đề, bộ đề Cambridge và bài tập nâng cao",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/u/0/folders/189BDmMh5j7NivzqTl6KDIqk2MnG1GZ4J"
+    },
+    {
+      "name": "Ielts Listening",
+      "desc": "Bộ tài liệu luyện Listening IELTS: script, audio Cambridge, bài tập theo dạng câu hỏi, mẹo nghe và từ vựng",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1Yq7Or3COeT960P8V7RZ7dM_tZg78ndir?usp=drive_link"
+    },
+    {
+      "name": "Ielts Speaking",
+      "desc": "Hướng dẫn Speaking IELTS Part 1-2-3: mẫu trả lời band 7.0+, từ vựng theo topic, cách phát triển ý và phát âm",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1T0A2oIwrJBVE9cPhiKRDW_imKMKZGUFK?usp=drive_link"
+    },
+    {
+      "name": "Ielts Writing",
+      "desc": "Tài liệu Writing Task 1 & Task 2: mẫu band 8.0+, cấu trúc bài viết, từ vựng academic, bài sửa chi tiết và đề thi thật",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1n8SwwWZsMfvSgO1XsXnb1iIGoSvj0S4R?usp=drive_link"
+    }
+  ]
+},
+"toeic": {
+  "pageTitle": "IELTS",
+  "metaDescription": "Tài liệu luyện thi IELTS đầy đủ 4 kỹ năng: Reading, Listening, Speaking, Writing với đề Cambridge và bài mẫu band cao",
+  "activeMenu": "tienganh",
+  "documents": [
+    {
+      "name": "Ielts Reading",
+      "desc": "Tài liệu luyện Reading IELTS: chiến lược làm bài, từ vựng theo chủ đề, bộ đề Cambridge và bài tập nâng cao",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/u/0/folders/189BDmMh5j7NivzqTl6KDIqk2MnG1GZ4J"
+    },
+    {
+      "name": "Ielts Listening",
+      "desc": "Bộ tài liệu luyện Listening IELTS: script, audio Cambridge, bài tập theo dạng câu hỏi, mẹo nghe và từ vựng",
+      "size": "8.3 MB",
+      "link": "https://drive.google.com/drive/folders/1Yq7Or3COeT960P8V7RZ7dM_tZg78ndir?usp=drive_link"
+    },
+    {
+      "name": "Ielts Speaking",
+      "desc": "Hướng dẫn Speaking IELTS Part 1-2-3: mẫu trả lời band 7.0+, từ vựng theo topic, cách phát triển ý và phát âm",
+      "size": "15.2 MB",
+      "link": "https://drive.google.com/drive/folders/1T0A2oIwrJBVE9cPhiKRDW_imKMKZGUFK?usp=drive_link"
+    },
+    {
+      "name": "Ielts Writing",
+      "desc": "Tài liệu Writing Task 1 & Task 2: mẫu band 8.0+, cấu trúc bài viết, từ vựng academic, bài sửa chi tiết và đề thi thật",
+      "size": "10.8 MB",
+      "link": "https://drive.google.com/drive/folders/1n8SwwWZsMfvSgO1XsXnb1iIGoSvj0S4R?usp=drive_link"
+    }
+  ]
+},
+"tinhoc": {
+  "pageTitle": "Tài liệu môn Tin học đại cương",
+  "metaDescription": "Tài liệu IT1140 Tin học đại cương: hướng dẫn sử dụng Word, Excel, PowerPoint, kiến thức cơ bản về máy tính và mạng",
+  "activeMenu": "daicuong",
+  "documents": [
+    {
+      "code": "IT1140",
+      "name": "Tin học đại cương",
+      "desc": "Tài liệu đầy đủ môn Tin học đại cương: Word, Excel, PowerPoint nâng cao, kiến thức cơ bản về máy tính, mạng và an toàn thông tin",
+      "size": "12.5 MB",
+      "link": "https://drive.google.com/drive/folders/1pb1x_U1wQqk1j-8MwuC_2XJrd2DeWaVf?usp=drive_link"
+    }
+  ]
+},
+"pmnganhdetmay": {
+  "pageTitle": "Phần mềm ngành Dệt, May",
+  "activeMenu": "pmnganhdetmay",
+  "documents": [
+    {
+      "name": "Phần mềm Clo 3D",
+      "desc": "Nếu vẫn chưa cài đặt được thì liên hệ mình: Phạm Nhật Huy",
+      "size": "12.5 MB",
+      "link": "https://1024terabox.com/s/1mz8JdBNzkVRCSOa_AOb7Fw"
+    }
+  ]
+}
+}

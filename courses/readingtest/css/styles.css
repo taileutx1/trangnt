@@ -1,0 +1,33 @@
+body {
+font-family: 'Inter', sans-serif;
+}
+
+
+.correct-answer {
+background-color: #d4edda !important;
+border-color: #28a745 !important;
+}
+
+
+.wrong-answer {
+background-color: #f8d7da !important;
+border-color: #dc3545 !important;
+}
+
+
+.nav-btn {
+padding: 1rem 2rem;
+border-radius: 0.75rem;
+font-weight: 700;
+background: #e5e7eb;
+}
+
+
+.submit-btn {
+padding: 1.5rem 3rem;
+font-size: 1.5rem;
+font-weight: 800;
+color: white;
+border-radius: 1.25rem;
+background: linear-gradient(90deg, #ec4899, #f472b6);
+}

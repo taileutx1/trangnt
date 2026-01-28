@@ -1,0 +1,20 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const highlight = params.get("highlight");
+  if (!highlight) return;
+
+  const cards = document.querySelectorAll(".doc-card, .subject-card");
+
+  cards.forEach(card => {
+    const titleElement = card.querySelector(".doc-title, .subject-title");
+
+    if (titleElement && titleElement.innerText.toLowerCase().includes(highlight.toLowerCase())) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.classList.add("card-highlight");
+
+      setTimeout(() => {
+        card.classList.remove("card-highlight");
+      }, 4000);
+    }
+  });
+});

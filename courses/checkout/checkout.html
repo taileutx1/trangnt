@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thanh toán khóa học - TAILIEUTX1</title>
+  <meta name="description" content="Thanh toán Khóa học chất lượng cao">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ec4899',
+            accent: '#f472b6',
+            danger: '#dc2626',
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+
+  <style>
+    .timer { @apply text-danger font-bold text-xl mt-6; }
+    .pay-item {
+      @apply flex items-center gap-4 p-5 border-2 border-gray-200 rounded-2xl cursor-pointer transition-all duration-300;
+    }
+    .pay-item:hover {
+      @apply border-primary bg-pink-50;
+    }
+    .pay-item input[type="radio"] {
+      @apply w-6 h-6 accent-primary;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+
+<div class="max-w-5xl mx-auto px-4 py-12">
+  <h1 class="text-4xl font-black text-center text-gray-800 mb-12">Thanh toán khóa học</h1>
+
+  <div class="grid md:grid-cols-2 gap-12">
+
+    <!-- LEFT: Thông tin đơn hàng -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <div class="flex gap-6 items-start mb-8">
+
+        
+        <div>
+          <h2 class="text-2xl font-black text-gray-800 mb-2" id="course-title">Đang tải...</h2>
+          <p class="text-gray-600">1 năm • 120+ bài giảng</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-lg">
+        <p><strong>Mã đơn hàng:</strong> <span id="order-id" class="font-bold text-primary">Đang tạo...</span></p>
+        <p><strong>Giá trị thanh toán:</strong> <span id="price-display" class="text-3xl font-black text-primary">0 VND</span></p>
+      </div>
+
+      <div class="timer text-center bg-red-50 rounded-2xl py-4 mt-8">
+        Thời gian giữ giá còn lại: <span id="timer" class="text-3xl">20:00</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Phương thức thanh toán -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8">
+      <h3 class="text-2xl font-bold mb-8">Chọn phương thức thanh toán</h3>
+
+      <label class="pay-item mb-6">
+        <input type="radio" name="pay" value="bank" checked>
+        <div class="flex-1">
+          <div class="font-bold">Chuyển khoản ngân hàng</div>
+          <div class="text-sm text-gray-600">Nhận thông tin tài khoản ngay sau khi xác nhận</div>
+        </div>
+        <i class="ri-bank-line text-3xl text-primary"></i>
+      </label>
+
+      <div class="flex justify-between mt-12">
+        <button onclick="history.back()" class="px-8 py-4 border-2 border-gray-300 rounded-2xl font-bold hover:bg-gray-100 transition">
+          Hủy bỏ
+        </button>
+        <button id="continue-to-bank" class="px-10 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed">
+          Tiếp tục
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Lấy dữ liệu từ URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const title = params.get('title') || 'Khóa học VSTEP Reading Online';
+  const price = parseInt(params.get('price')) || 199000;
+  const orderId = params.get('orderId') || 'HD' + Date.now();
+
+  // Cập nhật giao diện
+  document.getElementById('course-title').textContent = title;
+  document.getElementById('order-id').textContent = orderId;
+  document.getElementById('price-display').textContent = price.toLocaleString('vi-VN') + ' VND';
+
+  // Timer đếm ngược 20 phút
+  let timeLeft = 20 * 60;
+  const timerEl = document.getElementById('timer');
+  const continueBtn = document.getElementById('continue-to-bank');
+
+  const countdown = setInterval(() => {
+    timeLeft--;
+    const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const s = String(timeLeft % 60).padStart(2, '0');
+    timerEl.textContent = `${m}:${s}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      timerEl.textContent = 'Hết hạn';
+      continueBtn.disabled = true;
+      continueBtn.textContent = 'ĐÃ HẾT HẠN';
+    }
+  }, 1000);
+
+  // Chuyển sang trang checkout-bank.html khi nhấn Tiếp tục
+  continueBtn.addEventListener('click', () => {
+    if (timeLeft <= 0) return;
+    const nextParams = new URLSearchParams({ title, price, orderId });
+    window.location.href = 'checkout-bank.html?' + nextParams.toString();
+  });
+  
+</script>
+
+<footer class="bg-gradient-to-r from-primary to-accent text-white py-8 mt-20">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <p class="text-sm font-medium">
+      © 2025 Developed by <span class="font-bold">Phạm Nhật Huy</span>. All rights reserved.
+    </p>
+  </div>
+</footer>
+</body>
+</html>
